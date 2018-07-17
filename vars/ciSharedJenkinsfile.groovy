@@ -13,9 +13,9 @@ def call(Map args=[:]) {
         println("custom wrapper [${args.wrapper}] found")
     } catch(e) {
         script = libraryResource("Jenkinsfile/wrapper/default.groovy")
-        println(script)
         println("custom wrapper [${args.wrapper}] not found")
     }
+    println(script)
 
     writeFile(
         file: 'wrapper.groovy',
