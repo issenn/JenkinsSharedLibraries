@@ -7,6 +7,7 @@ def call(Map args=[:]) {
     ] << args
 
     def script = null
+    println(args)
     try {
         script = libraryResource("Jenkinsfile/wrapper/${args.wrapper}.groovy")
         println("custom wrapper [${args.wrapper}] found")
