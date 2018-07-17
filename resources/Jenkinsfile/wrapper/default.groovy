@@ -1,4 +1,4 @@
 def hello(name) {
-    echo "Hello ${name} from script" 
+    echo "Hello ${name} from script"
 }
 return this
