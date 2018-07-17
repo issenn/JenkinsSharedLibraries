@@ -15,7 +15,6 @@ def call(Map args=[:]) {
         script = libraryResource("Jenkinsfile/wrapper/default.groovy")
         println("custom wrapper [${args.wrapper}] not found")
     }
-    println(script)
 
     writeFile(
         file: 'wrapper.groovy',
