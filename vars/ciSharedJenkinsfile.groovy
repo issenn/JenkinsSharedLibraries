@@ -20,7 +20,7 @@ def call(Map args=[:]) {
     writeFile(
         file: 'wrapper.groovy',
         encoding: 'UTF-8',
-        text: ["env.CI_NODE_LABERLS = '${args.labers.join(' ')}'", script].join('\n')
+        text: ["env.CI_NODE_LABERLS = '${args.labels.join(' ')}'", script].join('\n')
     )
     return 'wrapper.groovy'
 }
