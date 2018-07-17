@@ -1,7 +1,5 @@
 #!/usr/bin/env groovy
 
-@Library(value="gitlab.hellotalk.com/test-issenn/Jenkinsfile_pipeline_library@develop", changelog=true)
-
 def call(Map args=[:]) {
     args = [
         wrapper: 'default',
@@ -10,7 +8,7 @@ def call(Map args=[:]) {
 
     def script = null
     println(args)
-    out = sh(returnStdout: true, script: "ls")
+    out = libraryResource("Jenkinsfile/wrapper/default.groovy")
     println(out)
     try {
         script = libraryResource("Jenkinsfile/wrapper/${args.wrapper}.groovy")
