@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 
+@Library(value="gitlab.hellotalk.com/test-issenn/Jenkinsfile_pipeline_library@develop", changelog=true)
+
 def call(Map args=[:]) {
     args = [
         wrapper: 'default',
