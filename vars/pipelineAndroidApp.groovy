@@ -28,10 +28,10 @@ def call(Closure body={}) {
             stage('Prepare') {
                 steps {
                     script {
-                        //def z = new gradleConstants(this)
+                        def z = new io.issenn.devops.jenkins.pipeline.gradle()
                         //z.gradle_version()
                         //mvn this
-                        println(io.issenn.GradleConstants.mvn())
+                        //println(io.issenn.GradleConstants.mvn())
                     }
                 }
             }
