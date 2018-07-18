@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 
+import io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants
+
 def call(Closure body={}) {
 
     // evaluate the body block, and collect configuration into the object
@@ -21,8 +23,13 @@ def call(Closure body={}) {
         stages {
             stage('Checkout') {
                 steps {
-
                     checkoutGitlab()
+                }
+            }
+
+            stage('Prepare') {
+                steps {
+                    gradle_version()
                 }
             }
 

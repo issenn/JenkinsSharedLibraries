@@ -2,11 +2,8 @@
 
 import java.text.SimpleDateFormat;
 
-def dateFormat
-def date
-
 def datetime() {
-    dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-    date = new Date()
+    def dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+    def date = new Date()
     return dateFormat.format(date)
 }
