@@ -4,7 +4,7 @@ import io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants
 
 def call() {
     def repoDict = libraryResource('repoName.json')
-    println(env.GIT_URL)
+    println(env.BRANCH_NAME)
 }
 
 /*
