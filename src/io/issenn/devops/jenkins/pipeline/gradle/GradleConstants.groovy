@@ -12,10 +12,10 @@ class GradleConstants implements Serializable {
     }
 
     def mvn(script) {
-        script.sh "ls"
+        script.sh "set +x && ./gradlew -v"
     }
 
-    def gradle(String command) {
+    def gradle(def script, String command) {
         sh "set +x && ./gradlew ${command}"
     }
 
