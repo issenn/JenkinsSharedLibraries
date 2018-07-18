@@ -30,7 +30,7 @@ def call(Closure body={}) {
                     script {
                         //sh(returnStdout: true, script: "ls")
                         def z = new io.issenn.devops.jenkins.pipeline.gradle.GradleConstants(this)
-                        z.gradle_version()
+                        z.gradle_version
                     }
                 }
             }
