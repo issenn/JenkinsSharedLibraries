@@ -28,9 +28,7 @@ def call(Closure body={}) {
             stage('Prepare') {
                 steps {
                     script {
-                        //sh(returnStdout: true, script: "ls")
-                        def z = new io.issenn.devops.jenkins.pipeline.gradle.GradleConstants(this)
-                        z.gradle_version
+                        gradle '-v'
                     }
                 }
             }
