@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 package io.issenn.devops.jenkins.pipeline.gradle
-
+/*
 class gradleConstants implements Serializable {
 
     static void gradle(String command) {
@@ -12,4 +12,10 @@ class gradleConstants implements Serializable {
         gradle '-v'
     }
 
+}*/
+
+class gradleConstants {
+  static def mvn(script) {
+    script.sh "ls"
+  }
 }
