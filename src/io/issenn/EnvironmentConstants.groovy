@@ -85,6 +85,6 @@ class EnvironmentConstants implements Serializable {
     }
 
     static getEnv() {
-        return
+        return "123"
     }
 }
