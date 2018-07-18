@@ -8,7 +8,7 @@ class GradleConstants implements Serializable {
     GradleConstants() {}
 
     def mvn() {
-        sh "set +x && ./gradlew -v"
+        sh "ls"
         return "123"
     }
     def gradle(String command) {
