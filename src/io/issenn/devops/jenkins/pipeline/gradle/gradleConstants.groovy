@@ -1,15 +1,15 @@
 #!/usr/bin/env groovy
 
-package io.issenn.devops.jenkins.pipeline.gradleConstants
+package io.issenn.devops.jenkins.pipeline.gradle
 
 class gradleConstants implements Serializable {
 
-    static gradle(String command) {
+    static void gradle(String command) {
         sh "set +x && ./gradlew ${command}"
     }
 
-    static gradle_version() {
-        this.gradle '-v'
+    static void gradle_version() {
+        gradle '-v'
     }
 
 }
