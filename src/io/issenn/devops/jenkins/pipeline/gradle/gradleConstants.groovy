@@ -12,10 +12,16 @@ class gradleConstants implements Serializable {
         gradle '-v'
     }
 
-}*/
+}
 
 class gradleConstants {
   static def mvn(script) {
     script.sh "ls"
   }
+}*/
+
+def checkOutFrom() {
+  echo "hhh"
 }
+
+return this
