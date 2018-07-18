@@ -83,8 +83,4 @@ class EnvironmentConstants implements Serializable {
         this.GIT_AUTHOR_EMAIL = environment.GIT_AUTHOR_EMAIL
         this.GIT_COMMITTER_EMAIL = environment.GIT_COMMITTER_EMAIL*/
     }
-
-    static getEnv() {
-        return "123"
-    }
 }

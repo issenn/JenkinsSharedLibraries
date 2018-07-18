@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-package io.issenn.devops.jenkins.pipeline.gradle
+package io.issenn
 /*
 class gradleConstants implements Serializable {
 
@@ -19,6 +19,6 @@ class gradleConstants implements Serializable {
   def steps
   gradleConstants(steps) {this.steps = steps}
   def mvn() {
-    echo "123"
+    return "123"
   }
 }
