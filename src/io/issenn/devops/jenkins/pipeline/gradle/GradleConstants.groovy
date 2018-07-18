@@ -9,5 +9,9 @@ class GradleConstants implements Serializable {
 
     def gradle(String command) {
         sh "set +x && ./gradlew ${command}"
-}
+    }
+
+    def gradle_version() {
+        gradle '-v'
+    }
 }
