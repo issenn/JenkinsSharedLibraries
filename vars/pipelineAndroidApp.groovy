@@ -28,7 +28,7 @@ def call(Closure body={}) {
             stage('Prepare') {
                 steps {
                     script {
-                        def z = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants()
+                        def z = new io.issenn.devops.jenkins.pipeline.gradle.GradleConstants()
                         //z.gradle_version()
                         //mvn this
                         //println(io.issenn.GradleConstants.mvn())

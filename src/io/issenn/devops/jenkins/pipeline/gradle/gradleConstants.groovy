@@ -14,8 +14,13 @@ class GradleConstants implements Serializable {
     }
 
 }
-
 */
+
+
+
+/**
+ * Constants for environment variables used by Pipeline scripts and by Jenkins
+ */
 class GradleConstants implements Serializable {
 
     private static final long serialVersionUID = 1L
