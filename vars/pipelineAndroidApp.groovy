@@ -29,7 +29,7 @@ def call(Closure body={}) {
                 steps {
                     script {
                         //gradle '-v'
-                        gradle.version
+                        gradle.version()
                     }
                 }
             }
