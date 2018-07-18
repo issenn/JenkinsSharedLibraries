@@ -5,10 +5,14 @@ package io.issenn.devops.jenkins.pipeline.gradle
  */
 class GradleConstants implements Serializable {
 
-    GradleConstants() {}
+    def steps
 
-    def mvn() {
-        return sh(returnStdout: true, script: "ls")
+    GradleConstants(steps) {
+        this.steps = steps
+    }
+
+    def mvn(script) {
+        return script.sh "ls"
     }
     def gradle(String command) {
         sh "set +x && ./gradlew ${command}"
