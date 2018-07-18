@@ -1,6 +1,13 @@
 #!/usr/bin/env groovy
 
-def call() {
+def call(Closure body) {
+
+    // evaluate the body block, and collect configuration into the object
+    def pipelineParams= [:]
+    body.resolveStrategy = Closure.DELEGATE_FIRST
+    body.delegate = pipelineParams
+    body()
+
     pipeline {
         agent {
             label 'mac-mini'
