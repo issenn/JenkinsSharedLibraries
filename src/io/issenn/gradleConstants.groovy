@@ -15,8 +15,8 @@ class gradleConstants implements Serializable {
 }
 */
 
-class gradleConstants implements Serializable {
-  static mvn() {
+class GradleConstants implements Serializable {
+  public static mvn() {
     return "123"
   }
 }
