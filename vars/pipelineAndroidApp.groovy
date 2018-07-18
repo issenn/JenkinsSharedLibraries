@@ -28,7 +28,8 @@ def call(Closure body={}) {
             stage('Prepare') {
                 steps {
                     script {
-                        gradle '-v'
+                        //gradle '-v'
+                        gradle.version
                     }
                 }
             }
