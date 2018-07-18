@@ -11,12 +11,8 @@ class GradleConstants implements Serializable {
         this.steps = steps
     }
 
-    def mvn(script) {
-        script.sh "set +x && ./gradlew -v"
-    }
-
-    def gradle(def script, String command) {
-        sh "set +x && ./gradlew ${command}"
+    def gradle(String command) {
+        steps.sh "set +x && ./gradlew ${command}"
     }
 
     def gradle_version() {
