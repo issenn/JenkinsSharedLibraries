@@ -16,12 +16,9 @@ def call() {
                 steps {
                     echo "${formattedDate} - Checkout"
 
-                    checkoutGitlab()
+                    //checkoutGitlab()
                 }
             }
-
-
-
 
         }
     }
