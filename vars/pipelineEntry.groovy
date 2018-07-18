@@ -8,9 +8,9 @@ def call() {
     def date
     def formattedDate
 
-    dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-    date = new Date()
-    formattedDate = dateFormat.format(date)
+    formattedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date())
+    //date = new Date()
+    //formattedDate = dateFormat.format(date)
 
     echo "${formattedDate}"
 
