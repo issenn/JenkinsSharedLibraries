@@ -30,8 +30,10 @@ def call(Closure body={}) {
 
             stage('Prepare') {
                 steps {
-                    def z = new gradleConstants()
-                    z.gradle_version()
+                    script {
+                        def z = new gradleConstants()
+                        z.gradle_version()
+                    }
                 }
             }
 
