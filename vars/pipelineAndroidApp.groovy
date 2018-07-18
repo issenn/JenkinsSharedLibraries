@@ -29,7 +29,7 @@ def call(Closure body={}) {
                 steps {
                     script {
                         def z = new io.issenn.devops.jenkins.pipeline.gradle.GradleConstants()
-                        z.gradle_version()
+                        println(z.mvn())
                     }
                 }
             }
