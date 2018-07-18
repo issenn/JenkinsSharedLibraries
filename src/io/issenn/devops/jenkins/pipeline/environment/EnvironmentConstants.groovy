@@ -46,9 +46,9 @@ class EnvironmentConstants implements Serializable {
     static final public String GIT_AUTHOR_EMAIL
     static final public String GIT_COMMITTER_EMAIL
 
-    Environment() {}
+    EnvironmentConstants() {}
 
-    Environment(script) {
+    EnvironmentConstants(script) {
         this.BRANCH_NAME = script.env.BRANCH_NAME
         /*this.CHANGE_ID = environment.CHANGE_ID
         this.CHANGE_URL = environment.CHANGE_URL
