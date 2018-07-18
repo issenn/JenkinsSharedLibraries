@@ -1,4 +1,4 @@
-package io.issenn.devops.jenkins.pipeline.gradle
+package io.issenn.devops.jenkins.pipeline.environment
 
 /**
  * Constants for environment variables used by Pipeline scripts and by Jenkins
