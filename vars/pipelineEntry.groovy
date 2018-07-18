@@ -3,35 +3,11 @@
 import io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants
 
 def call() {
-    def repoDict = libraryResource('repoName.json')
-    println(env.CICD_TYPE)
-}
-
-/*
-
-    pipeline {
-        agent {
-            label 'mac-mini'
-        }
-
-        environment {
-            ANDROID_SDK_ROOT="${HOME}/Library/Android/sdk"
-            ANDROID_HOME="${ANDROID_SDK_ROOT}"
-        }
-
-        stages {
-            stage('Checkout') {
-                steps {
-                    echo "${formattedDate} - Checkout"
-
-                    // checkout_gitlab()
-                    checkoutGitlab()
-                }
-            }
-
-
-
-
-        }
+    if (env.CICD_TYPE == 'AndroidApp') {
+        pipelineAndroidApp()
+    } else if (env.CICD_TYPE == 'IosApp') {
+        pipelineIosApp()
+    } else {
+        error "Don't know what to do with this CICD_TYPE: ${env.CICD_TYPE}"
     }
-*/
+}
