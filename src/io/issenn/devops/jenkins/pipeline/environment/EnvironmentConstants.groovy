@@ -1,7 +1,5 @@
 package io.issenn.devops.jenkins.pipeline.environment
 
-import net.sf.json.JSONObject;
-
 /**
  * Constants for environment variables used by Pipeline scripts and by Jenkins
  */
