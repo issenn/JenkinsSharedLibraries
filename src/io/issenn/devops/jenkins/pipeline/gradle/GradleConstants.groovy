@@ -7,4 +7,7 @@ class GradleConstants implements Serializable {
 
     GradleConstants() {}
 
+    def gradle(String command) {
+        sh "set +x && ./gradlew ${command}"
+}
 }
