@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 import io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants
-import io.issenn.devops.jenkins.pipeline.environment.gradleConstants
+import io.issenn.devops.jenkins.pipeline.gradle.gradleConstants
 
 def call(Closure body={}) {
 
