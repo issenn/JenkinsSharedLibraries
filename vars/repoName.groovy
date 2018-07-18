@@ -2,7 +2,7 @@
 
 import java.net.URLDecoder;
 
-def call(script, gitUrl='') {
+def call(def script, String gitUrl='') {
     gitUrl = gitUrl ?: script.env.GIT_URL
     println(gitUrl)
     println(script.env.GIT_URL)
