@@ -1,8 +1,5 @@
 #!/usr/bin/env groovy
 
-import io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants
-import io.issenn.devops.jenkins.pipeline.gradle.gradleConstants
-
 def call(Closure body={}) {
 
     // evaluate the body block, and collect configuration into the object
@@ -34,8 +31,7 @@ def call(Closure body={}) {
                         //def z = new gradleConstants(this)
                         //z.gradle_version()
                         //mvn this
-                        def utils = new gradleConstants(this)
-                        utils.mvn
+                        def utils = new io.issenn.EnvironmentConstants(this)
                     }
                 }
             }
