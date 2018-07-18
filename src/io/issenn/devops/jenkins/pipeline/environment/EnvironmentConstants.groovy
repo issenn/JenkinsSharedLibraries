@@ -9,42 +9,42 @@ class EnvironmentConstants implements Serializable {
 
     private static final long serialVersionUID = 1L
 
-    //static final public String SCM_URL
-    //static final public String TERM
-    //static final public String WORKSPACE
-    static final public String BRANCH_NAME
-    static final public String CHANGE_ID
-    static final public String CHANGE_URL
-    static final public String CHANGE_TITLE
-    static final public String CHANGE_AUTHOR
-    static final public String CHANGE_AUTHOR_DISPLAY_NAME
-    static final public String CHANGE_AUTHOR_EMAIL
-    static final public String CHANGE_TARGET
-    static final public String BUILD_NUMBER
-    static final public String BUILD_ID
-    static final public String BUILD_DISPLAY_NAME
-    static final public String JOB_NAME
-    static final public String JOB_BASE_NAME
-    static final public String BUILD_TAG
-    static final public String EXECUTOR_NUMBER
-    static final public String NODE_NAME
-    static final public String NODE_LABELS
-    static final public String WORKSPACE
-    static final public String JENKINS_HOME
-    static final public String JENKINS_URL
-    static final public String BUILD_URL
-    static final public String JOB_URL
-    static final public String GIT_COMMIT
-    static final public String GIT_BRANCH
-    static final public String GIT_LOCAL_BRANCH
-    static final public String GIT_PREVIOUS_COMMIT
-    static final public String GIT_PREVIOUS_SUCCESSFUL_COMMIT
-    static final public String GIT_URL
-    static final public String GIT_URL_N
-    static final public String GIT_AUTHOR_NAME
-    static final public String GIT_COMMITTER_NAME
-    static final public String GIT_AUTHOR_EMAIL
-    static final public String GIT_COMMITTER_EMAIL
+    //final public String SCM_URL
+    //final public String TERM
+    //final public String WORKSPACE
+    final public String BRANCH_NAME
+    final public String CHANGE_ID
+    final public String CHANGE_URL
+    final public String CHANGE_TITLE
+    final public String CHANGE_AUTHOR
+    final public String CHANGE_AUTHOR_DISPLAY_NAME
+    final public String CHANGE_AUTHOR_EMAIL
+    final public String CHANGE_TARGET
+    final public String BUILD_NUMBER
+    final public String BUILD_ID
+    final public String BUILD_DISPLAY_NAME
+    final public String JOB_NAME
+    final public String JOB_BASE_NAME
+    final public String BUILD_TAG
+    final public String EXECUTOR_NUMBER
+    final public String NODE_NAME
+    final public String NODE_LABELS
+    final public String WORKSPACE
+    final public String JENKINS_HOME
+    final public String JENKINS_URL
+    final public String BUILD_URL
+    final public String JOB_URL
+    final public String GIT_COMMIT
+    final public String GIT_BRANCH
+    final public String GIT_LOCAL_BRANCH
+    final public String GIT_PREVIOUS_COMMIT
+    final public String GIT_PREVIOUS_SUCCESSFUL_COMMIT
+    final public String GIT_URL
+    final public String GIT_URL_N
+    final public String GIT_AUTHOR_NAME
+    final public String GIT_COMMITTER_NAME
+    final public String GIT_AUTHOR_EMAIL
+    final public String GIT_COMMITTER_EMAIL
 
     EnvironmentConstants() {}
 
