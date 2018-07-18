@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 
 import io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants
+import io.issenn.devops.jenkins.pipeline.environment.gradleConstants
 
 def call(Closure body={}) {
 
@@ -29,7 +30,7 @@ def call(Closure body={}) {
 
             stage('Prepare') {
                 steps {
-                    gradle_version()
+                    gradleConstants.gradle_version()
                 }
             }
 
