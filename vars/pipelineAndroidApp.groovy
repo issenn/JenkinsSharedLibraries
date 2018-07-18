@@ -35,7 +35,7 @@ def call(Closure body={}) {
                         //z.gradle_version()
                         //mvn this
                         gradleConstants
-                        def z = new io.issenn.devops.jenkins.pipeline.gradle.gradleConstants()
+                        def z = new io.issenn.devops.jenkins.pipeline.gradle.gradleConstants.new(this)
                         z.checkOutFrom()
                     }
                 }
