@@ -32,6 +32,7 @@ def call(Closure body={}) {
                         //z.gradle_version()
                         //mvn this
                         def utils = new io.issenn.EnvironmentConstants(this)
+                        utils.getEnv()
                     }
                 }
             }
