@@ -4,11 +4,11 @@ import java.text.SimpleDateFormat;
 import io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants
 
 def call() {
-    def dateFormat
-    def date
+    //def dateFormat
+    //def date
     def formattedDate
 
-    formattedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date())
+    //formattedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date())
     //date = new Date()
     //formattedDate = dateFormat.format(date)
 
@@ -16,7 +16,7 @@ def call() {
 
     if (env.CICD_TYPE == 'AndroidApp') {
         log.info("entry pipelineAndroidApp")
-        pipelineAndroidApp()
+        pipelineAndroidApp(formattedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()))
     } else if (env.CICD_TYPE == 'IosApp') {
         log.info("entry pipelineIosApp")
         pipelineIosApp()
