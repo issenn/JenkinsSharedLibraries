@@ -9,9 +9,9 @@ class EnvironmentConstants implements Serializable {
 
     private static final long serialVersionUID = 1L
 
-    static final public String SCM_URL
-    static final public String TERM
-    static final public String WORKSPACE
+    //static final public String SCM_URL
+    //static final public String TERM
+    //static final public String WORKSPACE
     static final public String BRANCH_NAME
     static final public String CHANGE_ID
     static final public String CHANGE_URL
