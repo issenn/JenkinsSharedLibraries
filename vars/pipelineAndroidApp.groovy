@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 import io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants
-//import io.issenn.devops.jenkins.pipeline.gradle.gradleConstants
+import io.issenn.devops.jenkins.pipeline.gradle.gradleConstants
 
 def call(Closure body={}) {
 
@@ -34,9 +34,8 @@ def call(Closure body={}) {
                         //def z = new gradleConstants(this)
                         //z.gradle_version()
                         //mvn this
-                        gradleConstants
-                        def z = io.issenn.devops.jenkins.pipeline.gradle
-                        z.gradleConstants.new()
+                        def utils = new gradleConstants(this)
+                        utils.mvn
                     }
                 }
             }

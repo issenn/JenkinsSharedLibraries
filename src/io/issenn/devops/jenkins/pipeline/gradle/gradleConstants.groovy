@@ -13,15 +13,12 @@ class gradleConstants implements Serializable {
     }
 
 }
+*/
 
-class gradleConstants {
-  static def mvn(script) {
-    script.sh "ls"
+class gradleConstants implements Serializable {
+  def steps
+  gradleConstants(steps) {this.steps = steps}
+  def mvn() {
+    steps.sh "ls"
   }
-}*/
-
-def checkOutFrom() {
-  echo "hhh"
 }
-
-return this
