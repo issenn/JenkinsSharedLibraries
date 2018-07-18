@@ -14,9 +14,8 @@ def call() {
         stages {
             stage('Checkout') {
                 steps {
-                    echo "${formattedDate} - Checkout"
 
-                    //checkoutGitlab()
+                    checkoutGitlab()
                 }
             }
 
