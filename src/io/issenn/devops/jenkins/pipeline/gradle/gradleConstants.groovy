@@ -1,9 +1,9 @@
-package io.issenn.devops.jenkins.pipeline.environment
+package io.issenn.devops.jenkins.pipeline.gradle
 
 /**
  * Constants for environment variables used by Pipeline scripts and by Jenkins
  */
-class EnvironmentConstants implements Serializable {
+class GradleConstants implements Serializable {
 
     private static final long serialVersionUID = 1L
 
@@ -44,9 +44,9 @@ class EnvironmentConstants implements Serializable {
     final public String GIT_AUTHOR_EMAIL
     final public String GIT_COMMITTER_EMAIL
 
-    EnvironmentConstants() {}
+    GradleConstants() {}
 
-    EnvironmentConstants(script) {
+    GradleConstants(script) {
         this.BRANCH_NAME = script.env.BRANCH_NAME
         /*this.CHANGE_ID = environment.CHANGE_ID
         this.CHANGE_URL = environment.CHANGE_URL
