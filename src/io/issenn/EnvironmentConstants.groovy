@@ -85,6 +85,6 @@ class EnvironmentConstants implements Serializable {
     }
 
     static getEnv() {
-        return BRANCH_NAME
+        return this.BRANCH_NAME
     }
 }
