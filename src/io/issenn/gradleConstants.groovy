@@ -15,10 +15,8 @@ class gradleConstants implements Serializable {
 }
 */
 
-class gradleConstants implements Serializable {
-  def steps
-  gradleConstants(steps) {this.steps = steps}
-  def mvn() {
+class gradleConstants {
+  static def mvn() {
     return "123"
   }
 }
