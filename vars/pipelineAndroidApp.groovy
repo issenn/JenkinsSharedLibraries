@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call(Closure body) {
+def call(Closure body={}) {
 
     // evaluate the body block, and collect configuration into the object
     def pipelineParams= [:]
