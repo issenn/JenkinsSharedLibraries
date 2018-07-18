@@ -32,7 +32,7 @@ def call(Closure body={}) {
                         //z.gradle_version()
                         //mvn this
                         def utils = io.issenn.gradleConstants
-                        println(new utils().mvn())
+                        println((new utils()).mvn())
                     }
                 }
             }
