@@ -48,9 +48,9 @@ class EnvironmentConstants implements Serializable {
 
     Environment() {}
 
-    Environment(def environment) {
-        this.BRANCH_NAME = environment.BRANCH_NAME
-        this.CHANGE_ID = environment.CHANGE_ID
+    Environment(script) {
+        this.BRANCH_NAME = script.env.BRANCH_NAME
+        /*this.CHANGE_ID = environment.CHANGE_ID
         this.CHANGE_URL = environment.CHANGE_URL
         this.CHANGE_TITLE = environment.CHANGE_TITLE
         this.CHANGE_AUTHOR = environment.CHANGE_AUTHOR
@@ -81,6 +81,6 @@ class EnvironmentConstants implements Serializable {
         this.GIT_AUTHOR_NAME = environment.GIT_AUTHOR_NAME
         this.GIT_COMMITTER_NAME = environment.GIT_COMMITTER_NAME
         this.GIT_AUTHOR_EMAIL = environment.GIT_AUTHOR_EMAIL
-        this.GIT_COMMITTER_EMAIL = environment.GIT_COMMITTER_EMAIL
+        this.GIT_COMMITTER_EMAIL = environment.GIT_COMMITTER_EMAIL*/
     }
 }
