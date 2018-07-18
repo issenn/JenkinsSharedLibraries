@@ -2,7 +2,7 @@
 
 import java.net.URLDecoder;
 
-def call(script, Map gitUrl='') {
+def call(script, String gitUrl='') {
     gitUrl = script.env.GIT_URL << gitUrl
     println(gitUrl)
     //def nameParts = (args.git_url - '.git').tokenize('/@')
