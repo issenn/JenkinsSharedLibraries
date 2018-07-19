@@ -19,6 +19,23 @@ def call(Closure body={}) {
         }
 
         stages {
+            stage('Branch - error') {
+                when {
+                    not {
+                        anyOf {
+                            branch "feature/*"
+                            branch "develop"
+                            branch "release/*"
+                            branch "master"
+                            branch "hotfix/*"
+                        }
+                    }
+                }
+                steps {
+                    error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
+                }
+            }
+
             stage('Checkout') {
                 steps {
                     checkoutGitlab()
@@ -36,7 +53,7 @@ def call(Closure body={}) {
                     }
                 }
             }
-
+            // Build
             stage('Build snapshot - feature/*') {
                 when {
                     branch "feature/*"
@@ -81,33 +98,52 @@ def call(Closure body={}) {
                     buildHotfixBranch()
                 }
             }
-
-            stage('Build - error') {
-                when {
-                    not {
-                        anyOf {
-                            branch "feature/*"
-                            branch "develop"
-                            branch "release/*"
-                            branch "master"
-                            branch "hotfix/*"
-                        }
-                    }
-                }
-                steps {
-                    error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
-                }
-            }
-
+            // artifacts
             stage('artifacts') {
                 steps {
                     echo "artifacts"
                 }
             }
-
+            // Deploy
             stage('Deploy snapshot - feature/*') {
                 when {
                     branch "feature/*"
+                }
+                steps {
+                    deployFeatureBranch()
+                }
+            }
+
+            stage('Deploy snapshot - develop') {
+                when {
+                    branch "develop"
+                }
+                steps {
+                    deployDevelopBranch()
+                }
+            }
+
+            stage('Deploy snapshot - release/*') {
+                when {
+                    branch "release/*"
+                }
+                steps {
+                    deployReleaseBranch()
+                }
+            }
+
+            stage('Deploy @ Prod - master') {
+                when {
+                    branch "master"
+                }
+                steps {
+                    deployMasterBranch()
+                }
+            }
+
+            stage('Deploy snapshot - hotfix/*') {
+                when {
+                    branch "hotfix/*"
                 }
                 steps {
                     deployHotfixBranch()
