@@ -68,7 +68,7 @@ def call(Closure body={}) {
                     branch "develop"
                 }
                 steps {
-                    buildDevelopBranch()
+                    buildDevelopBranch(buildTypes, flavor)
                 }
             }
 
@@ -169,17 +169,21 @@ def call(Closure body={}) {
  * hotfix/* to patch master quickly; merge back into develop and tag master
  */
 
+ def defaultBuildTypes = 'DailyBuild'
+
 def buildFeatureBranch() {
     echo "Feature branch"
 }
 
-def buildDevelopBranch() {
+def buildDevelopBranch(String buildTypes='', String flavor='') {
     echo "Develop branch"
-    test()
-    build('release')
+    buildTypes = buildTypes ?: defaultBuildTypes
+    flavor = flavor
+    test(buildTypes, flavor)
+    build(buildTypes, flavor)
     // sonar()
     // javadoc()
-    //deploy(env.JBOSS_TST)
+    // deploy(env.JBOSS_TST)
 }
 
 def buildReleaseBranch() {
@@ -214,14 +218,14 @@ def deployHotfixBranch() {
     echo "Feature branch"
 }
 
-def test(String buildTypes='') {
+def test(String buildTypes='', String flavor='') {
     echo "test"
-    // "clean test"
+    gradle "clean test"
 }
 
-def build(String buildTypes='') {
+def build(String buildTypes='', String flavor='') {
     echo "build"
-    gradle "clean assemble${buildTypes}"
+    gradle "clean assemble${flavor}${buildTypes}"
 }
 
 def deploy() {

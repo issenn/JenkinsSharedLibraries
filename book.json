@@ -1,0 +1,39 @@
+{
+    "root": "./docs/",
+    "title": "Open-Falcon 监控文档",
+    "logo": "assets/images/gitlab-logo.svg",
+
+    "gitbook": ">= 3.0.0",
+
+    "language": "zh-hans",
+
+    "variables": {
+        "version": "1.0.0"
+    },
+
+    "plugins": [
+        "-sharing",
+        "-fontsettings",
+        "-lunr",
+        "-search",
+        "search-pro",
+        "theme-official",
+        "sitemap-general",
+        "favicon"
+    ],
+
+    "pluginsConfig": {
+        "sitemap-general": {
+            "prefix": "http://issenn.pages.gitlab.issenn.io/open-falcon-config/"
+        },
+        "favicon": {
+            "shortcut": "assets/images/favicon.ico",
+            "bookmark": "assets/images/favicon.ico",
+            "appleTouch": "assets/images/apple-touch-icon.png",
+            "appleTouchMore": {
+                "120x120": "assets/images/apple-touch-icon-120x120.png",
+                "180x180": "assets/images/apple-touch-icon-180x180.png"
+            }
+        }
+    }
+}
