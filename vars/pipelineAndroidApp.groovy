@@ -32,6 +32,7 @@ def call(Closure body={}) {
                         gradle.version()
 
                         def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
+                        environment.repoName(this)
                     }
                 }
             }
