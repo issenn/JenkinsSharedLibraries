@@ -12,4 +12,4 @@ git push
 
 登录 [test-android](http://jenkins.hellotalk.com/job/test-android/) 启动构建任务
 
-![architecture](https://www.processon.com/view/link/5ac9ba1ce4b08996549ce7f8)
+[拓扑图](https://www.processon.com/view/link/5ac9ba1ce4b08996549ce7f8)
