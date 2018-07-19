@@ -79,7 +79,7 @@ def buildFeatureBranch() {
 def buildDevelopBranch() {
     echo "Develop branch"
     // test()
-    build('release')
+    pipelineAndroidApp.build('release')
     // sonar()
     // javadoc()
     // deploy(env.JBOSS_TST)
