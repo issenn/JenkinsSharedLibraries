@@ -41,17 +41,17 @@ def call(Closure body={}) {
                 steps {
                     script {
                         if (env.BRANCH_NAME.startsWith('feature/')) {
-                            pipelineAndroidApp.buildFeatureBranch()
+                            buildFeatureBranch()
                         } else if (env.BRANCH_NAME == 'develop') {
-                            pipelineAndroidApp.buildDevelopBranch()
+                            buildDevelopBranch()
                         } else if (env.BRANCH_NAME == 'dev') {
-                            pipelineAndroidApp.buildDevelopBranch()
+                            buildDevelopBranch()
                         } else if (env.BRANCH_NAME.startsWith('release/')) {
-                            pipelineAndroidApp.buildReleaseBranch()
+                            buildReleaseBranch()
                         } else if (env.BRANCH_NAME == 'master') {
-                            pipelineAndroidApp.buildMasterBranch()
+                            buildMasterBranch()
                         } else if (env.BRANCH_NAME.startsWith('hotfix/')) {
-                            pipelineAndroidApp.buildHotfixBranch()
+                            buildHotfixBranch()
                         } else {
                             error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
                         }
@@ -78,9 +78,9 @@ def buildFeatureBranch() {
 
 def buildDevelopBranch() {
     echo "Develop branch"
-    pipelineAndroidApp.test()
+    test()
     echo "---"
-    pipelineAndroidApp.build('release')
+    build('release')
     // sonar()
     // javadoc()
     // deploy(env.JBOSS_TST)
