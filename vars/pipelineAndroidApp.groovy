@@ -76,9 +76,9 @@ def buildFeatureBranch() {
     echo "Feature branch"
 }
 
-def buildDevelopBranch() {
+void buildDevelopBranch() {
     echo "Develop branch"
-    // test()
+    test()
     pipelineAndroidApp.build()
     // sonar()
     // javadoc()
@@ -97,7 +97,11 @@ def buildHotfixBranch() {
     echo "Hotfix branch"
 }
 
-def build(String buildTypes='') {
+void test() {
+    echo "test"
+}
+
+void build(String buildTypes='') {
     echo "build"
     gradle "clean assemble${buildTypes}"
 }
