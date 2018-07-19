@@ -1,6 +1,8 @@
 #!/usr/bin/env groovy
 
 def call() {
+    def t = datetime.datetime()
+    println(t)
 
     if (env.CICD_TYPE == 'AndroidApp') {
         log.info("entry pipelineAndroidApp")
