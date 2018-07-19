@@ -79,6 +79,7 @@ def buildFeatureBranch() {
 void buildDevelopBranch() {
     echo "Develop branch"
     test()
+    echo "---"
     pipelineAndroidApp.build()
     // sonar()
     // javadoc()
