@@ -1,6 +1,6 @@
 {
     "root": "./docs/",
-    "title": "Jenkinsfile文档1122",
+    "title": "Jenkinsfile文档",
     "logo": "assets/images/gitlab-logo.svg",
 
     "gitbook": ">= 3.0.0",
