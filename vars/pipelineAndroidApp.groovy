@@ -48,7 +48,7 @@ def call(Closure body={}) {
 
             stage('Build - develop') {
                 when {
-                    branch "develop"
+                    branch "develop2"
                 }
                 steps {
                     buildDevelopBranch()
