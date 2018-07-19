@@ -78,7 +78,7 @@ def buildFeatureBranch() {
 
 def buildDevelopBranch() {
     echo "Develop branch"
-    test()
+    pipelineAndroidApp.test()
     echo "---"
     pipelineAndroidApp.build('release')
     // sonar()
