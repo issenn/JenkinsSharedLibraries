@@ -1,6 +1,6 @@
 {
     "root": "./docs/",
-    "title": "Open-Falcon 监控文档",
+    "title": "Jenkinsfile文档",
     "logo": "assets/images/gitlab-logo.svg",
 
     "gitbook": ">= 3.0.0",
@@ -24,7 +24,7 @@
 
     "pluginsConfig": {
         "sitemap-general": {
-            "prefix": "http://issenn.pages.gitlab.issenn.io/open-falcon-config/"
+            "prefix": "http://test-issenn.pages.gitlab.hellotalk.com/Jenkinsfile_pipeline_library/"
         },
         "favicon": {
             "shortcut": "assets/images/favicon.ico",
