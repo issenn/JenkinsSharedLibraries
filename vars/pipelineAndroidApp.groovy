@@ -194,6 +194,26 @@ def buildHotfixBranch() {
     echo "Hotfix branch"
 }
 
+def deployFeatureBranch() {
+    echo "Feature branch"
+}
+
+def deployDevelopBranch() {
+    echo "Feature branch"
+}
+
+def deployReleaseBranch() {
+    echo "Feature branch"
+}
+
+def deployMasterBranch() {
+    echo "Feature branch"
+}
+
+def deployHotfixBranch() {
+    echo "Feature branch"
+}
+
 def test(String buildTypes='') {
     echo "test"
     // "clean test"
