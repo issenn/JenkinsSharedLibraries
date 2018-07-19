@@ -83,9 +83,8 @@ class EnvironmentConstants implements Serializable {
     }
 
     def repoName(def script, String gitUrl='') {
-        gitUrl = gitUrl ?: GIT_URL
+        gitUrl = gitUrl ?: script.env.GIT_URL //?: GIT_URL
         return gitUrl
-        //return script.env.GIT_URL
         //def nameParts = (args.git_url - '.git').tokenize('/@')
         //for (def index = 0; index < nameParts.size(); index++) {
         //    nameParts[index] = URLDecoder.decode(nameParts[index], 'UTF-8')
