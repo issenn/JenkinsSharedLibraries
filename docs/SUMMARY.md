@@ -8,7 +8,6 @@
 
 * [how to use](how-to-use/README.md)
     * [GitFlow](how-to-use/GitFlow.md)
-    * [GitFlow](how-to-use/GitFlow.md)
 * [SYSTEM]()
     * [base]()
 
