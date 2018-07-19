@@ -143,7 +143,7 @@ def buildDevelopBranch() {
     build('release')
     // sonar()
     // javadoc()
-    deploy(env.JBOSS_TST)
+    //deploy(env.JBOSS_TST)
 }
 
 def buildReleaseBranch() {
