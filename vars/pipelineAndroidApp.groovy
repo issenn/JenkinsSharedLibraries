@@ -95,7 +95,7 @@ def call(Closure body={}) {
                     }
                 }
                 steps {
-                    rror "Don't know what to do with this branch: ${env.BRANCH_NAME}"
+                    error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
                 }
             }
 
