@@ -80,7 +80,7 @@ void buildDevelopBranch() {
     echo "Develop branch"
     test()
     echo "---"
-    pipelineAndroidApp.build('')
+    pipelineAndroidApp.build(String buildTypes='release')
     // sonar()
     // javadoc()
     // deploy(env.JBOSS_TST)
