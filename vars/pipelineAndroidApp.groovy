@@ -76,7 +76,7 @@ def buildFeatureBranch() {
     echo "Feature branch"
 }
 
-void buildDevelopBranch() {
+def buildDevelopBranch() {
     echo "Develop branch"
     test()
     echo "---"
@@ -98,11 +98,11 @@ def buildHotfixBranch() {
     echo "Hotfix branch"
 }
 
-void test() {
+def test(String buildTypes='') {
     echo "test"
 }
 
-void build(String buildTypes='') {
+def build(String buildTypes='') {
     echo "build"
     gradle "clean assemble${buildTypes}"
 }
