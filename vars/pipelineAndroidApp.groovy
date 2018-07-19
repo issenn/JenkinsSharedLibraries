@@ -31,8 +31,30 @@ def call(Closure body={}) {
                         //gradle '-v'
                         gradle.version()
 
-                        def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
-                        println(environment.repoName(this))
+                        //def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
+                        //println(environment.repoName(this))
+                    }
+                }
+            }
+
+            stage('Build') {
+                steps {
+                    script {
+                        if (env.BRANCH_NAME.startsWith('feature/')) {
+                            pipelineAndroidApp.buildFeatureBranch()
+                        } else if (env.BRANCH_NAME == 'develop') {
+                            pipelineAndroidApp.buildDevelopBranch()
+                        } else if (env.BRANCH_NAME == 'dev') {
+                            pipelineAndroidApp.buildDevelopBranch()
+                        } else if (env.BRANCH_NAME.startsWith('release/')) {
+                            pipelineAndroidApp.buildReleaseBranch()
+                        } else if (env.BRANCH_NAME == 'master') {
+                            pipelineAndroidApp.buildMasterBranch()
+                        } else if (env.BRANCH_NAME.startsWith('hotfix/')) {
+                            pipelineAndroidApp.buildHotfixBranch()
+                        } else {
+                            error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
+                        }
                     }
                 }
             }
@@ -40,3 +62,42 @@ def call(Closure body={}) {
         }
     }
 }
+
+/**
+ * feature/* for feature branches; merge back into develop
+ * develop for ongoing development work
+ * test/*
+ * release/* to prepare production releases; merge back into develop and tag master
+ * master for production-ready releases
+ * hotfix/* to patch master quickly; merge back into develop and tag master
+ */
+
+def buildFeatureBranch() {
+    echo "Feature branch"
+}
+
+def buildDevelopBranch() {
+    echo "Develop branch"
+    // test()
+    build('release')
+    // sonar()
+    // javadoc()
+    // deploy(env.JBOSS_TST)
+}
+
+def buildReleaseBranch() {
+    echo "Release branch"
+}
+
+def buildMasterBranch() {
+    echo "Master branch"
+}
+
+def buildHotfixBranch() {
+    echo "Hotfix branch"
+}
+
+def build(String buildTypes) {
+    gradle "clean assemble${buildTypes}"
+}
+
