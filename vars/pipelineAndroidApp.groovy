@@ -30,6 +30,8 @@ def call(Closure body={}) {
                     script {
                         //gradle '-v'
                         gradle.version()
+
+                        def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
                     }
                 }
             }
