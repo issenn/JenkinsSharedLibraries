@@ -7,9 +7,9 @@
 ### How To Use
 
 * [how to use](how-to-use/README.md)
-    * [Git.im.md](templates/service/copy_of_dev.im.md)
-* [SYSTEM](templates/system/README.md)
-    * [base](templates/system/dev.base.md)
+    * [GitFlow](how-to-use/GitFlow.md)
+* [SYSTEM]()
+    * [base]()
 
 --
 

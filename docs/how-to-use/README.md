@@ -1,3 +1,3 @@
 
 
-![architecture](./images/git-model@2x.png)
+本章介绍如何使用Jenkinsfile CI
