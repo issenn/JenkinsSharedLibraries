@@ -1,9 +1,6 @@
 #!/usr/bin/env groovy
 
 def call() {
-    def t = datetime.datetime()
-    println(t)
-    pipelineAndroidApp.buildDevelopBranch()
 
     if (env.CICD_TYPE == 'AndroidApp') {
         log.info("entry pipelineAndroidApp")
