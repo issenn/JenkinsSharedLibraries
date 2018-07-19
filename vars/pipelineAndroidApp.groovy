@@ -98,6 +98,7 @@ def buildHotfixBranch() {
 }
 
 def build(String buildTypes) {
+    echo "build"
     gradle "clean assemble${buildTypes}"
 }
 
