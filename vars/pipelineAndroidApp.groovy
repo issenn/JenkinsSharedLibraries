@@ -37,7 +37,7 @@ def call(Closure body={}) {
                 }
             }
 
-            stage('Build - feature/*') {
+            stage('Build snapshot - feature/*') {
                 when {
                     branch "feature/*"
                 }
@@ -46,16 +46,16 @@ def call(Closure body={}) {
                 }
             }
 
-            stage('Build - develop') {
+            stage('Build snapshot - develop') {
                 when {
-                    branch "develop2"
+                    branch "develop"
                 }
                 steps {
                     buildDevelopBranch()
                 }
             }
 
-            stage('Build - release/*') {
+            stage('Build snapshot - release/*') {
                 when {
                     branch "release/*"
                 }
@@ -64,7 +64,7 @@ def call(Closure body={}) {
                 }
             }
 
-            stage('Build - master') {
+            stage('Build @ Prod - master') {
                 when {
                     branch "master"
                 }
@@ -73,7 +73,7 @@ def call(Closure body={}) {
                 }
             }
 
-            stage('Build - hotfix/*') {
+            stage('Build snapshot - hotfix/*') {
                 when {
                     branch "hotfix/*"
                 }
@@ -87,7 +87,7 @@ def call(Closure body={}) {
                     not {
                         anyOf {
                             branch "feature/*"
-                            branch "develop2"
+                            branch "develop"
                             branch "release/*"
                             branch "master"
                             branch "hotfix/*"
@@ -96,6 +96,15 @@ def call(Closure body={}) {
                 }
                 steps {
                     error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
+                }
+            }
+
+            stage('Deploy snapshot - feature/*') {
+                when {
+                    branch "feature/*"
+                }
+                steps {
+                    buildHotfixBranch()
                 }
             }
 
