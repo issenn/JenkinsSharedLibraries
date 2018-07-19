@@ -99,12 +99,24 @@ def call(Closure body={}) {
                 }
             }
 
+            stage('artifacts') {
+                steps {
+                    echo "artifacts"
+                }
+            }
+
             stage('Deploy snapshot - feature/*') {
                 when {
                     branch "feature/*"
                 }
                 steps {
-                    buildHotfixBranch()
+                    deployHotfixBranch()
+                }
+            }
+
+            stage('Test') {
+                steps {
+                    echo "Test"
                 }
             }
 
@@ -131,7 +143,7 @@ def buildDevelopBranch() {
     build('release')
     // sonar()
     // javadoc()
-    // deploy(env.JBOSS_TST)
+    deploy(env.JBOSS_TST)
 }
 
 def buildReleaseBranch() {
@@ -148,6 +160,7 @@ def buildHotfixBranch() {
 
 def test(String buildTypes='') {
     echo "test"
+    // "clean test"
 }
 
 def build(String buildTypes='') {
@@ -155,3 +168,6 @@ def build(String buildTypes='') {
     gradle "clean assemble${buildTypes}"
 }
 
+def deploy() {
+    echo "deploy"
+}
