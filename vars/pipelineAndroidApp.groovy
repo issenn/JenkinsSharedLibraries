@@ -37,25 +37,65 @@ def call(Closure body={}) {
                 }
             }
 
-            stage('Build') {
+            stage('Build - feature/*') {
+                when {
+                    branch "feature/*"
+                }
                 steps {
-                    script {
-                        if (env.BRANCH_NAME.startsWith('feature/')) {
-                            buildFeatureBranch()
-                        } else if (env.BRANCH_NAME == 'develop') {
-                            buildDevelopBranch()
-                        } else if (env.BRANCH_NAME == 'dev') {
-                            buildDevelopBranch()
-                        } else if (env.BRANCH_NAME.startsWith('release/')) {
-                            buildReleaseBranch()
-                        } else if (env.BRANCH_NAME == 'master') {
-                            buildMasterBranch()
-                        } else if (env.BRANCH_NAME.startsWith('hotfix/')) {
-                            buildHotfixBranch()
-                        } else {
-                            error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
+                    buildFeatureBranch()
+                }
+            }
+
+            stage('Build - develop') {
+                when {
+                    branch "develop"
+                }
+                steps {
+                    buildDevelopBranch()
+                }
+            }
+
+            stage('Build - release/*') {
+                when {
+                    branch "release/*"
+                }
+                steps {
+                    buildReleaseBranch()
+                }
+            }
+
+            stage('Build - master') {
+                when {
+                    branch "master"
+                }
+                steps {
+                    buildMasterBranch()
+                }
+            }
+
+            stage('Build - hotfix/*') {
+                when {
+                    branch "hotfix/*"
+                }
+                steps {
+                    buildHotfixBranch()
+                }
+            }
+
+            stage('Build - error') {
+                when {
+                    not {
+                        anyOf {
+                            branch "feature/*"
+                            branch "develop"
+                            branch "release/*"
+                            branch "master"
+                            branch "hotfix/*"
                         }
                     }
+                }
+                steps {
+                    rror "Don't know what to do with this branch: ${env.BRANCH_NAME}"
                 }
             }
 
@@ -79,7 +119,6 @@ def buildFeatureBranch() {
 def buildDevelopBranch() {
     echo "Develop branch"
     test()
-    echo "---"
     build('release')
     // sonar()
     // javadoc()
