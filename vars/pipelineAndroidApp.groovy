@@ -87,7 +87,7 @@ def call(Closure body={}) {
                     not {
                         anyOf {
                             branch "feature/*"
-                            branch "develop"
+                            branch "develop2"
                             branch "release/*"
                             branch "master"
                             branch "hotfix/*"
