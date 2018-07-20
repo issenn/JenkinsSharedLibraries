@@ -51,7 +51,8 @@ def call(Closure body={}) {
                         //println(environment.repoName(this))
                         println(environment.BRANCH_NAME)
                         println(environment.JOB_NAME)
-                        Gradle gradle = getGradle()
+                        def projectVersion = sh script: "gradle getVersion()", returnStdout: true
+                        println(projectVersion)
                     }
 
                     checkoutGitlab()
