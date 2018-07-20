@@ -17,7 +17,7 @@ def call(Closure body={}) {
             ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
             ANDROID_HOME = "${ANDROID_SDK_ROOT}"
             ReleasebuildTypes = "Release"
-            ReleaseFlavor = "Google" HTPrivate china
+            // ReleaseFlavor = "Google" HTPrivate china
         }
 
         stages {
