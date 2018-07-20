@@ -54,6 +54,7 @@ def call(Closure body={}) {
                         def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
                         //println(environment.repoName(this))
                         println(environment.BRANCH_NAME)
+                        println(environment.JOB_NAME)
                     }
                 }
             }
