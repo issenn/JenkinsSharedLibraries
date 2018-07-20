@@ -17,7 +17,7 @@ def call(Closure body={}) {
             ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
             ANDROID_HOME = "${ANDROID_SDK_ROOT}"
             ReleasebuildTypes = "Release"
-            ReleaseFlavor = "Google"
+            ReleaseFlavor = "Google" HTPrivate china
         }
 
         stages {
@@ -27,6 +27,7 @@ def call(Closure body={}) {
                         anyOf {
                             branch "feature/*"
                             branch "develop"
+                            //branch "test"
                             branch "release/*"
                             branch "master"
                             branch "hotfix/*"
@@ -171,7 +172,7 @@ def call(Closure body={}) {
  * hotfix/* to patch master quickly; merge back into develop and tag master
  */
 
- def defaultBuildTypes = 'DailyBuild'
+def defaultBuildTypes = 'DailyBuild'
 
 def buildFeatureBranch() {
     echo "Feature branch"
@@ -181,7 +182,7 @@ def buildDevelopBranch(String buildTypes='', String flavor='') {
     echo "Develop branch"
     buildTypes = buildTypes ?: defaultBuildTypes
     flavor = flavor
-    test(buildTypes, flavor)
+    // test(buildTypes, flavor)
     build(buildTypes, flavor)
     // sonar()
     // javadoc()
