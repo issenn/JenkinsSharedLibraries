@@ -12,7 +12,7 @@ def call(Closure body={}) {
         agent {
             node {
                 label 'mac-mini'
-                customWorkspace "workspace/${JOB_NAME}/${BRANCH_NAME}"
+                customWorkspace "workspace/${JOB_NAME}"
             }
         }
 
