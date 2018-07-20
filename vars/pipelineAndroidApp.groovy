@@ -67,7 +67,7 @@ def call(Closure body={}) {
                     }
                 }
             }
-
+/*
             stage('Build snapshot - feature/*') {
                 when {
                     branch "feature/*"
@@ -86,7 +86,7 @@ def call(Closure body={}) {
                     }
                 }
             }
-
+*/
             // Build
             stage('Build snapshot - feature/*') {
                 when {
