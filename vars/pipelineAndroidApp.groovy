@@ -21,10 +21,11 @@ def call(Closure body={}) {
             ANDROID_HOME = "${ANDROID_SDK_ROOT}"
             ReleasebuildTypes = "Release"
             // ReleaseFlavor = "Google" HTPrivate china
+            //-PBUILD_NUMBER=${env.BUILD_NUMBER}
         }
 
         stages {
-            stage('Branch - error') {
+            stage('Branch and Tag - error') {
                 when {
                     not {
                         anyOf {
@@ -39,7 +40,7 @@ def call(Closure body={}) {
                     }
                 }
                 steps {
-                    error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
+                    error "Don't know what to do with this branch or tag: ${env.BRANCH_NAME}"
                 }
             }
 
@@ -50,6 +51,7 @@ def call(Closure body={}) {
                         //println(environment.repoName(this))
                         println(environment.BRANCH_NAME)
                         println(environment.JOB_NAME)
+                        Gradle gradle = getGradle()
                     }
 
                     checkoutGitlab()
@@ -64,6 +66,26 @@ def call(Closure body={}) {
                     }
                 }
             }
+
+            stage('Build snapshot - feature/*') {
+                when {
+                    branch "feature/*"
+                }
+
+                failFast false
+
+                parallel {
+                    stage('A') {
+                        agent {
+                            label 'mac-mini'
+                        }
+                        steps {
+                            buildFeatureBranch()
+                        }
+                    }
+                }
+            }
+
             // Build
             stage('Build snapshot - feature/*') {
                 when {
