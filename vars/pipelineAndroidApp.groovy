@@ -31,6 +31,7 @@ def call(Closure body={}) {
                             branch "release/*"
                             branch "master"
                             branch "hotfix/*"
+                            buildingTag()
                         }
                     }
                 }
