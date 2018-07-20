@@ -41,10 +41,12 @@ def call(Closure body={}) {
 
             stage('Checkout') {
                 steps {
-                    def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
-                    //println(environment.repoName(this))
-                    println(environment.BRANCH_NAME)
-                    println(environment.JOB_NAME)
+                    script {
+                        def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
+                        //println(environment.repoName(this))
+                        println(environment.BRANCH_NAME)
+                        println(environment.JOB_NAME)
+                    }
 
                     checkoutGitlab()
                 }
