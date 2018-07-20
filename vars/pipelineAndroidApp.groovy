@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-import org.gradle.api.invocation.Gradle;
+import org.gradle.api.invocation.Gradle
 import org.gradle.api.Project.getGradle
 
 def call(Closure body={}) {
