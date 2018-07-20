@@ -10,8 +10,10 @@ def call(Closure body={}) {
 
     pipeline {
         agent {
-            label 'mac-mini'
-            customWorkspace "MyFixedLocation/MyPipelineName_${BRANCH_NAME}"
+            node {
+                label 'mac-mini'
+                customWorkspace "MyFixedLocation/MyPipelineName_${BRANCH_NAME}"
+            }
         }
 
         environment {
