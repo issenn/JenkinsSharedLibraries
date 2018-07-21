@@ -102,7 +102,7 @@ def call(Closure body={}) {
                             stage('Build - develop') {
                                 when {
                                     beforeAgent true
-                                    environment name: 'UNITTESTING', value: 'true'
+                                    environment name: 'UNITTESTING', value: 'false'
                                 }
                                 steps {
                                     buildDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
