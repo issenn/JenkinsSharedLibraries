@@ -56,7 +56,6 @@ def call(Closure body={}) {
                         //println(environment.repoName(this))
                         println(environment.BRANCH_NAME)
                         println(environment.JOB_NAME)
-                        testll('')
                     }
                     checkoutGitlab()
                 }
@@ -237,13 +236,13 @@ def call(Closure body={}) {
 
 def unittestFeatureBranch(String buildTypes='', String productFlavors='') {
     echo "Feature branch - Unit Testing"
-    args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
+    def args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
     unittest(args)
 }
 
 def unittestDevelopBranch(String buildTypes='', String productFlavors='') {
     echo "Develop branch - Unit Testing"
-    args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
+    def args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
     unittest(args)
 }
 
@@ -253,7 +252,7 @@ def buildFeatureBranch() {
 
 def buildDevelopBranch(String buildTypes='', String productFlavors='') {
     echo "Develop branch - Build"
-    args = (productFlavors ?: '') + (buildTypes ?: '')
+    def args = (productFlavors ?: '') + (buildTypes ?: '')
     build(args)
     // sonar()
     // javadoc()
@@ -272,18 +271,12 @@ def buildHotfixBranch() {
     echo "Hotfix branch"
 }
 
-def testll(key) {
-    key = key.toLowerCase()
-    println(key)
-    println('------')
-}
-
 def artifactsDevelopBranch(String buildTypes, String productFlavors) {
     echo "Develop branch - Artifacts"
     productFlavors = productFlavors.toLowerCase()
     buildTypes = buildTypes.toLowerCase()
-    name = ((productFlavors ?: '') + (buildTypes ?: '')) ?: ''
-    path = "${WORKSPACE}/HelloTalk/build/outputs/apk/" + productFlavors.toLowerCase() + '/' + buildTypes.toLowerCase() + '/HelloTalk-' + productFlavors.toLowerCase() + '-' + buildTypes.toLowerCase() + '.apk'
+    def name = ((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: ''
+    def path = "${WORKSPACE}/HelloTalk/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + '/HelloTalk-' + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
     artifacts(name, path)
 }
 
@@ -294,8 +287,11 @@ def deployFeatureBranch() {
 
 def deployDevelopBranch(String BuildTypes, String ProductFlavors) {
     echo "Develop branch - Deploy"
-    name = productFlavors.toLowerCase() + buildTypes.toLowerCase()
-    deploy("${ProductFlavors}${BuildTypes}", "${WORKSPACE}/HelloTalk/build/outputs/apk/${ProductFlavors}/${BuildTypes}/HelloTalk-${ProductFlavors}-${BuildTypes}.apk")
+    productFlavors = productFlavors.toLowerCase()
+    buildTypes = buildTypes.toLowerCase()
+    def name = ((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: ''
+    def path = "${WORKSPACE}/HelloTalk/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + '/HelloTalk-' + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    deploy(name, path)
 }
 
 def deployReleaseBranch() {
