@@ -105,7 +105,7 @@ def call(Closure body={}) {
                             }
                             stage('artifacts - develop') {
                                 steps {
-                                    echo "artifacts"
+                                    artifacts("${ChinaProductFlavors}${ReleaseBuildTypes}", "HelloTalk/build/outputs/apk/${ChinaProductFlavors}/${ReleaseBuildTypes}/HelloTalk-${ChinaProductFlavors}-${ReleaseBuildTypes}.apk")
                                 }
                             }
                             stage('Deploy snapshot - develop') {
@@ -113,7 +113,7 @@ def call(Closure body={}) {
                                     label 'master'
                                 }
                                 steps {
-                                    deployDevelopBranch()
+                                    deployDevelopBranch("${ChinaProductFlavors}${ReleaseBuildTypes}", "HelloTalk/build/outputs/apk/${ChinaProductFlavors}/${ReleaseBuildTypes}/HelloTalk-${ChinaProductFlavors}-${ReleaseBuildTypes}.apk")
                                 }
                             }
                             stage('Testing - develop') {
@@ -274,8 +274,9 @@ def deployFeatureBranch() {
     echo "Feature branch"
 }
 
-def deployDevelopBranch() {
+def deployDevelopBranch(String name, String path) {
     echo "Develop branch"
+    deploy(name, path)
 }
 
 def deployReleaseBranch() {
@@ -300,6 +301,13 @@ def build(String args='') {
     gradle "clean assemble${args}"
 }
 
-def deploy() {
+def artifacts(String name, String path) {
+    stash name: "${name}", includes: "${path}"
+}
+
+
+def deploy(String name, String path) {
     echo "deploy"
+    unstash "${name}"
+    //sh "mv ${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa /var/www/nginx/html/testing.hellotalk.com/test-1.0-1.ipa"
 }
