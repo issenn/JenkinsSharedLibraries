@@ -123,16 +123,43 @@ def call(Closure body={}) {
                                 }
                             }
                         }
-                    }/*
-                    stage('google flavor - feature/*') {
+                    }
+                    stage('google flavor - develop') {
                         stages {
-                            stage('') {
+                            stage('Unit Testing - develop') {
+                                when {
+                                    beforeAgent true
+                                    environment name: 'UNITTESTING', value: 'true'
+                                }
                                 steps {
-                                    buildDevelopBranch()
+                                    unittestDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
+                                }
+                            }
+                            stage('Build - develop') {
+                                steps {
+                                    buildDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
+                                }
+                            }
+                            stage('Artifacts - develop') {
+                                steps {
+                                    artifactsDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
+                                }
+                            }
+                            stage('Deploy snapshot - develop') {
+                                agent {
+                                    label 'master'
+                                }
+                                steps {
+                                    deployDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
+                                }
+                            }
+                            stage('Testing - develop') {
+                                steps {
+                                    echo "Test"
                                 }
                             }
                         }
-                    }*/
+                    }
                 }
             }
 
