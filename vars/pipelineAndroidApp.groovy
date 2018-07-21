@@ -302,6 +302,7 @@ def build(String args='') {
 }
 
 def artifacts(String name, String path) {
+    echo "stash '${name}' '${path}'"
     stash name: "${name}", includes: "${path}"
 }
 
