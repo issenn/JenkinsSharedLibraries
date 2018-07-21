@@ -51,7 +51,7 @@ def call(Closure body={}) {
                         //println(environment.repoName(this))
                         println(environment.BRANCH_NAME)
                         println(environment.JOB_NAME)
-                        org.gradle.api.invocation.Gradle gradle = org.gradle.api.Project.getGradle()
+                        def gradle = org.gradle.api.Project.getGradle()
                         println(gradle)
                     }
 
