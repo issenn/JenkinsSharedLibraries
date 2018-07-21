@@ -105,7 +105,7 @@ def call(Closure body={}) {
                             }
                             stage('Artifacts - develop') {
                                 steps {
-                                    deployFeatureBranch(ReleaseBuildTypes, ChinaProductFlavors)
+                                    artifactsDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
                             stage('Deploy snapshot - develop') {
@@ -113,7 +113,7 @@ def call(Closure body={}) {
                                     label 'master'
                                 }
                                 steps {
-                                    deployDevelopBranch("${ChinaProductFlavors}${ReleaseBuildTypes}", "${WORKSPACE}/HelloTalk/build/outputs/apk/${ChinaProductFlavors}/${ReleaseBuildTypes}/HelloTalk-${ChinaProductFlavors}-${ReleaseBuildTypes}.apk")
+                                    deployDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
                             stage('Testing - develop') {
@@ -320,7 +320,6 @@ def artifacts(String name, String path) {
     echo "stash '${name}' '${path}'"
     stash name: "${name}", includes: "${path}"
 }
-
 
 def deploy(String name, String path) {
     echo "deploy '${name}' '${path}'"
