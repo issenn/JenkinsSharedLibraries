@@ -276,13 +276,19 @@ def buildHotfixBranch() {
     echo "Hotfix branch"
 }
 
-def artifactsDevelopBranch(String buildTypes, String productFlavors) {
+def artifactsDevelopBranch(String buildTypes = '', String productFlavors = '') {
     echo "Develop branch - Artifacts"
     productFlavors = productFlavors.toLowerCase()
+    echo "---"
+    println(productFlavors)
     buildTypes = buildTypes.toLowerCase()
+    echo "---"
+    println(buildTypes)
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
-    def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}"- + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    echo "---"
     println(name)
+    def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}"- + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    echo "---"
     println(path)
     artifacts(name, path)
 }
@@ -292,7 +298,7 @@ def deployFeatureBranch() {
     echo "Feature branch"
 }
 
-def deployDevelopBranch(String buildTypes, String productFlavors) {
+def deployDevelopBranch(String buildTypes = '', String productFlavors = '') {
     echo "Develop branch - Deploy"
     productFlavors = productFlavors.toLowerCase()
     buildTypes = buildTypes.toLowerCase()
