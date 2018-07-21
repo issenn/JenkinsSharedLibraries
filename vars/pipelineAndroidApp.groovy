@@ -112,6 +112,7 @@ def call(Closure body={}) {
                             stage('Deploy snapshot - develop') {
                                 agent {
                                     label 'master'
+                                    customWorkspace "workspace/${JOB_NAME}"
                                 }
                                 steps {
                                     deployDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
@@ -148,6 +149,7 @@ def call(Closure body={}) {
                             stage('Deploy snapshot - develop') {
                                 agent {
                                     label 'master'
+                                    customWorkspace "workspace/${JOB_NAME}"
                                 }
                                 steps {
                                     deployDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
