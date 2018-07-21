@@ -26,9 +26,6 @@ def call(Closure body={}) {
             GoogleProductFlavors = "Google"
             HTPrivateProductFlavors = "HTPrivate"
             //-PBUILD_NUMBER=${env.BUILD_NUMBER}
-            key = "11"
-            key1 = "22"
-            key2 = "33"
         }
 
         stages {
@@ -59,12 +56,9 @@ def call(Closure body={}) {
                         //println(environment.repoName(this))
                         println(environment.BRANCH_NAME)
                         println(environment.JOB_NAME)
+                        testll('')
                     }
                     checkoutGitlab()
-                    testvalue(key)
-                    println(key)
-                    println(key1)
-                    println(key2)
                 }
             }
 
@@ -232,14 +226,6 @@ def call(Closure body={}) {
     }
 }
 
-def testvalue(String key) {
-    key = "1"
-    key1 = "2"
-    println(key)
-    println(key1)
-    def key2 = "3"
-    println(key2)
-}
 /**
  * feature/* for feature branches; merge back into develop
  * develop for ongoing development work
@@ -286,10 +272,16 @@ def buildHotfixBranch() {
     echo "Hotfix branch"
 }
 
+def testll(key) {
+    key = key.toLowerCase()
+    println(key)
+}
+
 def artifactsDevelopBranch(String buildTypes, String productFlavors) {
     echo "Develop branch - Artifacts"
-    //productFlavors = productFlavors.toLowerCase()
-    name = productFlavors.toLowerCase() + buildTypes.toLowerCase()
+    productFlavors = productFlavors.toLowerCase()
+    buildTypes = buildTypes.toLowerCase()
+    name = ((productFlavors ?: '') + (buildTypes ?: '')) ?: ''
     path = "${WORKSPACE}/HelloTalk/build/outputs/apk/" + productFlavors.toLowerCase() + '/' + buildTypes.toLowerCase() + '/HelloTalk-' + productFlavors.toLowerCase() + '-' + buildTypes.toLowerCase() + '.apk'
     artifacts(name, path)
 }
