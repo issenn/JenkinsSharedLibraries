@@ -275,6 +275,7 @@ def buildHotfixBranch() {
 def testll(key) {
     key = key.toLowerCase()
     println(key)
+    println('------')
 }
 
 def artifactsDevelopBranch(String buildTypes, String productFlavors) {
