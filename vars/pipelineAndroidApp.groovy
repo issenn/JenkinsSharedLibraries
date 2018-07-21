@@ -100,6 +100,10 @@ def call(Closure body={}) {
                                 }
                             }
                             stage('Build - develop') {
+                                when {
+                                    beforeAgent true
+                                    environment name: 'UNITTESTING', value: 'true'
+                                }
                                 steps {
                                     buildDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
@@ -288,7 +292,7 @@ def deployFeatureBranch() {
     echo "Feature branch"
 }
 
-def deployDevelopBranch(String BuildTypes, String ProductFlavors) {
+def deployDevelopBranch(String buildTypes, String productFlavors) {
     echo "Develop branch - Deploy"
     productFlavors = productFlavors.toLowerCase()
     buildTypes = buildTypes.toLowerCase()
