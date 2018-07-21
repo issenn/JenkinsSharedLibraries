@@ -20,6 +20,7 @@ def call(Closure body={}) {
             ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
             ANDROID_HOME = "${ANDROID_SDK_ROOT}"
             UNITTESTING = 'false'
+            App = "HelloTalk"
             DebugBuildTypes = "Debug"
             ReleaseBuildTypes = "Release"
             ChinaProductFlavors = "China"
@@ -276,7 +277,7 @@ def artifactsDevelopBranch(String buildTypes, String productFlavors) {
     productFlavors = productFlavors.toLowerCase()
     buildTypes = buildTypes.toLowerCase()
     def name = ((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: ''
-    def path = "${WORKSPACE}/HelloTalk/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + '/HelloTalk-' + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    def path = "${WORKSPACE}/${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}"- + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
     artifacts(name, path)
 }
 
@@ -290,7 +291,7 @@ def deployDevelopBranch(String BuildTypes, String ProductFlavors) {
     productFlavors = productFlavors.toLowerCase()
     buildTypes = buildTypes.toLowerCase()
     def name = ((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: ''
-    def path = "${WORKSPACE}/HelloTalk/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + '/HelloTalk-' + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    def path = "${WORKSPACE}/${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
     deploy(name, path)
 }
 
