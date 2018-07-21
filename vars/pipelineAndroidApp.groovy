@@ -276,8 +276,8 @@ def artifactsDevelopBranch(String buildTypes, String productFlavors) {
     echo "Develop branch - Artifacts"
     productFlavors = productFlavors.toLowerCase()
     buildTypes = buildTypes.toLowerCase()
-    def name = ((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: ''
-    def path = "${WORKSPACE}/${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}"- + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
+    def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}"- + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
     artifacts(name, path)
 }
 
@@ -290,8 +290,8 @@ def deployDevelopBranch(String BuildTypes, String ProductFlavors) {
     echo "Develop branch - Deploy"
     productFlavors = productFlavors.toLowerCase()
     buildTypes = buildTypes.toLowerCase()
-    def name = ((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: ''
-    def path = "${WORKSPACE}/${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
+    def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
     deploy(name, path)
 }
 
