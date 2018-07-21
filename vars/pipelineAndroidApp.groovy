@@ -62,6 +62,9 @@ def call(Closure body={}) {
                     }
                     checkoutGitlab()
                     testvalue(key)
+                    echo “${key}”
+                    echo “${key1}”
+                    echo “${key2}”
                 }
             }
 
