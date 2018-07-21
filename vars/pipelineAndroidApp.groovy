@@ -15,15 +15,14 @@ def call(Closure body={}) {
                 customWorkspace "workspace/${JOB_NAME}"
             }
         }
-
         environment {
             ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
             ANDROID_HOME = "${ANDROID_SDK_ROOT}"
-            ReleasebuildTypes = "Release"
-            // ReleaseFlavor = "Google" HTPrivate china
+            UNITTESTING = false
+            ReleaseBuildTypes = "Release"
+            ReleaseProductFlavors = "china"
             //-PBUILD_NUMBER=${env.BUILD_NUMBER}
         }
-
         stages {
             stage('Branch and Tag - error') {
                 when {
@@ -43,7 +42,6 @@ def call(Closure body={}) {
                     error "Don't know what to do with this branch or tag: ${env.BRANCH_NAME}"
                 }
             }
-
             stage('Checkout') {
                 steps {
                     script {
@@ -51,15 +49,11 @@ def call(Closure body={}) {
                         //println(environment.repoName(this))
                         println(environment.BRANCH_NAME)
                         println(environment.JOB_NAME)
-                        //def gradle = Project.getGradle()
-                        println(datetime.datetime())
-                        //println(gradle)
                     }
 
                     checkoutGitlab()
                 }
             }
-
             stage('Prepare') {
                 steps {
                     script {
@@ -68,27 +62,6 @@ def call(Closure body={}) {
                     }
                 }
             }
-/*
-            stage('Build snapshot - feature/*') {
-                when {
-                    branch "feature/*"
-                }
-
-                failFast false
-
-                parallel {
-                    stage('A') {
-                        agent {
-                            label 'mac-mini'
-                        }
-                        steps {
-                            buildFeatureBranch()
-                        }
-                    }
-                }
-            }
-*/
-            // Build
             stage('Build snapshot - feature/*') {
                 when {
                     branch "feature/*"
@@ -97,13 +70,56 @@ def call(Closure body={}) {
                     buildFeatureBranch()
                 }
             }
-
             stage('Build snapshot - develop') {
                 when {
                     branch "develop"
                 }
-                steps {
-                    buildDevelopBranch(ReleasebuildTypes)
+                failFast false
+                parallel {
+                    stage('china flavor - develop') {
+                        stages {
+                            stage('Unit Testing') {
+                                when {
+                                    environment name: 'UNITTESTING', value: true
+                                }
+                                steps {
+                                    unittestFeatureBranch()
+                                }
+                            }
+                            stage('Build') {
+                                steps {
+                                    buildDevelopBranch(ReleaseBuildTypes, ReleaseProductFlavors)
+                                }
+                            }
+                            stage('artifacts') {
+                                steps {
+                                    echo "artifacts"
+                                }
+                            }
+                            stage('Deploy snapshot - develop') {
+                                agent {
+                                    label 'mac-mini'
+                                }
+                                steps {
+                                    deployDevelopBranch()
+                                }
+                            }
+                            stage('Test') {
+                                steps {
+                                    echo "Test"
+                                }
+                            }
+                        }
+                    }/*
+                    stage('google flavor - feature/*') {
+                        stages {
+                            stage('') {
+                                steps {
+                                    buildDevelopBranch()
+                                }
+                            }
+                        }
+                    }*/
                 }
             }
 
@@ -206,6 +222,11 @@ def call(Closure body={}) {
 
 def defaultBuildTypes = 'DailyBuild'
 
+def unittestFeatureBranch() {
+    echo "Feature branch - Unit Testing"
+    //unittest(buildTypes, flavor)
+}
+
 def buildFeatureBranch() {
     echo "Feature branch"
 }
@@ -238,7 +259,7 @@ def deployFeatureBranch() {
 }
 
 def deployDevelopBranch() {
-    echo "Feature branch"
+    echo "Develop branch"
 }
 
 def deployReleaseBranch() {
