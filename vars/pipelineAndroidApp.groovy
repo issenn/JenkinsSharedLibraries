@@ -287,7 +287,7 @@ def artifactsDevelopBranch(String buildTypes = '', String productFlavors = '') {
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
     echo "---"
     println(name)
-    def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}"- + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
     echo "---"
     println(path)
     artifacts(name, path)
