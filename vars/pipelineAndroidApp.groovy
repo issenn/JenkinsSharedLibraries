@@ -103,9 +103,9 @@ def call(Closure body={}) {
                                     buildDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
-                            stage('artifacts - develop') {
+                            stage('Artifacts - develop') {
                                 steps {
-                                    artifacts("${ChinaProductFlavors}${ReleaseBuildTypes}", "${WORKSPACE}/HelloTalk/build/outputs/apk/${ChinaProductFlavors}/${ReleaseBuildTypes}/HelloTalk-${ChinaProductFlavors}-${ReleaseBuildTypes}.apk")
+                                    deployFeatureBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
                             stage('Deploy snapshot - develop') {
@@ -271,13 +271,23 @@ def buildHotfixBranch() {
     echo "Hotfix branch"
 }
 
+def artifactsDevelopBranch(String BuildTypes, String ProductFlavors) {
+    echo "Develop branch - Artifacts"
+    def ProductFlavors = ChinaProductFlavors.toLowerCase()
+    def BuildTypes = ReleaseBuildTypes.toLowerCase()
+    artifacts("${ProductFlavors}${BuildTypes}", "${WORKSPACE}/HelloTalk/build/outputs/apk/${ProductFlavors}/${BuildTypes}/HelloTalk-${ProductFlavors}-${BuildTypes}.apk")
+}
+
+
 def deployFeatureBranch() {
     echo "Feature branch"
 }
 
-def deployDevelopBranch(String name, String path) {
-    echo "Develop branch"
-    deploy(name, path)
+def deployDevelopBranch(String BuildTypes, String ProductFlavors) {
+    echo "Develop branch - Deploy"
+    def ProductFlavors = ChinaProductFlavors.toLowerCase()
+    def BuildTypes = ReleaseBuildTypes.toLowerCase()
+    deploy("${ProductFlavors}${BuildTypes}", "${WORKSPACE}/HelloTalk/build/outputs/apk/${ProductFlavors}/${BuildTypes}/HelloTalk-${ProductFlavors}-${BuildTypes}.apk")
 }
 
 def deployReleaseBranch() {
@@ -303,14 +313,13 @@ def build(String args='') {
 }
 
 def artifacts(String name, String path) {
-    def aaa = "stash '${name}' '${path}'".toLowerCase()
-    println(aaa)
+    echo "stash '${name}' '${path}'"
     stash name: "${name}", includes: "${path}"
 }
 
 
 def deploy(String name, String path) {
-    echo "deploy"
+    echo "deploy '${name}' '${path}'"
     unstash "${name}"
     //sh "mv ${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa /var/www/nginx/html/testing.hellotalk.com/test-1.0-1.ipa"
 }
