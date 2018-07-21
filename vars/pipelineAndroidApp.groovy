@@ -105,7 +105,7 @@ def call(Closure body={}) {
                             }
                             stage('artifacts - develop') {
                                 steps {
-                                    artifacts("${ChinaProductFlavors}${ReleaseBuildTypes}", "${WORKSPACE}HelloTalk/build/outputs/apk/${ChinaProductFlavors}/${ReleaseBuildTypes}/HelloTalk-${ChinaProductFlavors}-${ReleaseBuildTypes}.apk")
+                                    artifacts("${ChinaProductFlavors}${ReleaseBuildTypes}", "${WORKSPACE}/HelloTalk/build/outputs/apk/${ChinaProductFlavors}/${ReleaseBuildTypes}/HelloTalk-${ChinaProductFlavors}-${ReleaseBuildTypes}.apk")
                                 }
                             }
                             stage('Deploy snapshot - develop') {
@@ -113,7 +113,7 @@ def call(Closure body={}) {
                                     label 'master'
                                 }
                                 steps {
-                                    deployDevelopBranch("${ChinaProductFlavors}${ReleaseBuildTypes}", "${WORKSPACE}HelloTalk/build/outputs/apk/${ChinaProductFlavors}/${ReleaseBuildTypes}/HelloTalk-${ChinaProductFlavors}-${ReleaseBuildTypes}.apk")
+                                    deployDevelopBranch("${ChinaProductFlavors}${ReleaseBuildTypes}", "${WORKSPACE}/HelloTalk/build/outputs/apk/${ChinaProductFlavors}/${ReleaseBuildTypes}/HelloTalk-${ChinaProductFlavors}-${ReleaseBuildTypes}.apk")
                                 }
                             }
                             stage('Testing - develop') {
@@ -234,9 +234,10 @@ def call(Closure body={}) {
  * hotfix/* to patch master quickly; merge back into develop and tag master
  */
 
-def unittestFeatureBranch() {
+def unittestFeatureBranch(String buildTypes='', String flavor='') {
     echo "Feature branch - Unit Testing"
-    //unittest(buildTypes, flavor)
+    args = ((flavor ?: '') + (buildTypes ?: '')) ? (((flavor ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
+    unittest(args)
 }
 
 def unittestDevelopBranch(String buildTypes='', String flavor='') {
@@ -302,7 +303,8 @@ def build(String args='') {
 }
 
 def artifacts(String name, String path) {
-    echo "stash '${name}' '${path}'"
+    def aaa = "stash '${name}' '${path}'".toLowerCase()
+    println(aaa)
     stash name: "${name}", includes: "${path}"
 }
 
