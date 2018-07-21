@@ -26,6 +26,8 @@ def call(Closure body={}) {
             GoogleProductFlavors = "Google"
             HTPrivateProductFlavors = "HTPrivate"
             //-PBUILD_NUMBER=${env.BUILD_NUMBER}
+            key = "11"
+            key1 = "22"
         }
 
         stages {
@@ -225,6 +227,12 @@ def call(Closure body={}) {
     }
 }
 
+def testvalue(String key) {
+    key = "1"
+    key1 = "2"
+    println(key)
+    println(key1)
+}
 /**
  * feature/* for feature branches; merge back into develop
  * develop for ongoing development work
@@ -234,15 +242,15 @@ def call(Closure body={}) {
  * hotfix/* to patch master quickly; merge back into develop and tag master
  */
 
-def unittestFeatureBranch(String buildTypes='', String flavor='') {
+def unittestFeatureBranch(String buildTypes='', String productFlavors='') {
     echo "Feature branch - Unit Testing"
-    args = ((flavor ?: '') + (buildTypes ?: '')) ? (((flavor ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
+    args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
     unittest(args)
 }
 
-def unittestDevelopBranch(String buildTypes='', String flavor='') {
+def unittestDevelopBranch(String buildTypes='', String productFlavors='') {
     echo "Develop branch - Unit Testing"
-    args = ((flavor ?: '') + (buildTypes ?: '')) ? (((flavor ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
+    args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
     unittest(args)
 }
 
@@ -250,9 +258,9 @@ def buildFeatureBranch() {
     echo "Feature branch"
 }
 
-def buildDevelopBranch(String buildTypes='', String flavor='') {
+def buildDevelopBranch(String buildTypes='', String productFlavors='') {
     echo "Develop branch - Build"
-    args = (flavor ?: '') + (buildTypes ?: '')
+    args = (productFlavors ?: '') + (buildTypes ?: '')
     build(args)
     // sonar()
     // javadoc()
@@ -271,11 +279,12 @@ def buildHotfixBranch() {
     echo "Hotfix branch"
 }
 
-def artifactsDevelopBranch(String BuildTypes, String ProductFlavors) {
+def artifactsDevelopBranch(String buildTypes, String productFlavors) {
     echo "Develop branch - Artifacts"
-    def ProductFlavors = ChinaProductFlavors.toLowerCase()
-    def BuildTypes = ReleaseBuildTypes.toLowerCase()
-    artifacts("${ProductFlavors}${BuildTypes}", "${WORKSPACE}/HelloTalk/build/outputs/apk/${ProductFlavors}/${BuildTypes}/HelloTalk-${ProductFlavors}-${BuildTypes}.apk")
+    //productFlavors = productFlavors.toLowerCase()
+    name = productFlavors.toLowerCase() + buildTypes.toLowerCase()
+    path = "${WORKSPACE}/HelloTalk/build/outputs/apk/" + productFlavors.toLowerCase() + '/' + buildTypes.toLowerCase() + '/HelloTalk-' + productFlavors.toLowerCase() + '-' + buildTypes.toLowerCase() + '.apk'
+    artifacts(name, path)
 }
 
 
@@ -285,8 +294,7 @@ def deployFeatureBranch() {
 
 def deployDevelopBranch(String BuildTypes, String ProductFlavors) {
     echo "Develop branch - Deploy"
-    def ProductFlavors = ChinaProductFlavors.toLowerCase()
-    def BuildTypes = ReleaseBuildTypes.toLowerCase()
+    name = productFlavors.toLowerCase() + buildTypes.toLowerCase()
     deploy("${ProductFlavors}${BuildTypes}", "${WORKSPACE}/HelloTalk/build/outputs/apk/${ProductFlavors}/${BuildTypes}/HelloTalk-${ProductFlavors}-${BuildTypes}.apk")
 }
 
