@@ -15,14 +15,19 @@ def call(Closure body={}) {
                 customWorkspace "workspace/${JOB_NAME}"
             }
         }
+
         environment {
             ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
             ANDROID_HOME = "${ANDROID_SDK_ROOT}"
             UNITTESTING = 'false'
+            DebugBuildTypes = "Debug"
             ReleaseBuildTypes = "Release"
-            ReleaseProductFlavors = "china"
+            ChinaProductFlavors = "China"
+            GoogleProductFlavors = "Google"
+            HTPrivateProductFlavors = "HTPrivate"
             //-PBUILD_NUMBER=${env.BUILD_NUMBER}
         }
+
         stages {
             stage('Branch and Tag - error') {
                 when {
@@ -43,6 +48,7 @@ def call(Closure body={}) {
                     error "Don't know what to do with this branch or tag: ${env.BRANCH_NAME}"
                 }
             }
+
             stage('Checkout SCM') {
                 steps {
                     script {
@@ -51,10 +57,10 @@ def call(Closure body={}) {
                         println(environment.BRANCH_NAME)
                         println(environment.JOB_NAME)
                     }
-
                     checkoutGitlab()
                 }
             }
+
             stage('Prepare') {
                 steps {
                     script {
@@ -63,6 +69,7 @@ def call(Closure body={}) {
                     }
                 }
             }
+
             stage('Build snapshot - feature/*') {
                 when {
                     beforeAgent true
@@ -72,6 +79,7 @@ def call(Closure body={}) {
                     buildFeatureBranch()
                 }
             }
+
             stage('Build snapshot - develop') {
                 when {
                     beforeAgent true
@@ -87,12 +95,12 @@ def call(Closure body={}) {
                                     environment name: 'UNITTESTING', value: 'true'
                                 }
                                 steps {
-                                    unittestFeatureBranch()
+                                    unittestDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
                             stage('Build - develop') {
                                 steps {
-                                    buildDevelopBranch(ReleaseBuildTypes, ReleaseProductFlavors)
+                                    buildDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
                             stage('artifacts - develop') {
@@ -126,6 +134,7 @@ def call(Closure body={}) {
                     }*/
                 }
             }
+
 /*
             stage('Build snapshot - release/*') {
                 when {
@@ -225,11 +234,15 @@ def call(Closure body={}) {
  * hotfix/* to patch master quickly; merge back into develop and tag master
  */
 
-def defaultBuildTypes = 'DailyBuild'
-
 def unittestFeatureBranch() {
     echo "Feature branch - Unit Testing"
     //unittest(buildTypes, flavor)
+}
+
+def unittestDevelopBranch(String buildTypes='', String flavor='') {
+    echo "Develop branch - Unit Testing"
+    args = ((buildTypes ?: '') + (flavor ?: '')) ? (((buildTypes ?: '') + (flavor ?: '')) + 'UnitTest' ) : ''
+    unittest(args)
 }
 
 def buildFeatureBranch() {
@@ -237,11 +250,9 @@ def buildFeatureBranch() {
 }
 
 def buildDevelopBranch(String buildTypes='', String flavor='') {
-    echo "Develop branch"
-    buildTypes = buildTypes ?: defaultBuildTypes
-    flavor = flavor
-    // test(buildTypes, flavor)
-    build(buildTypes, flavor)
+    echo "Develop branch - Build"
+    args = (buildTypes ?: '') + (flavor ?: '')
+    build(bargs)
     // sonar()
     // javadoc()
     // deploy(env.JBOSS_TST)
@@ -279,14 +290,14 @@ def deployHotfixBranch() {
     echo "Feature branch"
 }
 
-def test(String buildTypes='', String flavor='') {
-    echo "test"
-    gradle "clean test"
+def unittest(String args='') {
+    echo "Unit Testing"
+    gradle "clean test${args}"
 }
 
-def build(String buildTypes='', String flavor='') {
-    echo "build"
-    gradle "clean assemble${flavor}${buildTypes}"
+def build(String args='') {
+    echo "Build"
+    gradle "clean assemble${args}"
 }
 
 def deploy() {
