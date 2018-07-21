@@ -122,7 +122,7 @@ def call(Closure body={}) {
                     }*/
                 }
             }
-
+/*
             stage('Build snapshot - release/*') {
                 when {
                     branch "release/*"
@@ -206,6 +206,7 @@ def call(Closure body={}) {
                     echo "Test"
                 }
             }
+*/
 
         }
     }
