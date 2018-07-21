@@ -28,6 +28,7 @@ def call(Closure body={}) {
             //-PBUILD_NUMBER=${env.BUILD_NUMBER}
             key = "11"
             key1 = "22"
+            key2 = "33"
         }
 
         stages {
@@ -60,6 +61,7 @@ def call(Closure body={}) {
                         println(environment.JOB_NAME)
                     }
                     checkoutGitlab()
+                    testvalue(key)
                 }
             }
 
@@ -232,6 +234,8 @@ def testvalue(String key) {
     key1 = "2"
     println(key)
     println(key1)
+    def key2 = "3"
+    println(key2)
 }
 /**
  * feature/* for feature branches; merge back into develop
