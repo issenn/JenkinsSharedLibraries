@@ -43,7 +43,7 @@ def call(Closure body={}) {
                     error "Don't know what to do with this branch or tag: ${env.BRANCH_NAME}"
                 }
             }
-            stage('Checkout') {
+            stage('Checkout SCM') {
                 steps {
                     script {
                         def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
@@ -81,7 +81,7 @@ def call(Closure body={}) {
                 parallel {
                     stage('china flavor - develop') {
                         stages {
-                            stage('Unit Testing') {
+                            stage('Unit Testing - develop') {
                                 when {
                                     beforeAgent true
                                     environment name: 'UNITTESTING', value: 'true'
@@ -90,25 +90,25 @@ def call(Closure body={}) {
                                     unittestFeatureBranch()
                                 }
                             }
-                            stage('Build') {
+                            stage('Build - develop') {
                                 steps {
                                     buildDevelopBranch(ReleaseBuildTypes, ReleaseProductFlavors)
                                 }
                             }
-                            stage('artifacts') {
+                            stage('artifacts - develop') {
                                 steps {
                                     echo "artifacts"
                                 }
                             }
                             stage('Deploy snapshot - develop') {
                                 agent {
-                                    label 'mac-mini'
+                                    label 'master'
                                 }
                                 steps {
                                     deployDevelopBranch()
                                 }
                             }
-                            stage('Test') {
+                            stage('Testing - develop') {
                                 steps {
                                     echo "Test"
                                 }
