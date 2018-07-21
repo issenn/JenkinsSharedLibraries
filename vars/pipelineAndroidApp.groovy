@@ -100,10 +100,6 @@ def call(Closure body={}) {
                                 }
                             }
                             stage('Build - develop') {
-                                when {
-                                    beforeAgent true
-                                    environment name: 'UNITTESTING', value: 'false'
-                                }
                                 steps {
                                     buildDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
@@ -279,17 +275,9 @@ def buildHotfixBranch() {
 def artifactsDevelopBranch(String buildTypes = '', String productFlavors = '') {
     echo "Develop branch - Artifacts"
     productFlavors = productFlavors.toLowerCase()
-    echo "---"
-    println(productFlavors)
     buildTypes = buildTypes.toLowerCase()
-    echo "---"
-    println(buildTypes)
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
-    echo "---"
-    println(name)
     def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
-    echo "---"
-    println(path)
     artifacts(name, path)
 }
 
