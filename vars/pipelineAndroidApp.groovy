@@ -241,7 +241,7 @@ def unittestFeatureBranch() {
 
 def unittestDevelopBranch(String buildTypes='', String flavor='') {
     echo "Develop branch - Unit Testing"
-    args = ((buildTypes ?: '') + (flavor ?: '')) ? (((buildTypes ?: '') + (flavor ?: '')) + 'UnitTest' ) : ''
+    args = ((flavor ?: '') + (buildTypes ?: '')) ? (((flavor ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
     unittest(args)
 }
 
@@ -251,7 +251,7 @@ def buildFeatureBranch() {
 
 def buildDevelopBranch(String buildTypes='', String flavor='') {
     echo "Develop branch - Build"
-    args = (buildTypes ?: '') + (flavor ?: '')
+    args = (flavor ?: '') + (buildTypes ?: '')
     build(args)
     // sonar()
     // javadoc()
