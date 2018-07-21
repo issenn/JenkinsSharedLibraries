@@ -1,7 +1,5 @@
 #!/usr/bin/env groovy
 
-import org.gradle.api.Project
-
 def call(Closure body={}) {
 
     // evaluate the body block, and collect configuration into the object
@@ -53,8 +51,9 @@ def call(Closure body={}) {
                         //println(environment.repoName(this))
                         println(environment.BRANCH_NAME)
                         println(environment.JOB_NAME)
-                        def gradle = Project.getGradle()
-                        println(gradle)
+                        //def gradle = Project.getGradle()
+                        println(datetime.datetime())
+                        //println(gradle)
                     }
 
                     checkoutGitlab()
