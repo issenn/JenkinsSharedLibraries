@@ -18,7 +18,7 @@ def call(Closure body={}) {
         environment {
             ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
             ANDROID_HOME = "${ANDROID_SDK_ROOT}"
-            UNITTESTING = false
+            UNITTESTING = 'false'
             ReleaseBuildTypes = "Release"
             ReleaseProductFlavors = "china"
             //-PBUILD_NUMBER=${env.BUILD_NUMBER}
@@ -26,6 +26,7 @@ def call(Closure body={}) {
         stages {
             stage('Branch and Tag - error') {
                 when {
+                    beforeAgent true
                     not {
                         anyOf {
                             branch "feature/*"
@@ -64,6 +65,7 @@ def call(Closure body={}) {
             }
             stage('Build snapshot - feature/*') {
                 when {
+                    beforeAgent true
                     branch "feature/*"
                 }
                 steps {
@@ -72,6 +74,7 @@ def call(Closure body={}) {
             }
             stage('Build snapshot - develop') {
                 when {
+                    beforeAgent true
                     branch "develop"
                 }
                 failFast false
@@ -80,7 +83,8 @@ def call(Closure body={}) {
                         stages {
                             stage('Unit Testing') {
                                 when {
-                                    environment name: 'UNITTESTING', value: true
+                                    beforeAgent true
+                                    environment name: 'UNITTESTING', value: 'true'
                                 }
                                 steps {
                                     unittestFeatureBranch()
