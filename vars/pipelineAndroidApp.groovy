@@ -105,7 +105,7 @@ def call(Closure body={}) {
                             }
                             stage('artifacts - develop') {
                                 steps {
-                                    artifacts("${ChinaProductFlavors}${ReleaseBuildTypes}", "HelloTalk/build/outputs/apk/${ChinaProductFlavors}/${ReleaseBuildTypes}/HelloTalk-${ChinaProductFlavors}-${ReleaseBuildTypes}.apk")
+                                    artifacts("${ChinaProductFlavors}${ReleaseBuildTypes}", "${WORKSPACE}HelloTalk/build/outputs/apk/${ChinaProductFlavors}/${ReleaseBuildTypes}/HelloTalk-${ChinaProductFlavors}-${ReleaseBuildTypes}.apk")
                                 }
                             }
                             stage('Deploy snapshot - develop') {
@@ -113,7 +113,7 @@ def call(Closure body={}) {
                                     label 'master'
                                 }
                                 steps {
-                                    deployDevelopBranch("${ChinaProductFlavors}${ReleaseBuildTypes}", "HelloTalk/build/outputs/apk/${ChinaProductFlavors}/${ReleaseBuildTypes}/HelloTalk-${ChinaProductFlavors}-${ReleaseBuildTypes}.apk")
+                                    deployDevelopBranch("${ChinaProductFlavors}${ReleaseBuildTypes}", "${WORKSPACE}HelloTalk/build/outputs/apk/${ChinaProductFlavors}/${ReleaseBuildTypes}/HelloTalk-${ChinaProductFlavors}-${ReleaseBuildTypes}.apk")
                                 }
                             }
                             stage('Testing - develop') {
