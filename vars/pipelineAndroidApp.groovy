@@ -252,7 +252,7 @@ def buildFeatureBranch() {
 def buildDevelopBranch(String buildTypes='', String flavor='') {
     echo "Develop branch - Build"
     args = (buildTypes ?: '') + (flavor ?: '')
-    build(bargs)
+    build(args)
     // sonar()
     // javadoc()
     // deploy(env.JBOSS_TST)
