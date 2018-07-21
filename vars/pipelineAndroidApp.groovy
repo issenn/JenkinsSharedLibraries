@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 import org.gradle.api.invocation.Gradle
-import org.gradle.api.Project
+import org.gradle.api.Project.getGradle
 
 def call(Closure body={}) {
 
@@ -54,7 +54,7 @@ def call(Closure body={}) {
                         //println(environment.repoName(this))
                         println(environment.BRANCH_NAME)
                         println(environment.JOB_NAME)
-                        Gradle gradle = Project.getGradle()
+                        Gradle gradle = getGradle()
                         println(gradle)
                     }
 
