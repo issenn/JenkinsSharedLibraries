@@ -278,6 +278,8 @@ def artifactsDevelopBranch(String buildTypes, String productFlavors) {
     buildTypes = buildTypes.toLowerCase()
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
     def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}"- + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    println(name)
+    println(path)
     artifacts(name, path)
 }
 
