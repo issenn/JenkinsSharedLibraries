@@ -26,12 +26,12 @@ def call(Closure body={}) {
             ANDROID_HOME = "${ANDROID_SDK_ROOT}"
             UNITTESTING_STATE = 'false'
             App = "HelloTalk"
-            DebugBuildTypes = "Debug"
-            ReleaseBuildTypes = "Release"
-            CHINAPRODUCTFLAVORS_STATE = 'false'
-            ChinaProductFlavors = "China"
-            GOOGLEPRODUCTFLAVORS_STATE = 'false'
-            GoogleProductFlavors = "Google"
+            releaseBuildTypes = "release"
+            debugBuildTypes = "debug"
+            CHINAPRODUCTFLAVORS_STATE = 'true'
+            chinaProductFlavors = "china"
+            GOOGLEPRODUCTFLAVORS_STATE = 'true'
+            googleProductFlavors = "google"
             HTPRIVATEPRODUCTFLAVORS_STATE = 'true'
             HTPrivateProductFlavors = "HTPrivate"
             //-PBUILD_NUMBER=${env.BUILD_NUMBER}
@@ -108,17 +108,17 @@ def call(Closure body={}) {
                                     environment name: 'UNITTESTING_STATE', value: 'true'
                                 }
                                 steps {
-                                    unittestDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
+                                    unittestDevelopBranch(releaseBuildTypes, chinaProductFlavors)
                                 }
                             }
                             stage('Build - china flavor - develop') {
                                 steps {
-                                    buildDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
+                                    buildDevelopBranch(releaseBuildTypes, chinaProductFlavors)
                                 }
                             }
                             stage('Artifacts - china flavor - develop') {
                                 steps {
-                                    artifactsDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
+                                    artifactsDevelopBranch(releaseBuildTypes, chinaProductFlavors)
                                 }
                             }
                             stage('Deploy - china flavor - develop') {
@@ -129,7 +129,7 @@ def call(Closure body={}) {
                                     }
                                 }
                                 steps {
-                                    deployDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
+                                    deployDevelopBranch(releaseBuildTypes, chinaProductFlavors)
                                 }
                             }
                             stage('Testing - china flavor - develop') {
@@ -151,17 +151,17 @@ def call(Closure body={}) {
                                     environment name: 'UNITTESTING_STATE', value: 'true'
                                 }
                                 steps {
-                                    unittestDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
+                                    unittestDevelopBranch(releaseBuildTypes, googleProductFlavors)
                                 }
                             }
                             stage('Build - google flavor - develop') {
                                 steps {
-                                    buildDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
+                                    buildDevelopBranch(releaseBuildTypes, googleProductFlavors)
                                 }
                             }
                             stage('Artifacts - google flavor - develop') {
                                 steps {
-                                    artifactsDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
+                                    artifactsDevelopBranch(releaseBuildTypes, googleProductFlavors)
                                 }
                             }
                             stage('Deploy - google flavor - develop') {
@@ -172,7 +172,7 @@ def call(Closure body={}) {
                                     }
                                 }
                                 steps {
-                                    deployDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
+                                    deployDevelopBranch(releaseBuildTypes, googleProductFlavors)
                                 }
                             }
                             stage('Testing - google flavor - develop') {
@@ -194,17 +194,17 @@ def call(Closure body={}) {
                                     environment name: 'UNITTESTING_STATE', value: 'true'
                                 }
                                 steps {
-                                    unittestDevelopBranch(ReleaseBuildTypes, HTPrivateProductFlavors)
+                                    unittestDevelopBranch(releaseBuildTypes, HTPrivateProductFlavors)
                                 }
                             }
                             stage('Build - HTPrivate flavor - develop') {
                                 steps {
-                                    buildDevelopBranch(ReleaseBuildTypes, HTPrivateProductFlavors)
+                                    buildDevelopBranch(releaseBuildTypes, HTPrivateProductFlavors)
                                 }
                             }
                             stage('Artifacts - HTPrivate flavor - develop') {
                                 steps {
-                                    artifactsDevelopBranch(ReleaseBuildTypes, HTPrivateProductFlavors)
+                                    artifactsDevelopBranch(releaseBuildTypes, HTPrivateProductFlavors)
                                 }
                             }
                             stage('Deploy - HTPrivate flavor - develop') {
@@ -215,7 +215,7 @@ def call(Closure body={}) {
                                     }
                                 }
                                 steps {
-                                    deployDevelopBranch(ReleaseBuildTypes, HTPrivateProductFlavors)
+                                    deployDevelopBranch(releaseBuildTypes, HTPrivateProductFlavors)
                                 }
                             }
                             stage('Testing - HTPrivate flavor - develop') {
@@ -349,12 +349,16 @@ def changeStringGradleStyle(String str) {
 
 def unittestFeatureBranch(String buildTypes='', String productFlavors='') {
     echo "Feature branch - Unit Testing"
+    buildTypes = changeStringGradleStyle(productFlavors)
+    productFlavors = changeStringGradleStyle(productFlavors)
     def args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
     unittest(args)
 }
 
 def unittestDevelopBranch(String buildTypes='', String productFlavors='') {
     echo "Develop branch - Unit Testing"
+    buildTypes = changeStringGradleStyle(productFlavors)
+    productFlavors = changeStringGradleStyle(productFlavors)
     def args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
     unittest(args)
 }
@@ -365,8 +369,8 @@ def buildFeatureBranch() {
 
 def buildDevelopBranch(String buildTypes='', String productFlavors='') {
     echo "Develop branch - Build"
-    println(changeStringGradleStyle(productFlavors))
-    println('----')
+    buildTypes = changeStringGradleStyle(productFlavors)
+    productFlavors = changeStringGradleStyle(productFlavors)
     def args = (productFlavors ?: '') + (buildTypes ?: '')
     build(args)
     // sonar()
@@ -388,8 +392,6 @@ def buildHotfixBranch() {
 
 def artifactsDevelopBranch(String buildTypes = '', String productFlavors = '') {
     echo "Develop branch - Artifacts"
-    productFlavors = productFlavors.toLowerCase()
-    buildTypes = buildTypes.toLowerCase()
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
     def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
     artifacts(name, path)
@@ -402,8 +404,6 @@ def deployFeatureBranch() {
 
 def deployDevelopBranch(String buildTypes = '', String productFlavors = '') {
     echo "Develop branch - Deploy"
-    productFlavors = productFlavors.toLowerCase()
-    buildTypes = buildTypes.toLowerCase()
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
     def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
     deploy(name, path)
