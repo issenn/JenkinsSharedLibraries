@@ -22,12 +22,15 @@ def call(Closure body={}) {
             LANGUAGE = "en_US.UTF-8"
             ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
             ANDROID_HOME = "${ANDROID_SDK_ROOT}"
-            UNITTESTING = 'false'
+            UNITTESTING_STATE = 'false'
             App = "HelloTalk"
             DebugBuildTypes = "Debug"
             ReleaseBuildTypes = "Release"
+            CHINAPRODUCTFLAVORS_STATE = 'true'
             ChinaProductFlavors = "China"
+            GOOGLEPRODUCTFLAVORS_STATE = 'true'
             GoogleProductFlavors = "Google"
+            HTPRIVATEPRODUCTFLAVORS_STATE = 'true'
             HTPrivateProductFlavors = "HTPrivate"
             //-PBUILD_NUMBER=${env.BUILD_NUMBER}
         }
@@ -92,11 +95,15 @@ def call(Closure body={}) {
                 failFast false
                 parallel {
                     stage('china flavor - develop') {
+                        when {
+                            beforeAgent true
+                            environment name: 'CHINAPRODUCTFLAVORS_STATE', value: 'true'
+                        }
                         stages {
                             stage('Unit Testing - china flavor - develop') {
                                 when {
                                     beforeAgent true
-                                    environment name: 'UNITTESTING', value: 'true'
+                                    environment name: 'UNITTESTING_STATE', value: 'true'
                                 }
                                 steps {
                                     unittestDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
@@ -131,11 +138,15 @@ def call(Closure body={}) {
                         }
                     }
                     stage('google flavor - develop') {
+                        when {
+                            beforeAgent true
+                            environment name: 'GOOGLEPRODUCTFLAVORS_STATE', value: 'true'
+                        }
                         stages {
                             stage('Unit Testing - google flavor - develop') {
                                 when {
                                     beforeAgent true
-                                    environment name: 'UNITTESTING', value: 'true'
+                                    environment name: 'UNITTESTING_STATE', value: 'true'
                                 }
                                 steps {
                                     unittestDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
@@ -170,11 +181,15 @@ def call(Closure body={}) {
                         }
                     }
                     stage('HTPrivate flavor - develop') {
+                        when {
+                            beforeAgent true
+                            environment name: 'HTPRIVATEPRODUCTFLAVORS_STATE', value: 'true'
+                        }
                         stages {
                             stage('Unit Testing - HTPrivate flavor - develop') {
                                 when {
                                     beforeAgent true
-                                    environment name: 'UNITTESTING', value: 'true'
+                                    environment name: 'UNITTESTING_STATE', value: 'true'
                                 }
                                 steps {
                                     unittestDevelopBranch(ReleaseBuildTypes, HTPrivateProductFlavors)
