@@ -12,10 +12,7 @@ def call(Closure body={}) {
 
     pipeline {
         agent {
-            node {
-                label 'master'
-                customWorkspace "workspace/${JOB_NAME}"
-            }
+            label 'master'
         }
 
         options {
