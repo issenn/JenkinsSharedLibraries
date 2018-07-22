@@ -11,12 +11,11 @@ def call(Closure body={}) {
     body()
 
     pipeline {
-        agent {
-            node {
-                label 'mac-mini'
-                customWorkspace "workspace/${JOB_NAME}"
-            }
+        options {
+            skipDefaultCheckout()
         }
+
+        agent none
 
         environment {
             LANG = "C.UTF-8"
@@ -39,6 +38,12 @@ def call(Closure body={}) {
 
         stages {
             stage('Branch and Tag - error') {
+                agent {
+                    node {
+                        label 'master'
+                        customWorkspace "workspace/${JOB_NAME}"
+                    }
+                }
                 when {
                     beforeAgent true
                     not {
@@ -57,8 +62,14 @@ def call(Closure body={}) {
                     error "Don't know what to do with this branch or tag: ${env.BRANCH_NAME}"
                 }
             }
-
+/*
             stage('Checkout SCM') {
+                agent {
+                    node {
+                        label 'mac-mini'
+                        customWorkspace "workspace/${JOB_NAME}"
+                    }
+                }
                 steps {
                     script {
                         def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
