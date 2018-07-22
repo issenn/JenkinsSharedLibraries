@@ -91,9 +91,9 @@ def call(Closure body={}) {
                 }
                 failFast false
                 parallel {
-                    stage("china flavor - ${env.BRANCH_NAME}") {
+                    stage('china flavor - develop') {
                         stages {
-                            stage("Unit Testing - china flavor - ${env.BRANCH_NAME}") {
+                            stage('Unit Testing - china flavor - develop') {
                                 when {
                                     beforeAgent true
                                     environment name: 'UNITTESTING', value: 'true'
@@ -102,17 +102,17 @@ def call(Closure body={}) {
                                     unittestDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
-                            stage("Build - china flavor - ${env.BRANCH_NAME}") {
+                            stage('Build - china flavor - develop') {
                                 steps {
                                     buildDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
-                            stage("Artifacts - china flavor - ${env.BRANCH_NAME}") {
+                            stage('Artifacts - china flavor - develop') {
                                 steps {
                                     artifactsDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
-                            stage("Deploy - china flavor - ${env.BRANCH_NAME}") {
+                            stage('Deploy - china flavor - develop') {
                                 agent {
                                     node {
                                         label 'master'
@@ -123,16 +123,16 @@ def call(Closure body={}) {
                                     deployDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
-                            stage("Testing - china flavor - ${env.BRANCH_NAME}") {
+                            stage('Testing - china flavor - develop') {
                                 steps {
                                     echo "Test"
                                 }
                             }
                         }
                     }
-                    stage("google flavor - ${env.BRANCH_NAME}") {
+                    stage('google flavor - develop') {
                         stages {
-                            stage("Unit Testing - google flavor - ${env.BRANCH_NAME}") {
+                            stage('Unit Testing - google flavor - develop') {
                                 when {
                                     beforeAgent true
                                     environment name: 'UNITTESTING', value: 'true'
@@ -141,17 +141,17 @@ def call(Closure body={}) {
                                     unittestDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
                                 }
                             }
-                            stage("Build - google flavor - ${env.BRANCH_NAME}") {
+                            stage('Build - google flavor - develop') {
                                 steps {
                                     buildDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
                                 }
                             }
-                            stage("Artifacts - google flavor - ${env.BRANCH_NAME}") {
+                            stage('Artifacts - google flavor - develop') {
                                 steps {
                                     artifactsDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
                                 }
                             }
-                            stage("Deploy - google flavor - ${env.BRANCH_NAME}") {
+                            stage('Deploy - google flavor - develop') {
                                 agent {
                                     node {
                                         label 'master'
@@ -162,16 +162,16 @@ def call(Closure body={}) {
                                     deployDevelopBranch(ReleaseBuildTypes, GoogleProductFlavors)
                                 }
                             }
-                            stage("Testing - google flavor - ${env.BRANCH_NAME}") {
+                            stage('Testing - google flavor - develop') {
                                 steps {
                                     echo "Test"
                                 }
                             }
                         }
                     }
-                    stage("HTPrivate flavor - ${env.BRANCH_NAME}") {
+                    stage('HTPrivate flavor - develop') {
                         stages {
-                            stage("Unit Testing - HTPrivate flavor - ${env.BRANCH_NAME}") {
+                            stage('Unit Testing - HTPrivate flavor - develop') {
                                 when {
                                     beforeAgent true
                                     environment name: 'UNITTESTING', value: 'true'
@@ -180,17 +180,17 @@ def call(Closure body={}) {
                                     unittestDevelopBranch(ReleaseBuildTypes, HTPrivateProductFlavors)
                                 }
                             }
-                            stage("Build - HTPrivate flavor - ${env.BRANCH_NAME}") {
+                            stage('Build - HTPrivate flavor - develop') {
                                 steps {
                                     buildDevelopBranch(ReleaseBuildTypes, HTPrivateProductFlavors)
                                 }
                             }
-                            stage("Artifacts - HTPrivate flavor - ${env.BRANCH_NAME}") {
+                            stage('Artifacts - HTPrivate flavor - develop') {
                                 steps {
                                     artifactsDevelopBranch(ReleaseBuildTypes, HTPrivateProductFlavors)
                                 }
                             }
-                            stage("Deploy - HTPrivate flavor - ${env.BRANCH_NAME}") {
+                            stage('Deploy - HTPrivate flavor - develop') {
                                 agent {
                                     node {
                                         label 'master'
@@ -201,7 +201,7 @@ def call(Closure body={}) {
                                     deployDevelopBranch(ReleaseBuildTypes, HTPrivateProductFlavors)
                                 }
                             }
-                            stage("Testing - HTPrivate flavor - ${env.BRANCH_NAME}") {
+                            stage('Testing - HTPrivate flavor - develop') {
                                 steps {
                                     echo "Test"
                                 }
