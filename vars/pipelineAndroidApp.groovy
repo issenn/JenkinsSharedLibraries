@@ -51,6 +51,7 @@ def call(Closure body={}) {
                 steps {
                     echo "----"
                     echo "${HOME}"
+                    echo "${ANDROID_HOME}"
                     echo "----"
                 }
             }
@@ -146,6 +147,7 @@ def call(Closure body={}) {
                                 steps {
                                     echo "----"
                                     echo "${HOME}"
+                                    echo "${ANDROID_HOME}"
                                     echo "----"
                                     checkoutGitlab()
                                 }
@@ -161,6 +163,7 @@ def call(Closure body={}) {
                                     script {
                                         echo "----"
                                         echo "${HOME}"
+                                        echo "${ANDROID_HOME}"
                                         echo "----"
                                         gradle.version()
                                     }
@@ -176,6 +179,7 @@ def call(Closure body={}) {
                                 steps {
                                     echo "----"
                                     echo "${HOME}"
+                                    echo "${ANDROID_HOME}"
                                     echo "----"
                                     clean()
                                 }
