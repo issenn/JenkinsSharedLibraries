@@ -79,7 +79,7 @@ def call(Closure body={}) {
                 }
             }
 
-            stagr('clean') {
+            stage('clean') {
                 steps {
                     clean()
                 }
