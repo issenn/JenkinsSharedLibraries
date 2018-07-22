@@ -331,6 +331,13 @@ def changeStringStyle(String str, boolean toCamel) {
     }
 }
 
+def changeStringGradleStyle(String str) {
+    if(!str || str.size() <= 1)
+        return str
+
+    return str[0].toUpperCase() + str[1..-1]
+}
+
 /**
  * feature/* for feature branches; merge back into develop
  * develop for ongoing development work
@@ -357,9 +364,8 @@ def buildFeatureBranch() {
 }
 
 def buildDevelopBranch(String buildTypes='', String productFlavors='') {
-    //toUpperCase()
     echo "Develop branch - Build"
-    println(changeStringStyle(productFlavors, true))
+    println(changeStringGradleStyle(productFlavors))
     println('----')
     def args = (productFlavors ?: '') + (buildTypes ?: '')
     build(args)
