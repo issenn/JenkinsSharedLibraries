@@ -28,9 +28,9 @@ def call(Closure body={}) {
             ReleaseBuildTypes = "Release"
             CHINAPRODUCTFLAVORS_STATE = 'true'
             ChinaProductFlavors = "China"
-            GOOGLEPRODUCTFLAVORS_STATE = 'true'
+            GOOGLEPRODUCTFLAVORS_STATE = 'false'
             GoogleProductFlavors = "Google"
-            HTPRIVATEPRODUCTFLAVORS_STATE = 'true'
+            HTPRIVATEPRODUCTFLAVORS_STATE = 'false'
             HTPrivateProductFlavors = "HTPrivate"
             //-PBUILD_NUMBER=${env.BUILD_NUMBER}
         }
@@ -108,12 +108,12 @@ def call(Closure body={}) {
                                 steps {
                                     unittestDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
-                            }
+                            }/*
                             stage('Build - china flavor - develop') {
                                 steps {
                                     buildDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
-                            }
+                            }*/
                             stage('Artifacts - china flavor - develop') {
                                 steps {
                                     artifactsDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
