@@ -643,5 +643,5 @@ def artifacts(String name, String path) {
 def deploy(String name, String path) {
     echo "unstash '${name}' '${path}'"
     unstash "${name}"
-    //sh "mv ${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa /var/www/nginx/html/testing.hellotalk.com/test-1.0-1.ipa"
+    sh "mv ${WORKSPACE}/${path} /var/www/nginx/html/testing.hellotalk.com/android/package/HTPrivate/release/"
 }
