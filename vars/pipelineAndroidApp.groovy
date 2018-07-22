@@ -17,6 +17,9 @@ def call(Closure body={}) {
         }
 
         environment {
+            LANG = "C.UTF-8"
+            LC_ALL = "en_US.UTF-8"
+            LANGUAGE = "en_US.UTF-8"
             ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
             ANDROID_HOME = "${ANDROID_SDK_ROOT}"
             UNITTESTING = 'false'
