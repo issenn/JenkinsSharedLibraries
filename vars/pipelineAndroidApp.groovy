@@ -428,7 +428,7 @@ def unittest(String args='') {
 
 def build(String args='') {
     echo "Build"
-    gradle "clean assemble${args}"
+    gradle "assemble${args}"
 }
 
 def artifacts(String name, String path) {
