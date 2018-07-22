@@ -129,7 +129,9 @@ def call(Closure body={}) {
                                     }
                                 }
                                 steps {
-                                    checkoutGitlab()
+                                    dir('subdir') {
+                                        checkoutGitlab()
+                                    }
                                 }
                             }
                             stage('Prepare') {
