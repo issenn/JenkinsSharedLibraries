@@ -109,6 +109,9 @@ def call(Closure body={}) {
             }
 
             stage('Build entry - develop') {
+                environment {
+                    buildTypes = "release"
+                }
                 when {
                     beforeAgent true
                     branch "develop"
@@ -116,6 +119,9 @@ def call(Closure body={}) {
                 failFast false
                 parallel {
                     stage('china flavor - develop') {
+                        environment {
+                            productFlavors = "china"
+                        }
                         when {
                             beforeAgent true
                             environment name: 'CHINAPRODUCTFLAVORS_STATE', value: 'true'
@@ -129,9 +135,7 @@ def call(Closure body={}) {
                                     }
                                 }
                                 steps {
-                                    dir('subdir') {
-                                        checkoutGitlab()
-                                    }
+                                    checkoutGitlab()
                                 }
                             }
                             stage('Prepare') {
@@ -165,24 +169,50 @@ def call(Closure body={}) {
                                 steps {
                                     clean()
                                 }
-                            }/*
+                            }
                             stage('Unit Testing - china flavor - develop') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
                                 when {
                                     beforeAgent true
                                     environment name: 'UNITTESTING_STATE', value: 'true'
                                 }
                                 steps {
-                                    unittestDevelopBranch(releaseBuildTypes, chinaProductFlavors)
+                                    unittestDevelopBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Build - china flavor - develop') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
                                 steps {
-                                    buildDevelopBranch(releaseBuildTypes, chinaProductFlavors)
+                                    buildDevelopBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Artifacts - china flavor - develop') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
                                 steps {
-                                    artifactsDevelopBranch(releaseBuildTypes, chinaProductFlavors)
+                                    artifactsDevelopBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Deploy - china flavor - develop') {
@@ -193,14 +223,14 @@ def call(Closure body={}) {
                                     }
                                 }
                                 steps {
-                                    deployDevelopBranch(releaseBuildTypes, chinaProductFlavors)
+                                    deployDevelopBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Testing - china flavor - develop') {
                                 steps {
                                     echo "Test"
                                 }
-                            }*/
+                            }
                         }
                     }/*
                     stage('google flavor - develop') {
