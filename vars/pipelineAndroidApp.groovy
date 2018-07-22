@@ -105,7 +105,7 @@ def call(Closure body={}) {
                     buildFeatureBranch()
                 }
             }
-/*
+
             stage('Build entry - develop') {
                 when {
                     beforeAgent true
@@ -119,6 +119,41 @@ def call(Closure body={}) {
                             environment name: 'CHINAPRODUCTFLAVORS_STATE', value: 'true'
                         }
                         stages {
+                            stage('Checkout SCM') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                steps {
+                                    checkoutGitlab()
+                                }
+                            }
+                            stage('Prepare') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                steps {
+                                    script {
+                                        gradle.version()
+                                    }
+                                }
+                            }
+                            stage('clean') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                steps {
+                                    clean()
+                                }
+                            }/*
                             stage('Unit Testing - china flavor - develop') {
                                 when {
                                     beforeAgent true
@@ -153,9 +188,9 @@ def call(Closure body={}) {
                                 steps {
                                     echo "Test"
                                 }
-                            }
+                            }*/
                         }
-                    }
+                    }/*
                     stage('google flavor - develop') {
                         when {
                             beforeAgent true
@@ -241,7 +276,7 @@ def call(Closure body={}) {
                                 }
                             }
                         }
-                    }
+                    }*/
                 }
             }
 
