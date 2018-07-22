@@ -349,7 +349,7 @@ def changeStringGradleStyle(String str) {
 
 def unittestFeatureBranch(String buildTypes='', String productFlavors='') {
     echo "Feature branch - Unit Testing"
-    buildTypes = changeStringGradleStyle(productFlavors)
+    buildTypes = changeStringGradleStyle(buildTypes)
     productFlavors = changeStringGradleStyle(productFlavors)
     def args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
     unittest(args)
@@ -357,7 +357,7 @@ def unittestFeatureBranch(String buildTypes='', String productFlavors='') {
 
 def unittestDevelopBranch(String buildTypes='', String productFlavors='') {
     echo "Develop branch - Unit Testing"
-    buildTypes = changeStringGradleStyle(productFlavors)
+    buildTypes = changeStringGradleStyle(buildTypes)
     productFlavors = changeStringGradleStyle(productFlavors)
     def args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
     unittest(args)
@@ -369,7 +369,7 @@ def buildFeatureBranch() {
 
 def buildDevelopBranch(String buildTypes='', String productFlavors='') {
     echo "Develop branch - Build"
-    buildTypes = changeStringGradleStyle(productFlavors)
+    buildTypes = changeStringGradleStyle(buildTypes)
     productFlavors = changeStringGradleStyle(productFlavors)
     def args = (productFlavors ?: '') + (buildTypes ?: '')
     build(args)
