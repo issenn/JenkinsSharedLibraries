@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 
+import org.apache.commons.lang3.StringUtils
+
 def call(Closure body={}) {
 
     // evaluate the body block, and collect configuration into the object
@@ -316,6 +318,19 @@ def call(Closure body={}) {
     }
 }
 
+def changeStringStyle(String str, boolean toCamel) {
+    if(!str || str.size() <= 1)
+        return str
+
+    if(toCamel){
+        String r = str.toLowerCase().split('_').collect{cc -> StringUtils.capitalize(cc)}.join('')
+        return r
+    } else {
+        str = str[0].toLowerCase() + str[1..-1]
+        return str.collect{cc -> ((char)cc).isUpperCase() ? '_' + cc.toLowerCase() : cc}.join('')
+    }
+}
+
 /**
  * feature/* for feature branches; merge back into develop
  * develop for ongoing development work
@@ -342,7 +357,10 @@ def buildFeatureBranch() {
 }
 
 def buildDevelopBranch(String buildTypes='', String productFlavors='') {
+    //toUpperCase()
     echo "Develop branch - Build"
+    println(changeStringStyle(productFlavors, true))
+    println('----')
     def args = (productFlavors ?: '') + (buildTypes ?: '')
     build(args)
     // sonar()
