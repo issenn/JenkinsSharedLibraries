@@ -18,7 +18,7 @@ def call(Closure body={}) {
         }
 
         triggers {
-            pollSCM('H */4 * * 1-5')
+            pollSCM('H * * * *')
         }
 
         environment {
@@ -30,7 +30,7 @@ def call(Closure body={}) {
             CHINAPRODUCTFLAVORS_STATE = 'true'
             GOOGLEPRODUCTFLAVORS_STATE = 'true'
             HTPRIVATEPRODUCTFLAVORS_STATE = 'true'
-            //-PBUILD_NUMBER=${env.BUILD_NUMBER}
+            PBUILD_NUMBER = "${BUILD_NUMBER}"
         }
 
         stages {
@@ -570,7 +570,7 @@ def buildDevelopBranch(String buildTypes='', String productFlavors='') {
     echo "Develop branch - Build"
     buildTypes = changeStringGradleStyle(buildTypes)
     productFlavors = changeStringGradleStyle(productFlavors)
-    def args = (productFlavors ?: '') + (buildTypes ?: '')
+    def args = ((productFlavors ?: '') + (buildTypes ?: '')) + " -PBUILD_NUMBER=${PBUILD_NUMBER}"
     build(args)
     // sonar()
     // javadoc()
@@ -631,7 +631,7 @@ def unittest(String args='') {
 }
 
 def build(String args='') {
-    echo "Build"
+    echo "Build args='${args}'"
     gradle "assemble${args}"
 }
 
