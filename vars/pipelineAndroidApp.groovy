@@ -44,7 +44,7 @@ def call(Closure body={}) {
             stage('test') {
                 steps {
                     echo "----"
-                    echo "${App}"
+                    echo "${ANDROID_HOME}"
                 }
             }
             stage('Branch and Tag - error') {
