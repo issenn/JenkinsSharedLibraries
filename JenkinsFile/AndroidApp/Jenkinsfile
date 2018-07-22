@@ -5,7 +5,7 @@ library(
     retriever: modernSCM(
         [
             $class: 'GitSCMSource',
-            credentialsId: 'jenkins-generated-ssh-key',
+            credentialsId: '846a4a04-da8e-4909-a5ff-eef9004b1eef',
             id: '1be36020-7d8e-40a0-99dc-113f2b036c28',
             remote: 'git@gitlab.hellotalk.com:test-issenn/Jenkinsfile_pipeline_library.git',
             traits: [
