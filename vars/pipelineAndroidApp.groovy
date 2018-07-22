@@ -25,8 +25,6 @@ def call(Closure body={}) {
             LANG = "C.UTF-8"
             LC_ALL = "en_US.UTF-8"
             LANGUAGE = "en_US.UTF-8"
-            ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
-            ANDROID_HOME = "${ANDROID_SDK_ROOT}"
             UNITTESTING_STATE = 'false'
             App = "HelloTalk"
             releaseBuildTypes = "release"
@@ -118,16 +116,6 @@ def call(Closure body={}) {
                 failFast false
                 parallel {
                     stage('china flavor - develop') {
-                        agent {
-                            node {
-                                label 'mac-mini1'
-                                customWorkspace "workspace/${JOB_NAME}"
-                            }
-                        }
-                        environment {
-                            ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
-                            ANDROID_HOME = "${ANDROID_SDK_ROOT}"
-                        }
                         when {
                             beforeAgent true
                             environment name: 'CHINAPRODUCTFLAVORS_STATE', value: 'true'
@@ -151,6 +139,10 @@ def call(Closure body={}) {
                                         customWorkspace "workspace/${JOB_NAME}"
                                     }
                                 }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
                                 steps {
                                     script {
                                         gradle.version()
@@ -163,6 +155,10 @@ def call(Closure body={}) {
                                         label 'mac-mini1'
                                         customWorkspace "workspace/${JOB_NAME}"
                                     }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
                                 }
                                 steps {
                                     clean()
