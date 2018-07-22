@@ -51,6 +51,7 @@ def call(Closure body={}) {
                 steps {
                     echo "----"
                     echo "${HOME}"
+                    echo "${ANDROID_SDK_ROOT}"
                     echo "${ANDROID_HOME}"
                     echo "----"
                 }
