@@ -377,7 +377,7 @@ def call(Closure body={}) {
                                     environment name: 'UNITTESTING_STATE', value: 'true'
                                 }
                                 steps {
-                                    unittestDevelopBranch((buildTypes, productFlavors)
+                                    unittestDevelopBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Build - HTPrivate flavor - develop') {
