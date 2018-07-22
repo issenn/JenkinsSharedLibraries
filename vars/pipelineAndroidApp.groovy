@@ -26,11 +26,11 @@ def call(Closure body={}) {
             App = "HelloTalk"
             DebugBuildTypes = "Debug"
             ReleaseBuildTypes = "Release"
-            CHINAPRODUCTFLAVORS_STATE = 'true'
+            CHINAPRODUCTFLAVORS_STATE = 'false'
             ChinaProductFlavors = "China"
             GOOGLEPRODUCTFLAVORS_STATE = 'false'
             GoogleProductFlavors = "Google"
-            HTPRIVATEPRODUCTFLAVORS_STATE = 'false'
+            HTPRIVATEPRODUCTFLAVORS_STATE = 'true'
             HTPrivateProductFlavors = "HTPrivate"
             //-PBUILD_NUMBER=${env.BUILD_NUMBER}
         }
@@ -108,12 +108,12 @@ def call(Closure body={}) {
                                 steps {
                                     unittestDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
-                            }/*
+                            }
                             stage('Build - china flavor - develop') {
                                 steps {
                                     buildDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
-                            }*/
+                            }
                             stage('Artifacts - china flavor - develop') {
                                 steps {
                                     artifactsDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
@@ -368,7 +368,6 @@ def artifactsDevelopBranch(String buildTypes = '', String productFlavors = '') {
     buildTypes = buildTypes.toLowerCase()
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
     def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
-    println(path)
     artifacts(name, path)
 }
 
@@ -383,7 +382,6 @@ def deployDevelopBranch(String buildTypes = '', String productFlavors = '') {
     buildTypes = buildTypes.toLowerCase()
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
     def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
-    println(path)
     deploy(name, path)
 }
 
