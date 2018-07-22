@@ -11,9 +11,7 @@ def call(Closure body={}) {
     body()
 
     pipeline {
-        agent {
-            label 'master'
-        }
+        agent none
 
         options {
             skipDefaultCheckout()
