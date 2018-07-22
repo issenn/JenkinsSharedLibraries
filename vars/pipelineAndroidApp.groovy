@@ -11,7 +11,7 @@ def call(Closure body={}) {
     body()
 
     pipeline {
-        agent none
+        agent any
 
         options {
             skipDefaultCheckout()
@@ -50,7 +50,7 @@ def call(Closure body={}) {
                 }
                 steps {
                     echo "----"
-                    echo "${ANDROID_HOME}"
+                    echo "${HOME}"
                 }
             }
             stage('Branch and Tag - error') {
