@@ -42,6 +42,12 @@ def call(Closure body={}) {
 
         stages {
             stage('test') {
+                agent {
+                    node {
+                        label 'mac-mini1'
+                        customWorkspace "workspace/${JOB_NAME}"
+                    }
+                }
                 steps {
                     echo "----"
                     echo "${ANDROID_HOME}"
