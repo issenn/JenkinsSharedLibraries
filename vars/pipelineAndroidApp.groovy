@@ -11,7 +11,12 @@ def call(Closure body={}) {
     body()
 
     pipeline {
-        agent any
+        agent {
+            node {
+                label 'master'
+                customWorkspace "workspace/${JOB_NAME}"
+            }
+        }
 
         options {
             skipDefaultCheckout()
