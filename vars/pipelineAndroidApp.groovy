@@ -41,21 +41,6 @@ def call(Closure body={}) {
         }
 
         stages {
-            stage('test') {
-                agent {
-                    node {
-                        label 'mac-mini1'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
-                steps {
-                    echo "----"
-                    echo "${HOME}"
-                    echo "${ANDROID_SDK_ROOT}"
-                    echo "${ANDROID_HOME}"
-                    echo "----"
-                }
-            }
             stage('Branch and Tag - error') {
                 agent {
                     node {
@@ -133,6 +118,16 @@ def call(Closure body={}) {
                 failFast false
                 parallel {
                     stage('china flavor - develop') {
+                        agent {
+                            node {
+                                label 'mac-mini1'
+                                customWorkspace "workspace/${JOB_NAME}"
+                            }
+                        }
+                        environment {
+                            ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                            ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                        }
                         when {
                             beforeAgent true
                             environment name: 'CHINAPRODUCTFLAVORS_STATE', value: 'true'
@@ -146,10 +141,6 @@ def call(Closure body={}) {
                                     }
                                 }
                                 steps {
-                                    echo "----"
-                                    echo "${HOME}"
-                                    echo "${ANDROID_HOME}"
-                                    echo "----"
                                     checkoutGitlab()
                                 }
                             }
@@ -162,10 +153,6 @@ def call(Closure body={}) {
                                 }
                                 steps {
                                     script {
-                                        echo "----"
-                                        echo "${HOME}"
-                                        echo "${ANDROID_HOME}"
-                                        echo "----"
                                         gradle.version()
                                     }
                                 }
@@ -178,10 +165,6 @@ def call(Closure body={}) {
                                     }
                                 }
                                 steps {
-                                    echo "----"
-                                    echo "${HOME}"
-                                    echo "${ANDROID_HOME}"
-                                    echo "----"
                                     clean()
                                 }
                             }/*
