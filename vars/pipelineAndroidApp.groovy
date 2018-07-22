@@ -63,8 +63,8 @@ def call(Closure body={}) {
                     script {
                         def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
                         //println(environment.repoName(this))
-                        println(environment.BRANCH_NAME)
-                        println(environment.JOB_NAME)
+                        //println(environment.BRANCH_NAME)
+                        //println(environment.JOB_NAME)
                     }
                     checkoutGitlab()
                 }
@@ -76,6 +76,12 @@ def call(Closure body={}) {
                         //gradle '-v'
                         gradle.version()
                     }
+                }
+            }
+
+            stagr('clean') {
+                steps {
+                    clean()
                 }
             }
 
@@ -421,9 +427,14 @@ def deployHotfixBranch() {
     echo "Feature branch"
 }
 
+def clean() {
+    echo "Clean"
+    gradle "clean"
+}
+
 def unittest(String args='') {
     echo "Unit Testing"
-    gradle "clean test${args}"
+    gradle "test${args}"
 }
 
 def build(String args='') {
