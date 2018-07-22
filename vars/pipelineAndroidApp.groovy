@@ -95,7 +95,7 @@ def call(Closure body={}) {
                     clean()
                 }
             }
-
+*/
             stage('Build entry - feature/*') {
                 when {
                     beforeAgent true
@@ -105,7 +105,7 @@ def call(Closure body={}) {
                     buildFeatureBranch()
                 }
             }
-
+/*
             stage('Build entry - develop') {
                 when {
                     beforeAgent true
