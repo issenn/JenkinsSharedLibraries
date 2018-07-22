@@ -84,16 +84,16 @@ def call(Closure body={}) {
                 }
             }
 
-            stage('Build snapshot - develop') {
+            stage("Build snapshot - {BRANCH_NAME}") {
                 when {
                     beforeAgent true
                     branch "develop"
                 }
                 failFast false
                 parallel {
-                    stage('china flavor - develop') {
+                    stage("china flavor - ${BRANCH_NAME}") {
                         stages {
-                            stage('Unit Testing - develop') {
+                            stage("Unit Testing - {BRANCH_NAME}") {
                                 when {
                                     beforeAgent true
                                     environment name: 'UNITTESTING', value: 'true'
@@ -102,17 +102,17 @@ def call(Closure body={}) {
                                     unittestDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
-                            stage('Build - develop') {
+                            stage("Build - {BRANCH_NAME}") {
                                 steps {
                                     buildDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
-                            stage('Artifacts - develop') {
+                            stage("Artifacts - {BRANCH_NAME}") {
                                 steps {
                                     artifactsDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
-                            stage('Deploy snapshot - develop') {
+                            stage("Deploy snapshot - {BRANCH_NAME}") {
                                 agent {
                                     node {
                                         label 'master'
@@ -123,7 +123,7 @@ def call(Closure body={}) {
                                     deployDevelopBranch(ReleaseBuildTypes, ChinaProductFlavors)
                                 }
                             }
-                            stage('Testing - develop') {
+                            stage("Testing - {BRANCH_NAME}") {
                                 steps {
                                     echo "Test"
                                 }
