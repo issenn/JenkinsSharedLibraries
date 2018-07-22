@@ -368,6 +368,7 @@ def artifactsDevelopBranch(String buildTypes = '', String productFlavors = '') {
     buildTypes = buildTypes.toLowerCase()
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
     def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    println(path)
     artifacts(name, path)
 }
 
@@ -382,6 +383,7 @@ def deployDevelopBranch(String buildTypes = '', String productFlavors = '') {
     buildTypes = buildTypes.toLowerCase()
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
     def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    println(path)
     deploy(name, path)
 }
 
