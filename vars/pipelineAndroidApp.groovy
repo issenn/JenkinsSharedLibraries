@@ -11,11 +11,15 @@ def call(Closure body={}) {
     body()
 
     pipeline {
+        agent none
+
         options {
             skipDefaultCheckout()
         }
 
-        agent none
+        triggers {
+            pollSCM('H */4 * * 1-5')
+        }
 
         environment {
             LANG = "C.UTF-8"
@@ -37,6 +41,12 @@ def call(Closure body={}) {
         }
 
         stages {
+            stage('test') {
+                steps {
+                    echo "----"
+                    echo "${App}"
+                }
+            }
             stage('Branch and Tag - error') {
                 agent {
                     node {
