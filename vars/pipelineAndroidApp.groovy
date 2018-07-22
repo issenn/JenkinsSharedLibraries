@@ -51,6 +51,7 @@ def call(Closure body={}) {
                 steps {
                     echo "----"
                     echo "${HOME}"
+                    echo "----"
                 }
             }
             stage('Branch and Tag - error') {
@@ -143,6 +144,9 @@ def call(Closure body={}) {
                                     }
                                 }
                                 steps {
+                                    echo "----"
+                                    echo "${HOME}"
+                                    echo "----"
                                     checkoutGitlab()
                                 }
                             }
@@ -155,6 +159,9 @@ def call(Closure body={}) {
                                 }
                                 steps {
                                     script {
+                                        echo "----"
+                                        echo "${HOME}"
+                                        echo "----"
                                         gradle.version()
                                     }
                                 }
@@ -167,6 +174,9 @@ def call(Closure body={}) {
                                     }
                                 }
                                 steps {
+                                    echo "----"
+                                    echo "${HOME}"
+                                    echo "----"
                                     clean()
                                 }
                             }/*
