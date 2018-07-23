@@ -453,6 +453,7 @@ def call(Closure body={}) {
                     buildHotfixBranch()
                 }
             }
+            /*
             // artifacts
             stage('artifacts') {
                 steps {
@@ -509,7 +510,7 @@ def call(Closure body={}) {
                 steps {
                     echo "Test"
                 }
-            }
+            }*/
         }
     }
 }
