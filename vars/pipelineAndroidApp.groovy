@@ -603,7 +603,8 @@ def deployDevelopBranch(String buildTypes = '', String productFlavors = '') {
     echo "Develop branch - Deploy"
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
     def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
-    deploy(name, path)
+    def targetPath = "/var/www/nginx/html/testing.hellotalk.com/android/package/"
+    deploy(name, path, targetPath)
 }
 
 def deployReleaseBranch() {
@@ -638,8 +639,8 @@ def artifacts(String name, String path) {
     stash name: "${name}", includes: "${path}"
 }
 
-def deploy(String name, String path) {
+def deploy(String name, String path, String targetPath) {
     echo "unstash '${name}' '${path}'"
     unstash "${name}"
-    sh "mv ${WORKSPACE}/${path} /var/www/nginx/html/testing.hellotalk.com/android/package/HTPrivate/release/"
+    sh "mv ${WORKSPACE}/${path} ${targetPath}"
 }
