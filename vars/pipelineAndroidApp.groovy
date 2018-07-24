@@ -1450,18 +1450,6 @@ def deployHotfixBranch(String buildTypes = '', String productFlavors = '') {
     deploy(name, path, targetPath)
 }
 
-def deployReleaseBranch() {
-    echo "Feature branch"
-}
-
-def deployMasterBranch() {
-    echo "Feature branch"
-}
-
-def deployHotfixBranch() {
-    echo "Feature branch"
-}
-
 def unittest(String args='') {
     echo "Unit Testing"
     gradle "test${args}"
