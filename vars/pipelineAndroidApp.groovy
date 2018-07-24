@@ -49,6 +49,7 @@ def call(Closure body={}) {
                             branch "feature/*"
                             branch "develop"
                             //branch "test"
+                            branch "release"
                             branch "release/*"
                             branch "master"
                             branch "hotfix/*"
