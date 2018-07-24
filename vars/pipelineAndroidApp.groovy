@@ -29,7 +29,7 @@ def call(Closure body={}) {
             App = "HelloTalk"
             CHINAPRODUCTFLAVORS_STATE = 'true'
             GOOGLEPRODUCTFLAVORS_STATE = 'true'
-            HTPRIVATEPRODUCTFLAVORS_STATE = 'true'
+            HTPRIVATEPRODUCTFLAVORS_STATE = 'false'
             PBUILD_NUMBER = "${BUILD_NUMBER}"
         }
 
