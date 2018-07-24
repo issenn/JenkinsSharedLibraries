@@ -60,17 +60,401 @@ def call(Closure body={}) {
                     error "Don't know what to do with this branch or tag: ${env.BRANCH_NAME}"
                 }
             }
-            stage('Build entry - feature/*') {
+            stage('entry - feature/*') {
+                environment {
+                    buildTypes = "release"
+                }
                 when {
                     beforeAgent true
                     branch "feature/*"
                 }
-                steps {
-                    buildFeatureBranch()
+                failFast false
+                parallel {
+                    stage('entry - china flavor - feature/*') {
+                        environment {
+                            productFlavors = "china"
+                        }
+                        when {
+                            beforeAgent true
+                            environment name: 'CHINAPRODUCTFLAVORS_STATE', value: 'true'
+                        }
+                        stages {
+                            stage('Checkout SCM - china flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                steps {
+                                    checkoutGitlab()
+                                }
+                            }
+                            stage('Prepare - china flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
+                                steps {
+                                    script {
+                                        gradle.version()
+                                    }
+                                }
+                            }
+                            stage('clean - china flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
+                                steps {
+                                    script {
+                                        gradle.clean()
+                                    }
+                                }
+                            }
+                            stage('Unit Testing - china flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
+                                when {
+                                    beforeAgent true
+                                    environment name: 'UNITTESTING_STATE', value: 'true'
+                                }
+                                steps {
+                                    unittestFeatureBranch(buildTypes, productFlavors)
+                                }
+                            }
+                            stage('Build - china flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
+                                steps {
+                                    buildFeatureBranch(buildTypes, productFlavors)
+                                }
+                            }
+                            stage('Artifacts - china flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                steps {
+                                    artifactsFeatureBranch(buildTypes, productFlavors)
+                                }
+                            }
+                            stage('Deploy - china flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'master'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                steps {
+                                    deployFeatureBranch(buildTypes, productFlavors)
+                                }
+                            }
+                            stage('Testing - china flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                when {
+                                    beforeAgent true
+                                    environment name: 'TESTING_STATE', value: 'true'
+                                }
+                                steps {
+                                    echo "Test"
+                                }
+                            }
+                        }
+                    }
+                    stage('entry - google flavor - feature/*') {
+                        environment {
+                            productFlavors = "google"
+                        }
+                        when {
+                            beforeAgent true
+                            environment name: 'GOOGLEPRODUCTFLAVORS_STATE', value: 'true'
+                        }
+                        stages {
+                            stage('Checkout SCM - google flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini2'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                steps {
+                                    checkoutGitlab()
+                                }
+                            }
+                            stage('Prepare - google flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini2'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
+                                steps {
+                                    script {
+                                        gradle.version()
+                                    }
+                                }
+                            }
+                            stage('clean - google flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini2'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
+                                steps {
+                                    script {
+                                        gradle.clean()
+                                    }
+                                }
+                            }
+                            stage('Unit Testing - google flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini2'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
+                                when {
+                                    beforeAgent true
+                                    environment name: 'UNITTESTING_STATE', value: 'true'
+                                }
+                                steps {
+                                    unittestFeatureBranch(buildTypes, productFlavors)
+                                }
+                            }
+                            stage('Build - google flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini2'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
+                                steps {
+                                    buildFeatureBranch(buildTypes, productFlavors)
+                                }
+                            }
+                            stage('Artifacts - google flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini2'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                steps {
+                                    artifactsFeatureBranch(buildTypes, productFlavors)
+                                }
+                            }
+                            stage('Deploy - google flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'master'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                steps {
+                                    deployFeatureBranch(buildTypes, productFlavors)
+                                }
+                            }
+                            stage('Testing - google flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini2'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                when {
+                                    beforeAgent true
+                                    environment name: 'TESTING_STATE', value: 'true'
+                                }
+                                steps {
+                                    echo "Test"
+                                }
+                            }
+                        }
+                    }
+                    stage('entry - HTPrivate flavor - feature/*') {
+                        environment {
+                            productFlavors = "HTPrivate"
+                        }
+                        when {
+                            beforeAgent true
+                            environment name: 'HTPRIVATEPRODUCTFLAVORS_STATE', value: 'true'
+                        }
+                        stages {
+                            stage('Checkout SCM - HTPrivate flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini3'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                steps {
+                                    checkoutGitlab()
+                                }
+                            }
+                            stage('Prepare - HTPrivate flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini3'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
+                                steps {
+                                    script {
+                                        gradle.version()
+                                    }
+                                }
+                            }
+                            stage('clean - HTPrivate flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini3'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
+                                steps {
+                                    script {
+                                        gradle.clean()
+                                    }
+                                }
+                            }
+                            stage('Unit Testing - HTPrivate flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini3'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
+                                when {
+                                    beforeAgent true
+                                    environment name: 'UNITTESTING_STATE', value: 'true'
+                                }
+                                steps {
+                                    unittestFeatureBranch(buildTypes, productFlavors)
+                                }
+                            }
+                            stage('Build - HTPrivate flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini3'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                environment {
+                                    ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
+                                    ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                                }
+                                steps {
+                                    buildFeatureBranch(buildTypes, productFlavors)
+                                }
+                            }
+                            stage('Artifacts - HTPrivate flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini3'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                steps {
+                                    artifactsFeatureBranch(buildTypes, productFlavors)
+                                }
+                            }
+                            stage('Deploy - HTPrivate flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'master'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                steps {
+                                    deployFeatureBranch(buildTypes, productFlavors)
+                                }
+                            }
+                            stage('Testing - HTPrivate flavor - feature/*') {
+                                agent {
+                                    node {
+                                        label 'mac-mini3'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                when {
+                                    beforeAgent true
+                                    environment name: 'TESTING_STATE', value: 'true'
+                                }
+                                steps {
+                                    echo "Test"
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
-            stage('Build entry - develop') {
+            stage('entry - develop') {
                 environment {
                     buildTypes = "release"
                 }
@@ -80,7 +464,7 @@ def call(Closure body={}) {
                 }
                 failFast false
                 parallel {
-                    stage('china flavor - develop') {
+                    stage('entry - china flavor - develop') {
                         environment {
                             productFlavors = "china"
                         }
@@ -207,7 +591,7 @@ def call(Closure body={}) {
                             }
                         }
                     }
-                    stage('google flavor - develop') {
+                    stage('entry - google flavor - develop') {
                         environment {
                             productFlavors = "google"
                         }
@@ -334,7 +718,7 @@ def call(Closure body={}) {
                             }
                         }
                     }
-                    stage('HTPrivate flavor - develop') {
+                    stage('entry - HTPrivate flavor - develop') {
                         environment {
                             productFlavors = "HTPrivate"
                         }
@@ -597,8 +981,12 @@ def unittestDevelopBranch(String buildTypes='', String productFlavors='') {
     unittest(args)
 }
 
-def buildFeatureBranch() {
-    echo "Feature branch"
+def buildFeatureBranch(String buildTypes='', String productFlavors='') {
+    echo "Feature branch - Build"
+    buildTypes = changeStringGradleStyle(buildTypes)
+    productFlavors = changeStringGradleStyle(productFlavors)
+    def args = ((productFlavors ?: '') + (buildTypes ?: '')) + " -PBUILD_NUMBER=${PBUILD_NUMBER}"
+    build(args)
 }
 
 def buildDevelopBranch(String buildTypes='', String productFlavors='') {
@@ -624,6 +1012,13 @@ def buildHotfixBranch() {
     echo "Hotfix branch"
 }
 
+def artifactsFeatureBranch(String buildTypes = '', String productFlavors = '') {
+    echo "Feature branch - Artifacts"
+    def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
+    def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    artifacts(name, path)
+}
+
 def artifactsDevelopBranch(String buildTypes = '', String productFlavors = '') {
     echo "Develop branch - Artifacts"
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
@@ -632,8 +1027,12 @@ def artifactsDevelopBranch(String buildTypes = '', String productFlavors = '') {
 }
 
 
-def deployFeatureBranch() {
-    echo "Feature branch"
+def deployFeatureBranch(String buildTypes = '', String productFlavors = '') {
+    echo "Feature branch - Deploy"
+    def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
+    def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
+    def targetPath = "/var/www/nginx/html/testing.hellotalk.com/android/package/"
+    deploy(name, path, targetPath)
 }
 
 def deployDevelopBranch(String buildTypes = '', String productFlavors = '') {
