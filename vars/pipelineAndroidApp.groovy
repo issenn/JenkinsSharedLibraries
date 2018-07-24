@@ -13,6 +13,7 @@ def call(Closure body={}) {
     pipeline {
         agent none
 
+
         options {
             skipDefaultCheckout()
         }
