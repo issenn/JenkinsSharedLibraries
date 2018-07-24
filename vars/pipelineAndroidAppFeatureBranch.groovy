@@ -521,16 +521,16 @@ def call(Closure body={}) {
 
 def unittestFeatureBranch(String buildTypes='', String productFlavors='') {
     echo "Feature branch - Unit Testing"
-    buildTypes = changeStringGradleStyle(buildTypes)
-    productFlavors = changeStringGradleStyle(productFlavors)
+    buildTypes = pipelineAndroidAppSetup.changeStringGradleStyle(buildTypes)
+    productFlavors = pipelineAndroidAppSetup.changeStringGradleStyle(productFlavors)
     def args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
     pipelineAndroidAppSetup.unittest(args)
 }
 
 def buildFeatureBranch(String buildTypes='', String productFlavors='') {
     echo "Feature branch - Build"
-    buildTypes = changeStringGradleStyle(buildTypes)
-    productFlavors = changeStringGradleStyle(productFlavors)
+    buildTypes = pipelineAndroidAppSetup.changeStringGradleStyle(buildTypes)
+    productFlavors = pipelineAndroidAppSetup.changeStringGradleStyle(productFlavors)
     def args = ((productFlavors ?: '') + (buildTypes ?: '')) + " -PBUILD_NUMBER=${PBUILD_NUMBER}"
     pipelineAndroidAppSetup.build(args)
 }
