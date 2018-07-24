@@ -7,3 +7,7 @@ def call(String command) {
 def version() {
     gradle '-v'
 }
+
+def clean() {
+    gradle "clean"
+}

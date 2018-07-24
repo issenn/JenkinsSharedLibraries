@@ -26,6 +26,7 @@ def call(Closure body={}) {
             LC_ALL = "en_US.UTF-8"
             LANGUAGE = "en_US.UTF-8"
             UNITTESTING_STATE = 'false'
+            TESTING_STATE = 'false'
             App = "HelloTalk"
             CHINAPRODUCTFLAVORS_STATE = 'true'
             GOOGLEPRODUCTFLAVORS_STATE = 'true'
@@ -88,7 +89,7 @@ def call(Closure body={}) {
                             environment name: 'CHINAPRODUCTFLAVORS_STATE', value: 'true'
                         }
                         stages {
-                            stage('Checkout SCM') {
+                            stage('Checkout SCM - china flavor - develop') {
                                 agent {
                                     node {
                                         label 'mac-mini1'
@@ -99,7 +100,7 @@ def call(Closure body={}) {
                                     checkoutGitlab()
                                 }
                             }
-                            stage('Prepare') {
+                            stage('Prepare - china flavor - develop') {
                                 agent {
                                     node {
                                         label 'mac-mini1'
@@ -116,7 +117,7 @@ def call(Closure body={}) {
                                     }
                                 }
                             }
-                            stage('clean') {
+                            stage('clean - china flavor - develop') {
                                 agent {
                                     node {
                                         label 'mac-mini1'
@@ -128,7 +129,9 @@ def call(Closure body={}) {
                                     ANDROID_HOME = "${ANDROID_SDK_ROOT}"
                                 }
                                 steps {
-                                    clean()
+                                    script {
+                                        gradle.clean()
+                                    }
                                 }
                             }
                             stage('Unit Testing - china flavor - develop') {
@@ -188,6 +191,16 @@ def call(Closure body={}) {
                                 }
                             }
                             stage('Testing - china flavor - develop') {
+                                agent {
+                                    node {
+                                        label 'mac-mini1'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                when {
+                                    beforeAgent true
+                                    environment name: 'TESTING_STATE', value: 'true'
+                                }
                                 steps {
                                     echo "Test"
                                 }
@@ -203,7 +216,7 @@ def call(Closure body={}) {
                             environment name: 'GOOGLEPRODUCTFLAVORS_STATE', value: 'true'
                         }
                         stages {
-                            stage('Checkout SCM') {
+                            stage('Checkout SCM - google flavor - develop') {
                                 agent {
                                     node {
                                         label 'mac-mini2'
@@ -214,7 +227,7 @@ def call(Closure body={}) {
                                     checkoutGitlab()
                                 }
                             }
-                            stage('Prepare') {
+                            stage('Prepare - google flavor - develop') {
                                 agent {
                                     node {
                                         label 'mac-mini2'
@@ -231,7 +244,7 @@ def call(Closure body={}) {
                                     }
                                 }
                             }
-                            stage('clean') {
+                            stage('clean - google flavor - develop') {
                                 agent {
                                     node {
                                         label 'mac-mini2'
@@ -243,7 +256,9 @@ def call(Closure body={}) {
                                     ANDROID_HOME = "${ANDROID_SDK_ROOT}"
                                 }
                                 steps {
-                                    clean()
+                                    script {
+                                        gradle.clean()
+                                    }
                                 }
                             }
                             stage('Unit Testing - google flavor - develop') {
@@ -303,6 +318,16 @@ def call(Closure body={}) {
                                 }
                             }
                             stage('Testing - google flavor - develop') {
+                                agent {
+                                    node {
+                                        label 'mac-mini2'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                when {
+                                    beforeAgent true
+                                    environment name: 'TESTING_STATE', value: 'true'
+                                }
                                 steps {
                                     echo "Test"
                                 }
@@ -318,7 +343,7 @@ def call(Closure body={}) {
                             environment name: 'HTPRIVATEPRODUCTFLAVORS_STATE', value: 'true'
                         }
                         stages {
-                            stage('Checkout SCM') {
+                            stage('Checkout SCM - HTPrivate flavor - develop') {
                                 agent {
                                     node {
                                         label 'mac-mini3'
@@ -329,7 +354,7 @@ def call(Closure body={}) {
                                     checkoutGitlab()
                                 }
                             }
-                            stage('Prepare') {
+                            stage('Prepare - HTPrivate flavor - develop') {
                                 agent {
                                     node {
                                         label 'mac-mini3'
@@ -346,7 +371,7 @@ def call(Closure body={}) {
                                     }
                                 }
                             }
-                            stage('clean') {
+                            stage('clean - HTPrivate flavor - develop') {
                                 agent {
                                     node {
                                         label 'mac-mini3'
@@ -358,7 +383,9 @@ def call(Closure body={}) {
                                     ANDROID_HOME = "${ANDROID_SDK_ROOT}"
                                 }
                                 steps {
-                                    clean()
+                                    script {
+                                        gradle.clean()
+                                    }
                                 }
                             }
                             stage('Unit Testing - HTPrivate flavor - develop') {
@@ -418,6 +445,16 @@ def call(Closure body={}) {
                                 }
                             }
                             stage('Testing - HTPrivate flavor - develop') {
+                                agent {
+                                    node {
+                                        label 'mac-mini3'
+                                        customWorkspace "workspace/${JOB_NAME}"
+                                    }
+                                }
+                                when {
+                                    beforeAgent true
+                                    environment name: 'TESTING_STATE', value: 'true'
+                                }
                                 steps {
                                     echo "Test"
                                 }
@@ -617,11 +654,6 @@ def deployMasterBranch() {
 
 def deployHotfixBranch() {
     echo "Feature branch"
-}
-
-def clean() {
-    echo "Clean"
-    gradle "clean"
 }
 
 def unittest(String args='') {
