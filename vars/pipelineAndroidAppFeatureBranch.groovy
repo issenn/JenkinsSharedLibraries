@@ -7,15 +7,12 @@ def call(Closure body={}) {
     body.delegate = pipelineParams
     body()
 
-    Map<String, String> envVars = env.getEnvironment(listener);
-    println(envVars.get("BUILD_NUMBER"));
-
     pipeline {
         agent none
 
-        /*options {
+        options {
             skipDefaultCheckout()
-        }*/
+        }
 
         triggers {
             pollSCM('H * * * *')
@@ -42,9 +39,6 @@ def call(Closure body={}) {
                         label 'master'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
-                }
-                options {
-                    skipDefaultCheckout()
                 }
 
                 when {
@@ -79,9 +73,6 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "feature/*"
                 }
-                options {
-                    skipDefaultCheckout()
-                }
 
                 failFast false
 
@@ -89,9 +80,6 @@ def call(Closure body={}) {
                     stage('Start - china flavor') {
                         environment {
                             productFlavors = "china"
-                        }
-                        options {
-                            skipDefaultCheckout()
                         }
 
                         when {
@@ -107,12 +95,12 @@ def call(Closure body={}) {
                                         customWorkspace "workspace/${JOB_NAME}"
                                     }
                                 }
-                                options {
-                                    skipDefaultCheckout()
-                                }
 
                                 steps {
-                                    checkoutGitlab()
+                                    script {
+                                        def scmVars = checkoutGitlab()
+                                        println(scmVars.GIT_COMMIT)
+                                    }
                                     sh "echo ${env.CHANGE_ID}"
                                     sh 'env|sort'
                                     sh 'printenv|sort'
