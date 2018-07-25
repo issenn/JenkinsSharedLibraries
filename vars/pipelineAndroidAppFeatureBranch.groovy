@@ -55,16 +55,6 @@ def call(Closure body={}) {
                 }
             }
 
-            stage('echo') {
-                steps {
-                    script {
-                        def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
-                        println(environment.CHANGE_ID)
-
-                    }
-                }
-            }
-
             stage('Start') {
                 when {
                     beforeAgent true
@@ -95,6 +85,10 @@ def call(Closure body={}) {
 
                                 steps {
                                     checkoutGitlab()
+                                    script {
+                                        def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
+                                        println(environment.CHANGE_ID)
+                                    }
                                 }
                             }
 
