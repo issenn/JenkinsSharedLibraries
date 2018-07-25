@@ -100,10 +100,17 @@ def call(Closure body={}) {
                                     script {
                                         def scmVars = checkoutGitlab()
                                         println(scmVars.GIT_COMMIT)
+                                        println(scmVars.GIT_BRANCH)
+                                        println(scmVars.GIT_LOCAL_BRANCH)
+                                        println(scmVars.GIT_PREVIOUS_COMMIT)
+                                        println(scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT)
+                                        println(scmVars.GIT_URL)
+                                        println(scmVars.GIT_URL_N)
+                                        println(scmVars.GIT_AUTHOR_NAME)
+                                        println(scmVars.GIT_COMMITTER_NAME)
+                                        println(scmVars.GIT_AUTHOR_EMAIL)
+                                        println(scmVars.GIT_COMMITTER_EMAIL)
                                     }
-                                    sh "echo ${env.CHANGE_ID}"
-                                    sh 'env|sort'
-                                    sh 'printenv|sort'
                                 }
                             }
 
