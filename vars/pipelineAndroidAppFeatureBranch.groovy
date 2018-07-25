@@ -86,6 +86,8 @@ def call(Closure body={}) {
                                 steps {
                                     checkoutGitlab()
                                     sh "echo ${env.CHANGE_ID}"
+                                    sh 'env|sort'
+                                    sh 'printenv|sort'
                                 }
                             }
 
@@ -105,8 +107,6 @@ def call(Closure body={}) {
                                 steps {
                                     script {
                                         gradle.version()
-                                        sh 'env|sort'
-                                        sh 'printenv|sort'
                                     }
                                 }
                             }
