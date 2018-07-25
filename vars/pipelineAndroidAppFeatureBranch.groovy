@@ -7,6 +7,9 @@ def call(Closure body={}) {
     body.delegate = pipelineParams
     body()
 
+    Map<String, String> envVars = build.getEnvironment(listener);
+    println(envVars.get("BUILD_NUMBER"));
+
     pipeline {
         agent none
 
