@@ -85,10 +85,8 @@ def call(Closure body={}) {
 
                                 steps {
                                     checkoutGitlab()
-                                    script {
-                                        def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
-                                        println(environment.CHANGE_ID)
-                                    }
+                                    sh "echo ${CHANGE_ID}"
+                                    sh "echo ${env.CHANGE_ID}"
                                 }
                             }
 
