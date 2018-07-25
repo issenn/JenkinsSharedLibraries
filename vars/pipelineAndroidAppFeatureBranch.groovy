@@ -58,6 +58,13 @@ def call(Closure body={}) {
                 }
             }
 
+            stages('echo') {
+                steps {
+                    sh 'env|sort'
+                    sh 'printenv|sort'
+                }
+            }
+
             stage('Start') {
                 when {
                     beforeAgent true
@@ -90,6 +97,9 @@ def call(Closure body={}) {
                                         label 'mac-mini1'
                                         customWorkspace "workspace/${JOB_NAME}"
                                     }
+                                }
+                                options {
+                                    skipDefaultCheckout()
                                 }
 
                                 steps {
