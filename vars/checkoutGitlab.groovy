@@ -17,9 +17,9 @@ def call() {
                 shallow: true,
                 timeout: 10
             ],
-            /*[
+            [
                 $class: 'GitTagMessageExtension'
-            ],*/
+            ],
             [
                 $class: 'CleanBeforeCheckout'
             ],
