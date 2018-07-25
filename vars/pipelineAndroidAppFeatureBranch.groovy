@@ -112,7 +112,7 @@ def call(Closure body={}) {
                                         println(scmVars.GIT_COMMITTER_EMAIL)
                                     }
                                     sh "echo '---'"
-                                    sh "echo ${env.CHANGE_ID}"
+                                    sh "echo ${CHANGE_TITLE}"
                                 }
                             }
 
