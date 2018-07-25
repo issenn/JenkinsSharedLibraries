@@ -10,9 +10,9 @@ def call(Closure body={}) {
     pipeline {
         agent none
 
-        /*options {
+        options {
             skipDefaultCheckout()
-        }*/
+        }
 
         triggers {
             pollSCM('H * * * *')
