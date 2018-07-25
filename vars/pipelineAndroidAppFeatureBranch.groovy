@@ -55,6 +55,12 @@ def call(Closure body={}) {
                 }
             }
 
+            stage('echo') {
+                steps {
+                    sh "echo ${JOB_NAME##*/})"
+                }
+            }
+
             stage('Start') {
                 when {
                     beforeAgent true
