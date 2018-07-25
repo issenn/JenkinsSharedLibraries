@@ -110,6 +110,7 @@ def call(Closure body={}) {
                                         println(scmVars.GIT_COMMITTER_NAME)
                                         println(scmVars.GIT_AUTHOR_EMAIL)
                                         println(scmVars.GIT_COMMITTER_EMAIL)
+                                        println(scmVars.GIT_TAG_MESSAGE)
                                     }
                                 }
                             }
