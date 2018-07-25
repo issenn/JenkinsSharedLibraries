@@ -58,7 +58,7 @@ def call(Closure body={}) {
                 }
             }
 
-            stages('echo') {
+            stage('echo') {
                 steps {
                     sh 'env|sort'
                     sh 'printenv|sort'
