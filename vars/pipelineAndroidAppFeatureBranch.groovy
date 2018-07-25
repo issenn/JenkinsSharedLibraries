@@ -57,7 +57,11 @@ def call(Closure body={}) {
 
             stage('echo') {
                 steps {
-                    sh "echo ${JOB_NAME##*/})"
+                    script {
+                        def environment = new io.issenn.devops.jenkins.pipeline.environment.EnvironmentConstants(this)
+                        println(environment.CHANGE_ID)
+
+                    }
                 }
             }
 
