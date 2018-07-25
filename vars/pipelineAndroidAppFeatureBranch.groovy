@@ -10,9 +10,9 @@ def call(Closure body={}) {
     pipeline {
         agent none
 
-        options {
+        /*options {
             skipDefaultCheckout()
-        }
+        }*/
 
         triggers {
             pollSCM('H * * * *')
@@ -40,6 +40,9 @@ def call(Closure body={}) {
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
+                options {
+                    skipDefaultCheckout()
+                }
 
                 when {
                     beforeAgent true
@@ -59,6 +62,9 @@ def call(Closure body={}) {
                 when {
                     beforeAgent true
                     branch "feature/*"
+                }
+                options {
+                    skipDefaultCheckout()
                 }
 
                 failFast false
