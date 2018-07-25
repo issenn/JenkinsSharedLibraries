@@ -74,6 +74,9 @@ def call(Closure body={}) {
                         environment {
                             productFlavors = "china"
                         }
+                        options {
+                            skipDefaultCheckout()
+                        }
 
                         when {
                             beforeAgent true
@@ -87,6 +90,9 @@ def call(Closure body={}) {
                                         label 'mac-mini1'
                                         customWorkspace "workspace/${JOB_NAME}"
                                     }
+                                }
+                                options {
+                                    skipDefaultCheckout()
                                 }
 
                                 steps {
