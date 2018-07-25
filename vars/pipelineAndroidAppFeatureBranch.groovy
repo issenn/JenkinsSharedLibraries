@@ -91,9 +91,6 @@ def call(Closure body={}) {
                                         customWorkspace "workspace/${JOB_NAME}"
                                     }
                                 }
-                                options {
-                                    skipDefaultCheckout()
-                                }
 
                                 steps {
                                     checkoutGitlab()
