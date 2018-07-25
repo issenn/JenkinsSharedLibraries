@@ -59,6 +59,12 @@ def call(Closure body={}) {
             }
 
             stage('echo') {
+                agent {
+                    node {
+                        label 'mac-mini1'
+                        customWorkspace "workspace/${JOB_NAME}"
+                    }
+                }
                 steps {
                     sh 'env|sort'
                     sh 'printenv|sort'
