@@ -9,5 +9,5 @@ def version() {
 }
 
 def clean() {
-    gradle "clean --offlline"
+    gradle "clean"
 }
