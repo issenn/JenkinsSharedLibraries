@@ -87,12 +87,6 @@ def call(Closure body={}) {
                                     script {
                                         def scmVars = checkoutGitlab()
                                     }
-                                sh 'env|sort'
-                                sh 'printenv|sort'
-                                sh "echo CHANGE_ID"
-                                sh "echo \$CHANGE_ID"
-                                sh 'echo $CHANGE_ID'
-                                sh "echo ${env.CHANGE_ID}"
                                 }
                             }
 
