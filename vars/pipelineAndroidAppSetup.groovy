@@ -29,7 +29,7 @@ def unittest(String args='') {
 
 def build(String args='') {
     echo "Build args='${args}'"
-    gradle "assemble${args}"
+    gradle "assemble${args} --offlline"
 }
 
 def artifacts(String name, String path) {
