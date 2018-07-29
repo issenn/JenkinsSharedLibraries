@@ -383,7 +383,7 @@ def buildFeatureBranch(String buildTypes='', String productFlavors='') {
     echo "Feature branch - Build"
     buildTypes = pipelineAndroidAppSetup.changeStringGradleStyle(buildTypes)
     productFlavors = pipelineAndroidAppSetup.changeStringGradleStyle(productFlavors)
-    def args = ((productFlavors ?: '') + (buildTypes ?: '')) + "uploadArchives"
+    def args = ((productFlavors ?: '') + (buildTypes ?: '')) + " uploadArchives"
     pipelineAndroidAppSetup.build(args)
 }
 
