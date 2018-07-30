@@ -10,7 +10,7 @@ def call() {
         extensions: scm.extensions + [
             [
                 $class: 'CloneOption',
-                depth: 2000000000,
+                depth: 2147483647,
                 honorRefspec: true,
                 noTags: false,
                 reference: '',
