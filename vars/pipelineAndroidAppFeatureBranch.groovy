@@ -26,7 +26,7 @@ def call(Closure body={}) {
             TESTING_STATE = 'false'
             App = "HelloTalk"
             CHINAPRODUCTFLAVORS_STATE = 'true'
-            GOOGLEPRODUCTFLAVORS_STATE = 'false'
+            GOOGLEPRODUCTFLAVORS_STATE = 'true'
             HTPRIVATEPRODUCTFLAVORS_STATE = 'false'
             buildTypes = "release"
         }
