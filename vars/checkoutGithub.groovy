@@ -4,7 +4,7 @@ def call() {
     checkout changelog: true, poll: true, scm: [
         $class: 'GitSCM',
         branches: scm.branches,
-        browser: [$class: 'GitLab', repoUrl: 'http://gitlab.hellotalk.com', version: '10.7'],
+        browser: [$class: 'GithubWeb', repoUrl: 'https://github.com'],
         doGenerateSubmoduleConfigurations: false,
         gitTool: 'git',
         extensions: scm.extensions + [
