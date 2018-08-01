@@ -6,7 +6,7 @@ def call() {
         pipelineAndroidAppFeatureBranch()
     } else if (env.BRANCH_NAME == 'develop') {
         pipelineAndroidAppDevelopBranch()
-    } else if (env.BRANCH_NAME == 'test') {
+    } else if (env.BRANCH_NAME.startsWith('test/')) {
         pipelineAndroidAppTestBranch()
     /*} else if (env.BRANCH_NAME == 'release') {
         buildReleaseBranch()
@@ -885,13 +885,7 @@ def aaa(Closure body={}) {
  * hotfix/* to patch master quickly; merge back into develop and tag master
  */
 
-def unittestReleaseBranch(String buildTypes='', String productFlavors='') {
-    echo "Release branch - Unit Testing"
-    buildTypes = changeStringGradleStyle(buildTypes)
-    productFlavors = changeStringGradleStyle(productFlavors)
-    def args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
-    unittest(args)
-}
+
 
 def unittestMasterBranch(String buildTypes='', String productFlavors='') {
     echo "Master branch - Unit Testing"

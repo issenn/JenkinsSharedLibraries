@@ -44,7 +44,7 @@ def call(Closure body={}) {
                     beforeAgent true
                     not {
                         anyOf {
-                            branch "test"
+                            branch "test/*"
                         }
                     }
                 }
@@ -57,7 +57,7 @@ def call(Closure body={}) {
             stage('Start') {
                 when {
                     beforeAgent true
-                    branch "test"
+                    branch "test/*"
                 }
 
                 failFast false
