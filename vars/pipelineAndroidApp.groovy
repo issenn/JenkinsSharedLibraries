@@ -15,7 +15,8 @@ def call() {
     /*} else if (env.BRANCH_NAME.startsWith('hotfix/')) {
         buildHotfixBranch()*/
     } else {
-        error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
+        // error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
+        pipelineAndroidAppTagBranch()
     }
 }
 /*
