@@ -6,6 +6,8 @@ def call() {
         pipelineAndroidAppFeatureBranch()
     } else if (env.BRANCH_NAME == 'develop') {
         pipelineAndroidAppDevelopBranch()
+    } else if (env.BRANCH_NAME == 'test') {
+        pipelineAndroidAppTestBranch()
     /*} else if (env.BRANCH_NAME == 'release') {
         buildReleaseBranch()
     } else if (env.BRANCH_NAME == 'master') {
