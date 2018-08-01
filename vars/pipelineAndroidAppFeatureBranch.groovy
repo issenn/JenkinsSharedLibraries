@@ -379,9 +379,7 @@ def call(Closure body={}) {
             }*/
             always{
                 // sendNotifications currentBuild.result
-                emailext body: '''test''',
-                    subject: "[Jenkins] REPORT",
-                    to: "issenn@hellotalk.com"
+                emailext body: '${JELLY_SCRIPT,template="static-analysis"}', recipientProviders: [[$class: 'DevelopersRecipientProvider']], subject: '构建通知：$PROJECT_NAME - Build # $BUILD_NUMBER - Success!'
             }
         }
     }
