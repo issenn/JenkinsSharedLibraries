@@ -370,6 +370,20 @@ def call(Closure body={}) {
                 }
             }
         }
+        post {/*
+            success {
+                mail to:"myname@me.com", subject:"${currentBuild.fullDisplayName} - Failed!", body: "Success!"
+            }
+            failure {
+                mail to:"myname@me.com", subject:"${currentBuild.fullDisplayName} - Failed!", body: "Failure!"
+            }*/
+            always{
+                // sendNotifications currentBuild.result
+                emailext body: '''test''',
+                    subject: "[Jenkins] REPORT",
+                    to: "issenn@hellotalk.com"
+            }
+        }
     }
 }
 
