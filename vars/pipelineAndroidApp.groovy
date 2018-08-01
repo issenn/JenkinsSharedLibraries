@@ -8,11 +8,11 @@ def call() {
         pipelineAndroidAppDevelopBranch()
     } else if (env.BRANCH_NAME.startsWith('test/')) {
         pipelineAndroidAppTestBranch()
-    /*} else if (env.BRANCH_NAME == 'release') {
-        buildReleaseBranch()
+    } else if (env.BRANCH_NAME == 'release') {
+        pipelineAndroidAppReleaseBranch()
     } else if (env.BRANCH_NAME == 'master') {
-        buildMasterBranch()
-    } else if (env.BRANCH_NAME.startsWith('hotfix/')) {
+        pipelineAndroidAppMasterBranch()
+    /*} else if (env.BRANCH_NAME.startsWith('hotfix/')) {
         buildHotfixBranch()*/
     } else {
         error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
