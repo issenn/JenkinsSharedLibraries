@@ -383,7 +383,6 @@ def buildFeatureBranch(String buildTypes='', String productFlavors='') {
     echo "Feature branch - Build"
     buildTypes = pipelineAndroidAppSetup.changeStringGradleStyle(buildTypes)
     productFlavors = pipelineAndroidAppSetup.changeStringGradleStyle(productFlavors)
-    // def args = ((productFlavors ?: '') + (buildTypes ?: '')) + " uploadArchives"
     def args = ((productFlavors ?: '') + (buildTypes ?: '')) + " publish"
     pipelineAndroidAppSetup.build(args)
 }
@@ -402,4 +401,3 @@ def deployFeatureBranch(String buildTypes = '', String productFlavors = '') {
     def targetPath = "/var/www/nginx/html/testing.hellotalk.com/android/package/"
     pipelineAndroidAppSetup.deploy(name, path, targetPath)
 }
-

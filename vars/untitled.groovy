@@ -93,7 +93,7 @@
                                     ANDROID_HOME = "${ANDROID_SDK_ROOT}"
                                 }
                                 steps {
-                                    buildFeatureBranch(buildTypes, productFlavors)
+                                    buildReleaseBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Artifacts - china flavor - release') {
@@ -104,7 +104,7 @@
                                     }
                                 }
                                 steps {
-                                    artifactsFeatureBranch(buildTypes, productFlavors)
+                                    artifactsReleaseBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Deploy - china flavor - release') {
@@ -115,7 +115,7 @@
                                     }
                                 }
                                 steps {
-                                    deployFeatureBranch(buildTypes, productFlavors)
+                                    deployReleaseBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Testing - china flavor - release') {
@@ -205,7 +205,7 @@
                                     environment name: 'UNITTESTING_STATE', value: 'true'
                                 }
                                 steps {
-                                    unittestFeatureBranch(buildTypes, productFlavors)
+                                    unittestReleaseBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Build - google flavor - release') {
@@ -220,7 +220,7 @@
                                     ANDROID_HOME = "${ANDROID_SDK_ROOT}"
                                 }
                                 steps {
-                                    buildFeatureBranch(buildTypes, productFlavors)
+                                    buildReleaseBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Artifacts - google flavor - release') {
@@ -231,7 +231,7 @@
                                     }
                                 }
                                 steps {
-                                    artifactsFeatureBranch(buildTypes, productFlavors)
+                                    artifactsReleaseBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Deploy - google flavor - release') {
@@ -242,7 +242,7 @@
                                     }
                                 }
                                 steps {
-                                    deployFeatureBranch(buildTypes, productFlavors)
+                                    deployReleaseBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Testing - google flavor - release') {
@@ -332,7 +332,7 @@
                                     environment name: 'UNITTESTING_STATE', value: 'true'
                                 }
                                 steps {
-                                    unittestFeatureBranch(buildTypes, productFlavors)
+                                    unittestReleaseBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Build - HTPrivate flavor - release') {
@@ -347,7 +347,7 @@
                                     ANDROID_HOME = "${ANDROID_SDK_ROOT}"
                                 }
                                 steps {
-                                    buildFeatureBranch(buildTypes, productFlavors)
+                                    buildReleaseBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Artifacts - HTPrivate flavor - release') {
@@ -358,7 +358,7 @@
                                     }
                                 }
                                 steps {
-                                    artifactsFeatureBranch(buildTypes, productFlavors)
+                                    artifactsReleaseBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Deploy - HTPrivate flavor - release') {
@@ -369,7 +369,7 @@
                                     }
                                 }
                                 steps {
-                                    deployFeatureBranch(buildTypes, productFlavors)
+                                    deployReleaseBranch(buildTypes, productFlavors)
                                 }
                             }
                             stage('Testing - HTPrivate flavor - release') {

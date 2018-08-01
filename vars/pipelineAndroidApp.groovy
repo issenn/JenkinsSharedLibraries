@@ -4,9 +4,9 @@ def call() {
 
     if (env.BRANCH_NAME.startsWith('feature/')) {
         pipelineAndroidAppFeatureBranch()
-    /*} else if (env.BRANCH_NAME == 'develop') {
-        buildDevelopBranch()
-    } else if (env.BRANCH_NAME == 'release') {
+    } else if (env.BRANCH_NAME == 'develop') {
+        pipelineAndroidAppDevelopBranch()
+    /*} else if (env.BRANCH_NAME == 'release') {
         buildReleaseBranch()
     } else if (env.BRANCH_NAME == 'master') {
         buildMasterBranch()
