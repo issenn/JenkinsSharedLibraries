@@ -170,7 +170,7 @@ def call(Closure body={}) {
                                 }
                             }
 
-                            stage('Artifacts - china flavor') {
+                            /*stage('Artifacts - china flavor') {
                                 agent {
                                     node {
                                         label 'mac-mini1'
@@ -212,7 +212,7 @@ def call(Closure body={}) {
                                 steps {
                                     echo "Test"
                                 }
-                            }
+                            }*/
                         }
                     }
 
@@ -320,7 +320,7 @@ def call(Closure body={}) {
                                 }
                             }
 
-                            stage('Artifacts - google flavor') {
+                            /*stage('Artifacts - google flavor') {
                                 agent {
                                     node {
                                         label 'mac-mini2'
@@ -362,7 +362,7 @@ def call(Closure body={}) {
                                 steps {
                                     echo "Test"
                                 }
-                            }
+                            }*/
                         }
                     }
                 }
