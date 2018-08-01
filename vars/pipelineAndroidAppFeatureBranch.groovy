@@ -370,18 +370,18 @@ def call(Closure body={}) {
                 }
             }
         }
-        post {/*
+        /*post {
             success {
                 mail to:"myname@me.com", subject:"${currentBuild.fullDisplayName} - Failed!", body: "Success!"
             }
             failure {
                 mail to:"myname@me.com", subject:"${currentBuild.fullDisplayName} - Failed!", body: "Failure!"
-            }*/
+            }
             always{
                 // sendNotifications currentBuild.result
                 emailext body: '${JELLY_SCRIPT,template="static-analysis"}', recipientProviders: [[$class: 'DevelopersRecipientProvider']], subject: '构建通知：$PROJECT_NAME - Build # $BUILD_NUMBER - Success!'
             }
-        }
+        }*/
     }
 }
 
