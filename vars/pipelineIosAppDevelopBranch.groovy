@@ -15,7 +15,9 @@ def call(Closure body={}) {
     def XCODE_PROVISIONINGPROFILES
 
     pipeline {
-        agent none
+    agent {
+        label 'mac-mini3'
+    }
 
         options {
             skipDefaultCheckout()
@@ -26,9 +28,9 @@ def call(Closure body={}) {
         }
 
         environment {
-            LANG = "C.UTF-8"
-            LC_ALL = "en_US.UTF-8"
-            LANGUAGE = "en_US.UTF-8"
+            //LANG = "C.UTF-8"
+            //LC_ALL = "en_US.UTF-8"
+            //LANGUAGE = "en_US.UTF-8"
             UNITTESTING_STATE = 'false'
             TESTING_STATE = 'false'
             //App = 'HelloTalk_Binary'
@@ -66,12 +68,6 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "develop"
                 }
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
 
                 steps {
                     script {
@@ -86,20 +82,15 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "develop"
                 }
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
 
                 steps {
                     script {
-                        REPO_NAME = repo_name()
+                        // REPO_NAME = repo_name()
+                        REPO_NAME = 'HelloTalk_Binary'
                         if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcworkspace")) {
                             XCODE_WORKSPACE_FILENAME = "${REPO_NAME}"
                             XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
-                            XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}_DailyBuildScheme"
+                            XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}"
                             XCODE_PROJECT_FILENAME = ""
                             XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
                         } else {
@@ -108,7 +99,7 @@ def call(Closure body={}) {
                             if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcodeproj")) {
                                 XCODE_PROJECT_FILENAME = "${REPO_NAME}"
                                 XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
-                                XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}_DailyBuildScheme"
+                                XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}"
                             } else {
                                 XCODE_PROJECT_FILENAME = ""
                                 XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
@@ -127,35 +118,10 @@ def call(Closure body={}) {
                 }
             }
 
-            stage('Unit Testing - china flavor') {
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
-
-                when {
-                    beforeAgent true
-                    environment name: 'UNITTESTING_STATE', value: 'true'
-                    branch "develop"
-                }
-
-                steps {
-                    sh 'echo "Test"'
-                }
-            }
-
             stage('Archive') {
                 when {
                     beforeAgent true
                     branch "develop"
-                }
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
                 }
 
                 steps {
@@ -230,12 +196,6 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "develop"
                 }
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
 
                 steps {
                     exportIpa symRoot: "",
@@ -282,39 +242,14 @@ def call(Closure body={}) {
                 }
             }
 
-            stage('artifacts') {
-                when {
-                    beforeAgent true
-                    branch "develop"
-                }
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
-                steps {
-                    stash name: "stash-ipa", includes: "build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa"
-                }
-            }
-
             stage('Deploy') {
                 when {
                     beforeAgent true
                     branch "develop"
                 }
-                agent {
-                    node {
-                        label 'master'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
 
                 steps {
-
-                    unstash "stash-ipa"
-
-                    sh "mv ${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa /var/www/nginx/html/testing.hellotalk.com/ios/package/test-1.0-1.ipa"
+                    firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
                 }
             }
         }
