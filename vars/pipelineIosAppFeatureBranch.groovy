@@ -123,7 +123,7 @@ def call(Closure body={}) {
                         XCODE_PROVISIONING_PROFILE_APPID = xcode_provisioning_profile_value([key: ":Entitlements:application-identifier", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"]) - "${XCODE_DEVELOPMENT_TEAM_ID}."
                         XCODE_PLATFORM = xcode_provisioning_profile_value([key: ":Platform:0", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
 
-                        XCODE_PROVISIONINGPROFILES = install_provisioning_profile("${WORKSPACE}/PackageConfig")
+                        XCODE_PROVISIONINGPROFILES = install_provisioning_profile("${WORKSPACE}/PackageConfig", XCODE_DEVELOPMENT_TEAM_ID)
                     }
                 }
             }
@@ -131,7 +131,7 @@ def call(Closure body={}) {
             stage('Unit Testing - china flavor') {
                 agent {
                     node {
-                        label 'mac-mini1'
+                        label 'mac-mini3'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
@@ -153,7 +153,7 @@ def call(Closure body={}) {
                 }
                 agent {
                     node {
-                        label 'mac-mini1'
+                        label 'mac-mini3'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
@@ -232,7 +232,7 @@ def call(Closure body={}) {
                 }
                 agent {
                     node {
-                        label 'mac-mini1'
+                        label 'mac-mini3'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
@@ -289,7 +289,7 @@ def call(Closure body={}) {
                 }
                 agent {
                     node {
-                        label 'mac-mini1'
+                        label 'mac-mini3'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
