@@ -34,7 +34,7 @@ def call(Closure body={}) {
             //App = 'HelloTalk_Binary'
             //REPO_NAME = "${App}"
             XCODE_NAME = 'Xcode latest(9.4.1)'
-            XCODE_CONFIGURATION = "Release"
+            XCODE_CONFIGURATION = "DailyBuild"
             XCODE_SDK = "iphoneos"
         }
 
@@ -68,7 +68,7 @@ def call(Closure body={}) {
                 }
                 agent {
                     node {
-                        label 'mac-mini'
+                        label 'mac-mini3'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
@@ -88,7 +88,7 @@ def call(Closure body={}) {
                 }
                 agent {
                     node {
-                        label 'mac-mini'
+                        label 'mac-mini3'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
@@ -99,7 +99,7 @@ def call(Closure body={}) {
                         if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcworkspace")) {
                             XCODE_WORKSPACE_FILENAME = "${REPO_NAME}"
                             XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
-                            XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}"
+                            XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}_DailyBuildScheme"
                             XCODE_PROJECT_FILENAME = ""
                             XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
                         } else {
@@ -108,7 +108,7 @@ def call(Closure body={}) {
                             if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcodeproj")) {
                                 XCODE_PROJECT_FILENAME = "${REPO_NAME}"
                                 XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
-                                XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}"
+                                XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}_DailyBuildScheme"
                             } else {
                                 XCODE_PROJECT_FILENAME = ""
                                 XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
@@ -130,7 +130,7 @@ def call(Closure body={}) {
             stage('Unit Testing - china flavor') {
                 agent {
                     node {
-                        label 'mac-mini'
+                        label 'mac-mini3'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
@@ -152,7 +152,7 @@ def call(Closure body={}) {
                 }
                 agent {
                     node {
-                        label 'mac-mini'
+                        label 'mac-mini3'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
@@ -231,7 +231,7 @@ def call(Closure body={}) {
                 }
                 agent {
                     node {
-                        label 'mac-mini'
+                        label 'mac-mini3'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
@@ -288,7 +288,7 @@ def call(Closure body={}) {
                 }
                 agent {
                     node {
-                        label 'mac-mini'
+                        label 'mac-mini3'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
