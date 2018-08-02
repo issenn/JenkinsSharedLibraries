@@ -16,7 +16,7 @@ def call(Closure body={}) {
 
     pipeline {
     agent {
-        label 'mac-mini'
+        label 'mac-mini3'
     }
 
         options {
