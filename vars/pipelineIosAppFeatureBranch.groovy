@@ -34,7 +34,7 @@ def call(Closure body={}) {
             //App = 'HelloTalk_Binary'
             //REPO_NAME = "${App}"
             XCODE_NAME = 'Xcode latest(9.4.1)'
-            XCODE_CONFIGURATION = "DailyBuild"
+            XCODE_CONFIGURATION = "Release"
             XCODE_SDK = "iphoneos"
         }
 
@@ -99,7 +99,7 @@ def call(Closure body={}) {
                         if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcworkspace")) {
                             XCODE_WORKSPACE_FILENAME = "${REPO_NAME}"
                             XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
-                            XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}_DailyBuildScheme"
+                            XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}"
                             XCODE_PROJECT_FILENAME = ""
                             XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
                         } else {
@@ -108,7 +108,7 @@ def call(Closure body={}) {
                             if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcodeproj")) {
                                 XCODE_PROJECT_FILENAME = "${REPO_NAME}"
                                 XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
-                                XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}_DailyBuildScheme"
+                                XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}"
                             } else {
                                 XCODE_PROJECT_FILENAME = ""
                                 XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
