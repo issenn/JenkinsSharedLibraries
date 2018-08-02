@@ -16,10 +16,7 @@ def call(Closure body={}) {
 
     pipeline {
     agent {
-        node {
-            label 'mac-mini'
-            customWorkspace "workspace/${JOB_NAME}"
-        }
+        label 'mac-mini'
     }
 
         options {
@@ -245,17 +242,6 @@ def call(Closure body={}) {
                 }
             }
 
-            stage('artifacts') {
-                when {
-                    beforeAgent true
-                    branch "feature/*"
-                }
-
-                steps {
-                    stash name: "stash-ipa", includes: "build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa"
-                }
-            }
-
             stage('Deploy') {
                 when {
                     beforeAgent true
@@ -263,10 +249,6 @@ def call(Closure body={}) {
                 }
 
                 steps {
-
-                    unstash "stash-ipa"
-
-                    // sh "mv ${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa /var/www/nginx/html/testing.hellotalk.com/ios/package/test-1.0-1.ipa"
                     firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
                 }
             }
