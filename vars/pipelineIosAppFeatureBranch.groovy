@@ -154,9 +154,9 @@ def call(Closure body={}) {
                 echo "${XCODE_PLATFORM}"
                 echo "${XCODE_PROVISIONINGPROFILES[0].get('provisioningProfileAppId')}"
                 echo "${XCODE_PROVISIONINGPROFILES[0].get('provisioningProfileUUID')}"
+                echo "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileAppId')}"
                 echo "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileUUID')}"
-                echo "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileUUID')}"
-                echo "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileUUID')}"
+                echo "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileAppId')}"
                 echo "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileUUID')}"
                 xcodeBuild allowFailingBuildResults: false,
                     appURL: "",
