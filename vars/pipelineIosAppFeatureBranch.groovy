@@ -99,7 +99,7 @@ def call(Closure body={}) {
                         if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcworkspace")) {
                             XCODE_WORKSPACE_FILENAME = "${REPO_NAME}"
                             XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
-                            XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}_DailyBuildScheme"
+                            XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}_ReleaseScheme"
                             XCODE_PROJECT_FILENAME = ""
                             XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
                         } else {
@@ -108,7 +108,7 @@ def call(Closure body={}) {
                             if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcodeproj")) {
                                 XCODE_PROJECT_FILENAME = "${REPO_NAME}"
                                 XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
-                                XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}_DailyBuildScheme"
+                                XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}_ReleaseScheme"
                             } else {
                                 XCODE_PROJECT_FILENAME = ""
                                 XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
