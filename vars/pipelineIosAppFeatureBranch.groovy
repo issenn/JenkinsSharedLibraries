@@ -7,10 +7,10 @@ def call(Closure body={}) {
     body.delegate = pipelineParams
     body()
 
-    def XCODE_PROJECT_FILENAME
-    def XCODE_PROJECT_PATH
-    def XCODE_WORKSPACE_FILENAME
-    def XCODE_WORKSPACE_PATH
+    def XCODE_PROJECT_FILENAME = ""
+    def XCODE_PROJECT_PATH = ""
+    def XCODE_WORKSPACE_FILENAME = ""
+    def XCODE_WORKSPACE_PATH = ""
     def XCODE_PROVISIONING_PROFILE_UUID
     def XCODE_PROVISIONINGPROFILES
 
@@ -84,6 +84,9 @@ def call(Closure body={}) {
                 }
 
                 steps {
+                    dir("${XCODE_WORKSPACE_PATH}") {
+                        sh '/usr/local/bin/pod repo update && /usr/local/bin/pod install --verbose --no-repo-update'
+                    }
                     script {
                         // REPO_NAME = repo_name()
                         REPO_NAME = 'HelloTalk_Binary'
@@ -125,10 +128,6 @@ def call(Closure body={}) {
                 }
 
                 steps {
-                    dir("${XCODE_WORKSPACE_PATH}") {
-                        sh '/usr/local/bin/pod repo update && /usr/local/bin/pod install --verbose --no-repo-update'
-                    }
-
                     xcodeBuild allowFailingBuildResults: false,
                         appURL: "",
                         assetPackManifestURL: "",
