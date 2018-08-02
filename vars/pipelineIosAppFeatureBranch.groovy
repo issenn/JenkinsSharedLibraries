@@ -16,7 +16,7 @@ def call(Closure body={}) {
 
     pipeline {
     agent {
-        label 'mac-mini2'
+        label 'mac-mini3'
     }
 
         options {
@@ -62,16 +62,7 @@ def call(Closure body={}) {
                     error "Don't know what to do with this branch or tag: ${env.BRANCH_NAME}"
                 }
             }
-            stage('Deploy') {
-                when {
-                    beforeAgent true
-                    branch "feature/*"
-                }
 
-                steps {
-                    firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
-                }
-            }/*
             stage('Checkout SCM') {
                 when {
                     beforeAgent true
@@ -260,7 +251,7 @@ def call(Closure body={}) {
                 steps {
                     firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
                 }
-            }*/
+            }
         }
     }
 }
