@@ -71,7 +71,7 @@ def call(Closure body={}) {
 
                 steps {
                     script {
-                        def scmVars = checkoutGitlab()
+                        def scmVars = checkoutGithub()
                         env.GIT_URL = scmVars.GIT_URL
                     }
                 }
