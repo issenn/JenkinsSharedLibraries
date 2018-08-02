@@ -15,7 +15,9 @@ def call(Closure body={}) {
     def XCODE_PROVISIONINGPROFILES
 
     pipeline {
-        agent none
+    agent {
+        label 'mac-mini'
+    }
 
         options {
             skipDefaultCheckout()
@@ -66,12 +68,7 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "feature/*"
                 }
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
+
                 steps {
                     script {
                         def scmVars = checkoutGitlab()
@@ -85,12 +82,7 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "feature/*"
                 }
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
+
                 steps {
                     script {
                         REPO_NAME = repo_name()
@@ -129,12 +121,6 @@ def call(Closure body={}) {
                 when {
                     beforeAgent true
                     branch "feature/*"
-                }
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
                 }
 
                 steps {
@@ -209,12 +195,7 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "feature/*"
                 }
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
+
                 steps {
                     exportIpa symRoot: "",
                         appURL: '',
@@ -265,12 +246,7 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "feature/*"
                 }
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
+
                 steps {
                     stash name: "stash-ipa", includes: "build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa"
                 }
@@ -281,12 +257,7 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "feature/*"
                 }
-                agent {
-                    node {
-                        label 'master'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
+
                 steps {
 
                     unstash "stash-ipa"
