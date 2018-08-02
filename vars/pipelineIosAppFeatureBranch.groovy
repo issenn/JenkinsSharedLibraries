@@ -129,65 +129,65 @@ def call(Closure body={}) {
                         sh '/usr/local/bin/pod repo update && /usr/local/bin/pod install --verbose --no-repo-update'
                     }
 
-                xcodeBuild allowFailingBuildResults: false,
-                    appURL: "",
-                    assetPackManifestURL: "",
-                    buildDir: "${WORKSPACE}/build/Archives/${XCODE_CONFIGURATION}-${XCODE_SDK}",
-                    buildIpa: false,
-                    bundleID: "",
-                    bundleIDInfoPlistPath: "",
-                    cfBundleShortVersionStringValue: "",
-                    cfBundleVersionValue: "",
-                    changeBundleID: false,
-                    cleanBeforeBuild: true,
-                    cleanTestReports: true,
-                    compileBitcode: true,
-                    configuration: "${XCODE_CONFIGURATION}",
-                    developmentTeamID: "${XCODE_DEVELOPMENT_TEAM_ID}",
-                    developmentTeamName: "",
-                    displayImageURL: "",
-                    embedOnDemandResourcesAssetPacksInBundle: true,
-                    fullSizeImageURL: "",
-                    generateArchive: true,
-                    interpretTargetAsRegEx: false,
-                    ipaExportMethod: "ad-hoc",
-                    ipaName: "",
-                    ipaOutputDirectory: "",
-                    keychainName: "",
-                    keychainPath: "${HOME}/Library/Keychains/login.keychain-db",
-                    keychainPwd: 'hellotalk',
-                    logfileOutputDirectory: "",
-                    manualSigning: true,
-                    noConsoleLog: false,
-                    onDemandResourcesAssetPacksBaseURL: "",
-                    provideApplicationVersion: false,
-                    provisioningProfiles: [
-                        [
-                            provisioningProfileAppId: "${XCODE_PROVISIONINGPROFILES[0].get('provisioningProfileAppId')}",
-                            provisioningProfileUUID: "${XCODE_PROVISIONINGPROFILES[0].get('provisioningProfileUUID')}"
+                    xcodeBuild allowFailingBuildResults: false,
+                        appURL: "",
+                        assetPackManifestURL: "",
+                        buildDir: "${WORKSPACE}/build/Archives/${XCODE_CONFIGURATION}-${XCODE_SDK}",
+                        buildIpa: false,
+                        bundleID: "",
+                        bundleIDInfoPlistPath: "",
+                        cfBundleShortVersionStringValue: "",
+                        cfBundleVersionValue: "",
+                        changeBundleID: false,
+                        cleanBeforeBuild: true,
+                        cleanTestReports: true,
+                        compileBitcode: true,
+                        configuration: "${XCODE_CONFIGURATION}",
+                        developmentTeamID: "${XCODE_DEVELOPMENT_TEAM_ID}",
+                        developmentTeamName: "",
+                        displayImageURL: "",
+                        embedOnDemandResourcesAssetPacksInBundle: true,
+                        fullSizeImageURL: "",
+                        generateArchive: true,
+                        interpretTargetAsRegEx: false,
+                        ipaExportMethod: "ad-hoc",
+                        ipaName: "",
+                        ipaOutputDirectory: "",
+                        keychainName: "",
+                        keychainPath: "${HOME}/Library/Keychains/login.keychain-db",
+                        keychainPwd: 'hellotalk',
+                        logfileOutputDirectory: "",
+                        manualSigning: true,
+                        noConsoleLog: false,
+                        onDemandResourcesAssetPacksBaseURL: "",
+                        provideApplicationVersion: false,
+                        provisioningProfiles: [
+                            [
+                                provisioningProfileAppId: "${XCODE_PROVISIONINGPROFILES[0].get('provisioningProfileAppId')}",
+                                provisioningProfileUUID: "${XCODE_PROVISIONINGPROFILES[0].get('provisioningProfileUUID')}"
+                            ],
+                            [
+                                provisioningProfileAppId: "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileAppId')}",
+                                provisioningProfileUUID: "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileUUID')}"
+                            ],
+                            [
+                                provisioningProfileAppId: "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileAppId')}",
+                                provisioningProfileUUID: "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileUUID')}"
+                            ]
                         ],
-                        [
-                            provisioningProfileAppId: "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileAppId')}",
-                            provisioningProfileUUID: "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileUUID')}"
-                        ],
-                        [
-                            provisioningProfileAppId: "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileAppId')}",
-                            provisioningProfileUUID: "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileUUID')}"
-                        ]
-                    ],
-                    sdk: "${XCODE_SDK}",
-                    symRoot: "",
-                    target: "",
-                    thinning: "",
-                    unlockKeychain: true,
-                    uploadBitcode: true,
-                    uploadSymbols: true,
-                    xcodeName: "${XCODE_NAME}",
-                    xcodeProjectFile: "${XCODE_PROJECT_FILENAME}",
-                    xcodeProjectPath: "${XCODE_WORKSPACE_PATH}",
-                    xcodeSchema: "${XCODE_SCHEME}",
-                    xcodeWorkspaceFile: "${XCODE_WORKSPACE_FILENAME}",
-                    xcodebuildArguments: "-derivedDataPath ${WORKSPACE}/build/DerivedData/${XCODE_SCHEME} -destination generic/platform=${XCODE_PLATFORM}"
+                        sdk: "${XCODE_SDK}",
+                        symRoot: "",
+                        target: "",
+                        thinning: "",
+                        unlockKeychain: true,
+                        uploadBitcode: true,
+                        uploadSymbols: true,
+                        xcodeName: "${XCODE_NAME}",
+                        xcodeProjectFile: "${XCODE_PROJECT_FILENAME}",
+                        xcodeProjectPath: "${XCODE_WORKSPACE_PATH}",
+                        xcodeSchema: "${XCODE_SCHEME}",
+                        xcodeWorkspaceFile: "${XCODE_WORKSPACE_FILENAME}",
+                        xcodebuildArguments: "-derivedDataPath ${WORKSPACE}/build/DerivedData/${XCODE_SCHEME} -destination generic/platform=${XCODE_PLATFORM}"
                 }
             }
 
@@ -263,7 +263,8 @@ def call(Closure body={}) {
 
                     unstash "stash-ipa"
 
-                    sh "mv ${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa /var/www/nginx/html/testing.hellotalk.com/ios/package/test-1.0-1.ipa"
+                    // sh "mv ${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa /var/www/nginx/html/testing.hellotalk.com/ios/package/test-1.0-1.ipa"
+                    firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
                 }
             }
         }
