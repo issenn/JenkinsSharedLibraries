@@ -15,9 +15,7 @@ def call(Closure body={}) {
     def XCODE_PROVISIONINGPROFILES
 
     pipeline {
-    agent {
-        label 'mac-mini'
-    }
+        agent none
 
         options {
             skipDefaultCheckout()
@@ -68,7 +66,12 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "feature/*"
                 }
-
+                agent {
+                    node {
+                        label 'mac-mini3'
+                        customWorkspace "workspace/${JOB_NAME}"
+                    }
+                }
                 steps {
                     script {
                         def scmVars = checkoutGitlab()
@@ -82,7 +85,12 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "feature/*"
                 }
-
+                agent {
+                    node {
+                        label 'mac-mini3'
+                        customWorkspace "workspace/${JOB_NAME}"
+                    }
+                }
                 steps {
                     script {
                         REPO_NAME = repo_name()
@@ -121,6 +129,12 @@ def call(Closure body={}) {
                 when {
                     beforeAgent true
                     branch "feature/*"
+                }
+                agent {
+                    node {
+                        label 'mac-mini3'
+                        customWorkspace "workspace/${JOB_NAME}"
+                    }
                 }
 
                 steps {
