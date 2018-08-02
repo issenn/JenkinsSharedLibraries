@@ -31,8 +31,8 @@ def call(Closure body={}) {
             LANGUAGE = "en_US.UTF-8"
             UNITTESTING_STATE = 'false'
             TESTING_STATE = 'false'
-            App = 'HelloTalk_Binary'
-            REPO_NAME = "${App}"
+            //App = 'HelloTalk_Binary'
+            //REPO_NAME = "${App}"
             XCODE_NAME = 'Xcode latest(9.4.1)'
             XCODE_CONFIGURATION = "Release"
             XCODE_SDK = "iphoneos"
@@ -94,7 +94,7 @@ def call(Closure body={}) {
 
                 steps {
                     script {
-                        // REPO_NAME = repo_name()
+                        REPO_NAME = repo_name()
                         if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcworkspace")) {
                             XCODE_WORKSPACE_FILENAME = "${REPO_NAME}"
                             XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
