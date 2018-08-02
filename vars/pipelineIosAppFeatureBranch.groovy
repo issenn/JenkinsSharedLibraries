@@ -16,8 +16,10 @@ def call(Closure body={}) {
 
     pipeline {
     agent {
-        label 'mac-mini3'
-        customWorkspace "workspace/${JOB_NAME}"
+        node {
+            label 'mac-mini3'
+            customWorkspace "workspace/${JOB_NAME}"
+        }
     }
 
         options {
