@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 
+import java.net.URLDecoder;
+
 def call(Map args = [:]) {
     args = [git_url: env.GIT_URL] << args
     def nameParts = (args.git_url - '.git').tokenize('/@')
