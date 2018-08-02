@@ -241,30 +241,30 @@ def call(Closure body={}) {
                 }
             }
 
-        stage('Test') {
-            steps {
-                sh 'echo "pass"'
-            }
-        }
+            stage('artifacts') {
+                when {
+                    beforeAgent true
+                    branch "feature/*"
+                }
 
-        stage('artifacts') {
-            steps {
-                stash name: "stash-ipa", includes: "build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa"
-            }
-        }
-
-        stage('Deploy') {
-            agent {
-                label 'master'
+                steps {
+                    stash name: "stash-ipa", includes: "build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa"
+                }
             }
 
-            steps {
+            stage('Deploy') {
+                when {
+                    beforeAgent true
+                    branch "feature/*"
+                }
 
-                unstash "stash-ipa"
+                steps {
 
-                sh "mv ${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa /var/www/nginx/html/testing.hellotalk.com/ios/package/test-1.0-1.ipa"
+                    unstash "stash-ipa"
+
+                    sh "mv ${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa /var/www/nginx/html/testing.hellotalk.com/ios/package/test-1.0-1.ipa"
+                }
             }
-        }
     }
 }
 }
