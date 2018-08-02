@@ -1,0 +1,21 @@
+#!/usr/bin/env groovy
+
+library(
+    identifier: 'github.com:Taki-Kun/JenkinsSharedLibraries@master',
+    retriever: modernSCM(
+        [
+            $class: 'GitSCMSource',
+            credentialsId: '846a4a04-da8e-4909-a5ff-eef9004b1eef',
+            id: '1be36020-7d8e-40a0-99dc-113f2b036c28',
+            remote: 'git@github.com:Taki-Kun/JenkinsSharedLibraries.git',
+            traits: [
+                [
+                    $class: 'jenkins.plugins.git.traits.BranchDiscoveryTrait'
+                ]
+            ]
+        ]
+    )
+)
+
+env.CICD_TYPE = 'IosApp'
+pipelineEntry()
