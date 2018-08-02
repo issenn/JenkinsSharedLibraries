@@ -122,12 +122,6 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "feature/*"
                 }
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
-                    }
-                }
 
                 steps {
                     dir("${XCODE_WORKSPACE_PATH}") {
