@@ -29,7 +29,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo "${formattedDate} - Checkout"
 
                 checkout_gitlab()
             }
@@ -37,7 +36,6 @@ pipeline {
 
         stage('Prepare') {
             steps {
-                echo "${formattedDate} - Prepare"
 
                 script {
                     REPO_NAME = repo_name()
@@ -85,7 +83,6 @@ pipeline {
 
         stage('Archive') {
             steps {
-                echo "${formattedDate} - Archive"
 
                 // sh 'security unlock-keychain -p hellotalk /Users/mac/Library/Keychains/login.keychain-db'
                 // sh 'security lock-keychain /Users/mac/Library/Keychains/login.keychain-db'
@@ -162,7 +159,6 @@ pipeline {
 
         stage('Sign and Export .ipa') {
             steps {
-                echo "${formattedDate} - Sign and Export .ipa"
                 exportIpa symRoot: "",
                     appURL: '',
                     archiveDir: "${WORKSPACE}/build/Archives/${XCODE_CONFIGURATION}-${XCODE_SDK}",
@@ -209,7 +205,6 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo "${formattedDate} - Test"
                 sh 'echo "pass"'
             }
         }
@@ -226,7 +221,6 @@ pipeline {
             }
 
             steps {
-                echo "${formattedDate} - Deploy"
 
                 unstash "stash-ipa"
 
