@@ -65,7 +65,7 @@ pipeline {
                     XCODE_PROVISIONING_PROFILE_APPID = xcode_provisioning_profile_value([key: ":Entitlements:application-identifier", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"]) - "${XCODE_DEVELOPMENT_TEAM_ID}."
                     XCODE_PLATFORM = xcode_provisioning_profile_value([key: ":Platform:0", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
 
-                    XCODE_PROVISIONINGPROFILES = install_provisioning_profile("${WORKSPACE}/PackageConfig")
+                    XCODE_PROVISIONINGPROFILES = install_provisioning_profile("${WORKSPACE}/PackageConfig", XCODE_DEVELOPMENT_TEAM_ID)
                 }
 
                 /*
