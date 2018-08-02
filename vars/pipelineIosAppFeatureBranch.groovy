@@ -68,7 +68,7 @@ def call(Closure body={}) {
                 }
                 agent {
                     node {
-                        label 'mac-mini1'
+                        label 'mac-mini3'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
@@ -88,7 +88,7 @@ def call(Closure body={}) {
                 }
                 agent {
                     node {
-                        label 'mac-mini1'
+                        label 'mac-mini3'
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
@@ -96,6 +96,7 @@ def call(Closure body={}) {
                 steps {
                     script {
                         REPO_NAME = repo_name()
+                        println(REPO_NAME)
                         if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcworkspace")) {
                             XCODE_WORKSPACE_FILENAME = "${REPO_NAME}"
                             XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
