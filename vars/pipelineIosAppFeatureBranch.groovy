@@ -117,12 +117,22 @@ def call(Closure body={}) {
                 }
             }
 
-        stage('Archive') {
-            steps {
-
-                dir("${XCODE_WORKSPACE_PATH}") {
-                    sh '/usr/local/bin/pod repo update && /usr/local/bin/pod install --verbose --no-repo-update'
+            stage('Archive') {
+                when {
+                    beforeAgent true
+                    branch "feature/*"
                 }
+                agent {
+                    node {
+                        label 'mac-mini3'
+                        customWorkspace "workspace/${JOB_NAME}"
+                    }
+                }
+
+                steps {
+                    dir("${XCODE_WORKSPACE_PATH}") {
+                        sh '/usr/local/bin/pod repo update && /usr/local/bin/pod install --verbose --no-repo-update'
+                    }
 
                 xcodeBuild allowFailingBuildResults: false,
                     appURL: "",
@@ -183,8 +193,8 @@ def call(Closure body={}) {
                     xcodeSchema: "${XCODE_SCHEME}",
                     xcodeWorkspaceFile: "${XCODE_WORKSPACE_FILENAME}",
                     xcodebuildArguments: "-derivedDataPath ${WORKSPACE}/build/DerivedData/${XCODE_SCHEME} -destination generic/platform=${XCODE_PLATFORM}"
+                }
             }
-        }
 
         stage('Sign and Export .ipa') {
             steps {
