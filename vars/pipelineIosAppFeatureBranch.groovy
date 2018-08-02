@@ -190,51 +190,56 @@ def call(Closure body={}) {
                 }
             }
 
-        stage('Sign and Export .ipa') {
-            steps {
-                exportIpa symRoot: "",
-                    appURL: '',
-                    archiveDir: "${WORKSPACE}/build/Archives/${XCODE_CONFIGURATION}-${XCODE_SDK}",
-                    assetPackManifestURL: '',
-                    compileBitcode: true,
-                    developmentTeamID: "${XCODE_DEVELOPMENT_TEAM_ID}",
-                    developmentTeamName: '',
-                    displayImageURL: '',
-                    fullSizeImageURL: '',
-                    ipaExportMethod: 'ad-hoc',
-                    ipaName: "",
-                    ipaOutputDirectory: "${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}",
-                    keychainName: '',
-                    keychainPath: "${HOME}/Library/Keychains/login.keychain-db",
-                    keychainPwd: 'hellotalk',
-                    manualSigning: true,
-                    packResourcesAsset: true,
-                    provisioningProfiles: [
-                        [
-                            provisioningProfileAppId: "${XCODE_PROVISIONINGPROFILES[0].get('provisioningProfileAppId')}",
-                            provisioningProfileUUID: "${XCODE_PROVISIONINGPROFILES[0].get('provisioningProfileUUID')}"
+            stage('Sign and Export .ipa') {
+                when {
+                    beforeAgent true
+                    branch "feature/*"
+                }
+
+                steps {
+                    exportIpa symRoot: "",
+                        appURL: '',
+                        archiveDir: "${WORKSPACE}/build/Archives/${XCODE_CONFIGURATION}-${XCODE_SDK}",
+                        assetPackManifestURL: '',
+                        compileBitcode: true,
+                        developmentTeamID: "${XCODE_DEVELOPMENT_TEAM_ID}",
+                        developmentTeamName: '',
+                        displayImageURL: '',
+                        fullSizeImageURL: '',
+                        ipaExportMethod: 'ad-hoc',
+                        ipaName: "",
+                        ipaOutputDirectory: "${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}",
+                        keychainName: '',
+                        keychainPath: "${HOME}/Library/Keychains/login.keychain-db",
+                        keychainPwd: 'hellotalk',
+                        manualSigning: true,
+                        packResourcesAsset: true,
+                        provisioningProfiles: [
+                            [
+                                provisioningProfileAppId: "${XCODE_PROVISIONINGPROFILES[0].get('provisioningProfileAppId')}",
+                                provisioningProfileUUID: "${XCODE_PROVISIONINGPROFILES[0].get('provisioningProfileUUID')}"
+                            ],
+                            [
+                                provisioningProfileAppId: "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileAppId')}",
+                                provisioningProfileUUID: "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileUUID')}"
+                            ],
+                            [
+                                provisioningProfileAppId: "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileAppId')}",
+                                provisioningProfileUUID: "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileUUID')}"
+                            ]
                         ],
-                        [
-                            provisioningProfileAppId: "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileAppId')}",
-                            provisioningProfileUUID: "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileUUID')}"
-                        ],
-                        [
-                            provisioningProfileAppId: "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileAppId')}",
-                            provisioningProfileUUID: "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileUUID')}"
-                        ]
-                    ],
-                    resourcesAssetURL: '',
-                    thinning: '<none>',
-                    unlockKeychain: false,
-                    uploadBitcode: true,
-                    uploadSymbols: true,
-                    xcodeName: "${XCODE_NAME}",
-                    xcodeProjectFile: "${XCODE_PROJECT_FILENAME}",
-                    xcodeProjectPath: "${XCODE_WORKSPACE_PATH}",
-                    xcodeSchema: "${XCODE_SCHEME}",
-                    xcodeWorkspaceFile: "${XCODE_WORKSPACE_FILENAME}"
+                        resourcesAssetURL: '',
+                        thinning: '<none>',
+                        unlockKeychain: false,
+                        uploadBitcode: true,
+                        uploadSymbols: true,
+                        xcodeName: "${XCODE_NAME}",
+                        xcodeProjectFile: "${XCODE_PROJECT_FILENAME}",
+                        xcodeProjectPath: "${XCODE_WORKSPACE_PATH}",
+                        xcodeSchema: "${XCODE_SCHEME}",
+                        xcodeWorkspaceFile: "${XCODE_WORKSPACE_FILENAME}"
+                }
             }
-        }
 
         stage('Test') {
             steps {
