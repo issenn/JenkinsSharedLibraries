@@ -51,7 +51,7 @@ def call(Closure body={}) {
                     beforeAgent true
                     not {
                         anyOf {
-                            branch "feature/*"
+                            branch "develop"
                         }
                     }
                 }
@@ -64,7 +64,7 @@ def call(Closure body={}) {
             stage('Checkout SCM') {
                 when {
                     beforeAgent true
-                    branch "feature/*"
+                    branch "develop"
                 }
                 agent {
                     node {
@@ -84,7 +84,7 @@ def call(Closure body={}) {
             stage('Prepare') {
                 when {
                     beforeAgent true
-                    branch "feature/*"
+                    branch "develop"
                 }
                 agent {
                     node {
@@ -138,6 +138,7 @@ def call(Closure body={}) {
                 when {
                     beforeAgent true
                     environment name: 'UNITTESTING_STATE', value: 'true'
+                    branch "develop"
                 }
 
                 steps {
@@ -148,7 +149,7 @@ def call(Closure body={}) {
             stage('Archive') {
                 when {
                     beforeAgent true
-                    branch "feature/*"
+                    branch "develop"
                 }
                 agent {
                     node {
@@ -227,7 +228,7 @@ def call(Closure body={}) {
             stage('Sign and Export .ipa') {
                 when {
                     beforeAgent true
-                    branch "feature/*"
+                    branch "develop"
                 }
                 agent {
                     node {
@@ -284,7 +285,7 @@ def call(Closure body={}) {
             stage('artifacts') {
                 when {
                     beforeAgent true
-                    branch "feature/*"
+                    branch "develop"
                 }
                 agent {
                     node {
@@ -300,7 +301,7 @@ def call(Closure body={}) {
             stage('Deploy') {
                 when {
                     beforeAgent true
-                    branch "feature/*"
+                    branch "develop"
                 }
                 agent {
                     node {

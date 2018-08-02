@@ -4,9 +4,9 @@ def call() {
 
     if (env.BRANCH_NAME.startsWith('feature/')) {
         pipelineIosAppFeatureBranch()
-    /*} else if (env.BRANCH_NAME == 'develop') {
+    } else if (env.BRANCH_NAME == 'develop') {
         pipelineIosAppDevelopBranch()
-    } else if (env.BRANCH_NAME.startsWith('test/')) {
+    /*} else if (env.BRANCH_NAME.startsWith('test/')) {
         pipelineIosAppTestBranch()
     } else if (env.BRANCH_NAME == 'release') {
         pipelineIosAppReleaseBranch()
