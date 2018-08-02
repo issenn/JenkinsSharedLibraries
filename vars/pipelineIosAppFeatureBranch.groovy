@@ -14,25 +14,68 @@ def call(Closure body={}) {
     def XCODE_PROVISIONING_PROFILE_UUID
     def XCODE_PROVISIONINGPROFILES
 
-
-pipeline {
+    pipeline {
     agent {
         label 'mac-mini'
     }
 
-    environment {
-        XCODE_NAME = 'Xcode latest(9.4.1)'
-        XCODE_CONFIGURATION = "DailyBuild"
-        XCODE_SDK = "iphoneos"
-    }
-
-    stages {
-        stage('Checkout') {
-            steps {
-
-                checkoutGitlab()
-            }
+        options {
+            skipDefaultCheckout()
         }
+
+        triggers {
+            pollSCM('H * * * *')
+        }
+
+        environment {
+            //LANG = "C.UTF-8"
+            //LC_ALL = "en_US.UTF-8"
+            //LANGUAGE = "en_US.UTF-8"
+            UNITTESTING_STATE = 'false'
+            TESTING_STATE = 'false'
+            //App = 'HelloTalk_Binary'
+            //REPO_NAME = "${App}"
+            XCODE_NAME = 'Xcode latest(9.4.1)'
+            XCODE_CONFIGURATION = "Release"
+            XCODE_SDK = "iphoneos"
+        }
+
+        stages {
+            stage('Check Branch/Tag') {
+                agent {
+                    node {
+                        label 'master'
+                        customWorkspace "workspace/${JOB_NAME}"
+                    }
+                }
+
+                when {
+                    beforeAgent true
+                    not {
+                        anyOf {
+                            branch "feature/*"
+                        }
+                    }
+                }
+
+                steps {
+                    error "Don't know what to do with this branch or tag: ${env.BRANCH_NAME}"
+                }
+            }
+
+            stage('Checkout SCM') {
+                when {
+                    beforeAgent true
+                    branch "feature/*"
+                }
+
+                steps {
+                    script {
+                        def scmVars = checkoutGitlab()
+                        env.GIT_URL = scmVars.GIT_URL
+                    }
+                }
+            }
 
         stage('Prepare') {
             steps {
@@ -42,7 +85,7 @@ pipeline {
                     if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcworkspace")) {
                         XCODE_WORKSPACE_FILENAME = "${REPO_NAME}"
                         XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
-                        XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}_DailyBuildScheme"
+                        XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}"
                         XCODE_PROJECT_FILENAME = ""
                         XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
                     } else {
@@ -51,7 +94,7 @@ pipeline {
                         if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcodeproj")) {
                             XCODE_PROJECT_FILENAME = "${REPO_NAME}"
                             XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
-                            XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}_DailyBuildScheme"
+                            XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}"
                         } else {
                             XCODE_PROJECT_FILENAME = ""
                             XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
@@ -67,29 +110,11 @@ pipeline {
 
                     XCODE_PROVISIONINGPROFILES = install_provisioning_profile("${WORKSPACE}/PackageConfig", XCODE_DEVELOPMENT_TEAM_ID)
                 }
-
-                /*
-                echo "XCODE_WORKSPACE_FILENAME: ${XCODE_WORKSPACE_FILENAME}"
-                echo "XCODE_WORKSPACE_PATH: ${XCODE_WORKSPACE_PATH}"
-                echo "XCODE_PROJECT_FILENAME: ${XCODE_PROJECT_FILENAME}"
-                echo "XCODE_PROJECT_PATH: ${XCODE_PROJECT_PATH}"
-                echo "XCODE_PROVISIONING_PROFILE_UUID: ${XCODE_PROVISIONING_PROFILE_UUID}"
-                echo "XCODE_DEVELOPMENT_TEAM_ID: ${XCODE_DEVELOPMENT_TEAM_ID}"
-                echo "XCODE_PROVISIONING_PROFILE_APPID: ${XCODE_PROVISIONING_PROFILE_APPID}"
-                echo "XCODE_PLATFORM: ${XCODE_PLATFORM}"
-                */
             }
         }
 
         stage('Archive') {
             steps {
-
-                // sh 'security unlock-keychain -p hellotalk /Users/mac/Library/Keychains/login.keychain-db'
-                // sh 'security lock-keychain /Users/mac/Library/Keychains/login.keychain-db'
-                // importDeveloperProfile 'f58c14ef-92ff-4a2a-844e-0bc1dfd4d0b7'
-                // sh 'xcodebuild clean -project test.xcodeproj -scheme test -configuration DailyBuild'
-                // sh 'xcodebuild archive -project test.xcodeproj -scheme test -configuration DailyBuild -sdk iphoneos -destination generic/platform=iOS -archivePath build/Archives/DailyBuild-iphoneos/test.xcarchive -derivedDataPath build/DerivedData/test'
-                // sh 'xcodebuild -exportArchive -archivePath build/Archives/DailyBuild-iphoneos/test.xcarchive -exportPath build/IPA/DailyBuild-iphoneos/test.ipa -exportOptionsPlist ExportOptions.plist -sdk iphoneos'
 
                 dir("${XCODE_WORKSPACE_PATH}") {
                     sh '/usr/local/bin/pod repo update && /usr/local/bin/pod install --verbose --no-repo-update'
