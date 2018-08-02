@@ -30,7 +30,7 @@ pipeline {
         stage('Checkout') {
             steps {
 
-                checkout_gitlab()
+                checkoutGitlab()
             }
         }
 
