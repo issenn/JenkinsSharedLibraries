@@ -77,41 +77,45 @@ def call(Closure body={}) {
                 }
             }
 
-        stage('Prepare') {
-            steps {
+            stage('Prepare') {
+                when {
+                    beforeAgent true
+                    branch "feature/*"
+                }
 
-                script {
-                    REPO_NAME = repo_name()
-                    if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcworkspace")) {
-                        XCODE_WORKSPACE_FILENAME = "${REPO_NAME}"
-                        XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
-                        XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}"
-                        XCODE_PROJECT_FILENAME = ""
-                        XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
-                    } else {
-                        XCODE_WORKSPACE_FILENAME = ""
-                        XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
-                        if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcodeproj")) {
-                            XCODE_PROJECT_FILENAME = "${REPO_NAME}"
-                            XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
-                            XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}"
-                        } else {
+                steps {
+                    script {
+                        REPO_NAME = repo_name()
+                        if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcworkspace")) {
+                            XCODE_WORKSPACE_FILENAME = "${REPO_NAME}"
+                            XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
+                            XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}"
                             XCODE_PROJECT_FILENAME = ""
                             XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
-                            XCODE_SCHEME = ""
-                            error "XCODE_PROJECT_FILENAME and XCODE_WORKSPACE_FILENAME is not set!";
+                        } else {
+                            XCODE_WORKSPACE_FILENAME = ""
+                            XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
+                            if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcodeproj")) {
+                                XCODE_PROJECT_FILENAME = "${REPO_NAME}"
+                                XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
+                                XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}"
+                            } else {
+                                XCODE_PROJECT_FILENAME = ""
+                                XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
+                                XCODE_SCHEME = ""
+                                error "XCODE_PROJECT_FILENAME and XCODE_WORKSPACE_FILENAME is not set!";
+                            }
                         }
+
+                        XCODE_PROVISIONING_PROFILE_UUID = xcode_provisioning_profile_value([key: ":UUID", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
+                        XCODE_DEVELOPMENT_TEAM_ID = xcode_provisioning_profile_value([key: ":TeamIdentifier:0", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
+                        XCODE_PROVISIONING_PROFILE_APPID = xcode_provisioning_profile_value([key: ":Entitlements:application-identifier", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"]) - "${XCODE_DEVELOPMENT_TEAM_ID}."
+                        XCODE_PLATFORM = xcode_provisioning_profile_value([key: ":Platform:0", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
+
+                        XCODE_PROVISIONINGPROFILES = install_provisioning_profile("${WORKSPACE}/PackageConfig", XCODE_DEVELOPMENT_TEAM_ID)
                     }
-
-                    XCODE_PROVISIONING_PROFILE_UUID = xcode_provisioning_profile_value([key: ":UUID", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
-                    XCODE_DEVELOPMENT_TEAM_ID = xcode_provisioning_profile_value([key: ":TeamIdentifier:0", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
-                    XCODE_PROVISIONING_PROFILE_APPID = xcode_provisioning_profile_value([key: ":Entitlements:application-identifier", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"]) - "${XCODE_DEVELOPMENT_TEAM_ID}."
-                    XCODE_PLATFORM = xcode_provisioning_profile_value([key: ":Platform:0", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
-
-                    XCODE_PROVISIONINGPROFILES = install_provisioning_profile("${WORKSPACE}/PackageConfig", XCODE_DEVELOPMENT_TEAM_ID)
                 }
             }
-        }
 
         stage('Archive') {
             steps {
