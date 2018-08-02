@@ -141,7 +141,23 @@ def call(Closure body={}) {
                     dir("${XCODE_WORKSPACE_PATH}") {
                         sh '/usr/local/bin/pod repo update && /usr/local/bin/pod install --verbose --no-repo-update'
                     }
-
+                echo "${WORKSPACE}"
+                echo "${XCODE_CONFIGURATION}"
+                echo "${XCODE_SDK}"
+                echo "${XCODE_DEVELOPMENT_TEAM_ID}"
+                echo "${HOME}"
+                echo "${XCODE_NAME}"
+                echo "${XCODE_PROJECT_FILENAME}"
+                echo "${XCODE_SCHEME}"
+                echo "${XCODE_WORKSPACE_PATH}"
+                echo "${XCODE_WORKSPACE_FILENAME}"
+                echo "${XCODE_PLATFORM}"
+                echo "${XCODE_PROVISIONINGPROFILES[0].get('provisioningProfileAppId')}"
+                echo "${XCODE_PROVISIONINGPROFILES[0].get('provisioningProfileUUID')}"
+                echo "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileUUID')}"
+                echo "${XCODE_PROVISIONINGPROFILES[1].get('provisioningProfileUUID')}"
+                echo "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileUUID')}"
+                echo "${XCODE_PROVISIONINGPROFILES[2].get('provisioningProfileUUID')}"
                 xcodeBuild allowFailingBuildResults: false,
                     appURL: "",
                     assetPackManifestURL: "",
