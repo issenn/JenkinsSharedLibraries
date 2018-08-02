@@ -87,18 +87,18 @@ def call(Closure body={}) {
                     script {
                         // REPO_NAME = repo_name()
                         REPO_NAME = 'HelloTalk_Binary'
-                        if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcworkspace")) {
+                        if (fileExists("${WORKSPACE}/${REPO_NAME}.xcworkspace")) {
                             XCODE_WORKSPACE_FILENAME = "${REPO_NAME}"
-                            XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
+                            XCODE_WORKSPACE_PATH = ""
                             XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}"
                             XCODE_PROJECT_FILENAME = ""
                             XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
                         } else {
                             XCODE_WORKSPACE_FILENAME = ""
                             XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
-                            if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcodeproj")) {
+                            if (fileExists("${WORKSPACE}/${REPO_NAME}.xcodeproj")) {
                                 XCODE_PROJECT_FILENAME = "${REPO_NAME}"
-                                XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
+                                XCODE_PROJECT_PATH = ""
                                 XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}"
                             } else {
                                 XCODE_PROJECT_FILENAME = ""

@@ -319,6 +319,7 @@ def call(Closure body={}) {
 
                                 steps {
                                     buildFeatureBranch(buildTypes, productFlavors)
+                                    sh "fir publish -T 9611b6a99d280463039cbb64b7eb24ca ${path}"
                                 }
                             }
 
@@ -397,7 +398,7 @@ def buildFeatureBranch(String buildTypes='', String productFlavors='') {
     echo "Feature branch - Build"
     buildTypes = pipelineAndroidAppSetup.changeStringGradleStyle(buildTypes)
     productFlavors = pipelineAndroidAppSetup.changeStringGradleStyle(productFlavors)
-    def args = ((productFlavors ?: '') + (buildTypes ?: '')) + " publish"
+    def args = ((productFlavors ?: '') + (buildTypes ?: '')) //+ " publish"
     pipelineAndroidAppSetup.build(args)
 }
 
