@@ -13,7 +13,9 @@ def call(Closure body={}) {
     def XCODE_WORKSPACE_PATH = ""
     def XCODE_PROVISIONING_PROFILE_UUID
     def XCODE_PROVISIONINGPROFILES
-    def changeLogSets
+    def versionName
+    def versionCode
+    def bundleId
 
     pipeline {
     agent {
@@ -29,9 +31,9 @@ def call(Closure body={}) {
         }
 
         environment {
-            //LANG = "C.UTF-8"
-            //LC_ALL = "en_US.UTF-8"
-            //LANGUAGE = "en_US.UTF-8"
+            LANG = "C.UTF-8"
+            LC_ALL = "en_US.UTF-8"
+            LANGUAGE = "en_US.UTF-8"
             UNITTESTING_STATE = 'false'
             TESTING_STATE = 'false'
             //App = 'HelloTalk_Binary'
@@ -115,12 +117,18 @@ def call(Closure body={}) {
                             }
                         }
 
+                        versionName = xcode_info_plist_value([key: ":CFBundleShortVersionString", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
+                        versionCode = xcode_info_plist_value([key: ":CFBundleVersion", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
+                        bundleId = xcode_info_plist_value([key: ":CFBundleURLTypes:0:CFBundleURLName", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
+
                         XCODE_PROVISIONING_PROFILE_UUID = xcode_provisioning_profile_value([key: ":UUID", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
                         XCODE_DEVELOPMENT_TEAM_ID = xcode_provisioning_profile_value([key: ":TeamIdentifier:0", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
                         XCODE_PROVISIONING_PROFILE_APPID = xcode_provisioning_profile_value([key: ":Entitlements:application-identifier", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"]) - "${XCODE_DEVELOPMENT_TEAM_ID}."
                         XCODE_PLATFORM = xcode_provisioning_profile_value([key: ":Platform:0", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
 
                         XCODE_PROVISIONINGPROFILES = install_provisioning_profile("${WORKSPACE}/PackageConfig", XCODE_DEVELOPMENT_TEAM_ID)
+
+                        firCurl("/Users/mac/*.ipa", 'Adhoc', 'ios')
                     }
                 }
             }
@@ -255,7 +263,8 @@ def call(Closure body={}) {
                     script {
                         println(CHANGELOG)
                     }
-                    firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
+                    firCurl("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa", 'Adhoc', 'ios')
+                    // firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
                 }
             }
         }
