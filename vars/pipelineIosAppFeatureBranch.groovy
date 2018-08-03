@@ -74,6 +74,7 @@ def call(Closure body={}) {
                         def scmVars = checkoutGithub()
                         env.GIT_URL = scmVars.GIT_URL
                     }
+                    echo "${currentBuild.changeSets}"
                 }
             }
 
