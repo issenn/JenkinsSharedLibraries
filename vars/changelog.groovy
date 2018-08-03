@@ -10,7 +10,6 @@ Changelog of Git Changelog.
 {{#tags}}
 {{name}}
 {{#commits}}
-{{hash}} {{authorName}} {{commitTime}}
 {{{messageTitle}}}
 {{#messageBodyItems}}
 <li> {{.}}</li>
