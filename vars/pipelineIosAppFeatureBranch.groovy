@@ -13,6 +13,7 @@ def call(Closure body={}) {
     def XCODE_WORKSPACE_PATH = ""
     def XCODE_PROVISIONING_PROFILE_UUID
     def XCODE_PROVISIONINGPROFILES
+    def changeLogSets
 
     pipeline {
     agent {
@@ -73,8 +74,9 @@ def call(Closure body={}) {
                     script {
                         def scmVars = checkoutGithub()
                         env.GIT_URL = scmVars.GIT_URL
+                        changeLogSets = currentBuild.changeSets
                     }
-                    echo "${currentBuild.changeSets}"
+                    echo "${changeLogSets}"
                 }
             }
 
