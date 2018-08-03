@@ -78,8 +78,8 @@ def call(Closure body={}) {
                         env.GIT_PREVIOUS_SUCCESSFUL_COMMIT = scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT
 
  def changelogString = gitChangelog returnType: 'STRING',
-  from: [type: 'REF', value: "${env.GIT_COMMIT}"],
-  to: [type: 'REF', value: "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"],
+  from: [type: 'COMMIT', value: "${env.GIT_COMMIT}"],
+  to: [type: 'COMMIT', value: "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"],
   template: """
   <h1> Git Changelog changelog </h1>
 
