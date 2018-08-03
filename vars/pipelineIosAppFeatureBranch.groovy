@@ -77,7 +77,7 @@ def call(Closure body={}) {
 
  def changelogString = gitChangelog returnType: 'STRING',
   from: [type: 'REF', value: 'git-changelog-1.50'],
-  to: [type: 'REF', value: 'master'],
+  to: [type: 'REF', value: 'feature/a'],
   template: """
   <h1> Git Changelog changelog </h1>
 
