@@ -13,9 +13,6 @@ def call(Closure body={}) {
     def XCODE_WORKSPACE_PATH = ""
     def XCODE_PROVISIONING_PROFILE_UUID
     def XCODE_PROVISIONINGPROFILES
-    def versionName
-    def versionCode
-    def bundleId
 
     pipeline {
     agent {
@@ -117,9 +114,9 @@ def call(Closure body={}) {
                             }
                         }
 
-                        versionName = xcode_info_plist_value([key: ":CFBundleShortVersionString", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
-                        versionCode = xcode_info_plist_value([key: ":CFBundleVersion", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
-                        bundleId = xcode_info_plist_value([key: ":CFBundleURLTypes:0:CFBundleURLName", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
+                        env.versionName = xcode_info_plist_value([key: ":CFBundleShortVersionString", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
+                        env.versionCode = xcode_info_plist_value([key: ":CFBundleVersion", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
+                        env.bundleId = xcode_info_plist_value([key: ":CFBundleURLTypes:0:CFBundleURLName", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
 
                         XCODE_PROVISIONING_PROFILE_UUID = xcode_provisioning_profile_value([key: ":UUID", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
                         XCODE_DEVELOPMENT_TEAM_ID = xcode_provisioning_profile_value([key: ":TeamIdentifier:0", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
@@ -128,7 +125,7 @@ def call(Closure body={}) {
 
                         XCODE_PROVISIONINGPROFILES = install_provisioning_profile("${WORKSPACE}/PackageConfig", XCODE_DEVELOPMENT_TEAM_ID)
 
-                        firCurl("/Users/mac/*.ipa", "${bundleId}", 'Adhoc', 'ios')
+                        firCurl("/Users/mac/*.ipa", 'Adhoc', 'ios')
                     }
                 }
             }
