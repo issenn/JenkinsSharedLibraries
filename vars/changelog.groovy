@@ -5,6 +5,7 @@ def call(String from, String to) {
     from: [type: 'COMMIT', value: "${from}"],
     to: [type: 'COMMIT', value: "${to}"],
     template: '''
+{{{messageTitle}}}
 {{#messageBodyItems}}
 <li> {{.}}</li>
 {{/messageBodyItems}}'''
