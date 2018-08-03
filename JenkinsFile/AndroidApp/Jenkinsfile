@@ -2,6 +2,7 @@
 
 library(
     identifier: 'github.com:Taki-Kun/JenkinsSharedLibraries@master',
+    changelog: false,
     retriever: modernSCM(
         [
             $class: 'GitSCMSource',

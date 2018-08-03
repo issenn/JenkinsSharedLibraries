@@ -74,7 +74,7 @@ def call(Closure body={}) {
                     script {
                         def scmVars = checkoutGithub()
                         env.GIT_URL = scmVars.GIT_URL
-                        changeLogSets = scmVars.changeSets
+                        changeLogSets = currentBuild.changeSets
                     }
                     echo "${changeLogSets}"
                 }
