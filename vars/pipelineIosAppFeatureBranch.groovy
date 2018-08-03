@@ -80,9 +80,20 @@ def call(Closure body={}) {
  def changelogString = gitChangelog returnType: 'STRING',
   from: [type: 'COMMIT', value: "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"],
   to: [type: 'COMMIT', value: "${env.GIT_COMMIT}"],
-  template: """
-  template
-  """
+  template: '''
+<h1> Git Changelog changelog </h1>
+Changelog of Git Changelog.
+{{#tags}}
+{{name}}
+{{#commits}}
+{{hash}} {{authorName}} {{commitTime}}
+{{{messageTitle}}}
+{{#messageBodyItems}}
+<li> {{.}}</li>
+{{/messageBodyItems}}
+
+{{/commits}}
+{{/tags}}'''
 
  println(changelogString)
                     }
