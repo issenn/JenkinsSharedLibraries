@@ -74,10 +74,12 @@ def call(Closure body={}) {
                     script {
                         def scmVars = checkoutGithub()
                         env.GIT_URL = scmVars.GIT_URL
+                        env.GIT_COMMIT = scmVars.GIT_COMMIT
+                        env.GIT_PREVIOUS_SUCCESSFUL_COMMIT = scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT
 
  def changelogString = gitChangelog returnType: 'STRING',
-  from: [type: 'REF', value: 'feature/a'],
-  to: [type: 'REF', value: 'feature/a'],
+  from: [type: 'REF', value: "${env.GIT_COMMIT}"],
+  to: [type: 'REF', value: "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"],
   template: """
   <h1> Git Changelog changelog </h1>
 
