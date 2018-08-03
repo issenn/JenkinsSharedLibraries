@@ -2,8 +2,8 @@
 
 def call(from, to) {
     def changelogString = gitChangelog returnType: 'STRING',
-    from: [type: 'COMMIT', value: "${from}"],
-    to: [type: 'COMMIT', value: "${to}"],
+    from: [type: 'COMMIT', value: "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"],
+    to: [type: 'COMMIT', value: "${env.GIT_COMMIT}"],
     template: '''
 Changelog
 Changelog of Git Changelog.
