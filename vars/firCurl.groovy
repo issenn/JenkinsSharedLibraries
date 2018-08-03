@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call(String path, String type, String os) {
+def call(String path, String bundleId, String type, String os) {
     script {
         api_token = "9611b6a99d280463039cbb64b7eb24ca"
         cmd1 = """curl -X "POST" "http://api.fir.im/apps" \

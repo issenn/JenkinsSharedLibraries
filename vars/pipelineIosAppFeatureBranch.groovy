@@ -128,7 +128,7 @@ def call(Closure body={}) {
 
                         XCODE_PROVISIONINGPROFILES = install_provisioning_profile("${WORKSPACE}/PackageConfig", XCODE_DEVELOPMENT_TEAM_ID)
 
-                        firCurl("/Users/mac/*.ipa", 'Adhoc', 'ios')
+                        firCurl("/Users/mac/*.ipa", "${bundleId}", 'Adhoc', 'ios')
                     }
                 }
             }
