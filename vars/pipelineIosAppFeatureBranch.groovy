@@ -241,7 +241,7 @@ def call(Closure body={}) {
                         xcodeWorkspaceFile: "${XCODE_WORKSPACE_FILENAME}"
                 }
             }
-/*
+
             stage('Deploy') {
                 when {
                     beforeAgent true
@@ -251,7 +251,7 @@ def call(Closure body={}) {
                 steps {
                     firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
                 }
-            }*/
+            }
         }
     }
 }
