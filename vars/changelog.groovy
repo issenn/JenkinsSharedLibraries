@@ -5,8 +5,6 @@ def call(String from, String to) {
     from: [type: 'COMMIT', value: "${from}"],
     to: [type: 'COMMIT', value: "${to}"],
     template: '''
-<h1> Git Changelog changelog </h1>
-Changelog of Git Changelog.
 {{#tags}}
 {{#commits}}
 {{{messageTitle}}}
@@ -15,7 +13,6 @@ Changelog of Git Changelog.
 {{/messageBodyItems}}
 {{/commits}}
 {{/tags}}'''
-    println(changelogString)
     return changelogString
 }
 
