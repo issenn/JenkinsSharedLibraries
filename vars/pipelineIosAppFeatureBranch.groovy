@@ -80,6 +80,7 @@ def call(Closure body={}) {
  def changelogString = gitChangelog returnType: 'STRING',
   from: [type: 'COMMIT', value: "${env.GIT_COMMIT}"],
   to: [type: 'COMMIT', value: "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"],
+  gitLab: [issuePattern: '#([0-9]+)', projectName: 'HelloTalk_Binary', server: 'http://gitlab.hellotalk.com/', token: ''],
   template: """
   <h1> Git Changelog changelog </h1>
 
