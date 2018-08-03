@@ -12,6 +12,9 @@ Changelog of Git Changelog.
 {{#commits}}
 {{hash}} {{authorName}} {{commitTime}}
 {{{messageTitle}}}
+{{#messageBodyItems}}
+<li> {{.}}</li>
+{{/messageBodyItems}}
 {{/commits}}
 {{/tags}}'''
 }
