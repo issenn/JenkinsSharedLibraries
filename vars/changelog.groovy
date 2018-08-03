@@ -5,10 +5,14 @@ def call(String from, String to) {
     from: [type: 'COMMIT', value: "${from}"],
     to: [type: 'COMMIT', value: "${to}"],
     template: '''
+{{#tags}}
+{{#commits}}
 {{{messageTitle}}}
 {{#messageBodyItems}}
 <li> {{.}}</li>
-{{/messageBodyItems}}'''
+{{/messageBodyItems}}
+{{/commits}}
+{{/tags}}'''
     return changelogString
 }
 
