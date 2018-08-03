@@ -15,6 +15,28 @@ def call(Closure body={}) {
     def XCODE_PROVISIONINGPROFILES
     def changeLogSets
 
+@NonCPS
+def getChangeString() {
+    MAX_MSG_LEN = 100
+    def changeString = ""
+
+    echo "Gathering SCM changes"
+    def changeLogSets = currentBuild.rawBuild.changeSets
+    for (int i = 0; i < changeLogSets.size(); i++) {
+        def entries = changeLogSets[i].items
+        for (int j = 0; j < entries.length; j++) {
+            def entry = entries[j]
+            truncated_msg = entry.msg.take(MAX_MSG_LEN)
+            changeString += " - ${truncated_msg} [${entry.author}]\n"
+        }
+    }
+
+    if (!changeString) {
+        changeString = " - No new changes"
+    }
+    return changeString
+}
+
     pipeline {
     agent {
         label 'mac-mini3'
@@ -76,52 +98,7 @@ def call(Closure body={}) {
                         env.GIT_URL = scmVars.GIT_URL
                         env.GIT_COMMIT = scmVars.GIT_COMMIT
                         env.GIT_PREVIOUS_SUCCESSFUL_COMMIT = scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT
-
- def changelogString = gitChangelog returnType: 'STRING',
-  from: [type: 'COMMIT', value: "${env.GIT_COMMIT}"],
-  to: [type: 'COMMIT', value: "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"],
-  gitLab: [issuePattern: '#([0-9]+)', projectName: 'HelloTalk_Binary', server: 'http://gitlab.hellotalk.com/', token: ''],
-  template: """
-  <h1> Git Changelog changelog </h1>
-
-<p>
-Changelog of Git Changelog.
-</p>
-
-{{#tags}}
-<h2> {{name}} </h2>
- {{#issues}}
-  {{#hasIssue}}
-   {{#hasLink}}
-<h2> {{name}} <a href="{{link}}">{{issue}}</a> {{title}} </h2>
-   {{/hasLink}}
-   {{^hasLink}}
-<h2> {{name}} {{issue}} {{title}} </h2>
-   {{/hasLink}}
-  {{/hasIssue}}
-  {{^hasIssue}}
-<h2> {{name}} </h2>
-  {{/hasIssue}}
-
-
-   {{#commits}}
-<a href="https://github.com/tomasbjerre/git-changelog-lib/commit/{{hash}}">{{hash}}</a> {{authorName}} <i>{{commitTime}}</i>
-<p>
-<h3>{{{messageTitle}}}</h3>
-
-{{#messageBodyItems}}
- <li> {{.}}</li> 
-{{/messageBodyItems}}
-</p>
-
-
-  {{/commits}}
-
- {{/issues}}
-{{/tags}}
-  """
-
- currentBuild.description = changelogString
+                        println(getChangeString())
                     }
                 }
             }
