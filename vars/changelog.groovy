@@ -8,7 +8,6 @@ def call(String from, String to) {
 <h1> Git Changelog changelog </h1>
 Changelog of Git Changelog.
 {{#tags}}
-{{name}}
 {{#commits}}
 {{{messageTitle}}}
 {{#messageBodyItems}}
