@@ -9,12 +9,10 @@ def call(String from, String to) {
 Changelog of Git Changelog.
 {{#tags}}
 {{name}}
-{{#commits}}
 {{{messageTitle}}}
 {{#messageBodyItems}}
 <li> {{.}}</li>
 {{/messageBodyItems}}
-{{/commits}}
 {{/tags}}'''
 }
 
