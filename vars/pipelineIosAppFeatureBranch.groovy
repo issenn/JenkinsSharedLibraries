@@ -81,7 +81,7 @@ def call(Closure body={}) {
   from: [type: 'COMMIT', value: "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"],
   to: [type: 'COMMIT', value: "${env.GIT_COMMIT}"]
 
- print(changelogString)
+ println(changelogString)
                     }
                 }
             }
