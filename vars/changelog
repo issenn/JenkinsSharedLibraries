@@ -17,6 +17,7 @@ Changelog of Git Changelog.
 {{/messageBodyItems}}
 {{/commits}}
 {{/tags}}'''
+    println(changelogString)
     return changelogString
 }
 
