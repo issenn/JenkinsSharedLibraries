@@ -84,7 +84,7 @@ def call(Closure body={}) {
 
                                 steps {
                                     script {
-                                        def scmVars = checkoutGitlab()
+                                        def scmVars = checkoutGithub()
                                     }
                                 }
                             }
@@ -236,7 +236,9 @@ def call(Closure body={}) {
                                 }
 
                                 steps {
-                                    checkoutGitlab()
+                                    script {
+                                        def scmVars = checkoutGithub()
+                                    }
                                 }
                             }
 
@@ -317,6 +319,7 @@ def call(Closure body={}) {
 
                                 steps {
                                     buildFeatureBranch(buildTypes, productFlavors)
+                                    sh "fir publish -T 9611b6a99d280463039cbb64b7eb24ca ${path}"
                                 }
                             }
 
@@ -368,6 +371,18 @@ def call(Closure body={}) {
                 }
             }
         }
+        /*post {
+            success {
+                mail to:"myname@me.com", subject:"${currentBuild.fullDisplayName} - Failed!", body: "Success!"
+            }
+            failure {
+                mail to:"myname@me.com", subject:"${currentBuild.fullDisplayName} - Failed!", body: "Failure!"
+            }
+            always{
+                // sendNotifications currentBuild.result
+                emailext body: '${JELLY_SCRIPT,template="static-analysis"}', recipientProviders: [[$class: 'DevelopersRecipientProvider']], subject: '构建通知：$PROJECT_NAME - Build # $BUILD_NUMBER - Success!'
+            }
+        }*/
     }
 }
 
@@ -383,7 +398,7 @@ def buildFeatureBranch(String buildTypes='', String productFlavors='') {
     echo "Feature branch - Build"
     buildTypes = pipelineAndroidAppSetup.changeStringGradleStyle(buildTypes)
     productFlavors = pipelineAndroidAppSetup.changeStringGradleStyle(productFlavors)
-    def args = ((productFlavors ?: '') + (buildTypes ?: '')) + " publish"
+    def args = ((productFlavors ?: '') + (buildTypes ?: '')) //+ " publish"
     pipelineAndroidAppSetup.build(args)
 }
 

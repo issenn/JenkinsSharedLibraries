@@ -84,7 +84,7 @@ def call(Closure body={}) {
 
                                 steps {
                                     script {
-                                        def scmVars = checkoutGitlab()
+                                        def scmVars = checkoutGithub()
                                     }
                                 }
                             }
@@ -236,7 +236,9 @@ def call(Closure body={}) {
                                 }
 
                                 steps {
-                                    checkoutGitlab()
+                                    script {
+                                        def scmVars = checkoutGithub()
+                                    }
                                 }
                             }
 

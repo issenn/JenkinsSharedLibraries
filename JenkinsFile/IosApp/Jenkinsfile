@@ -18,5 +18,5 @@ library(
     )
 )
 
-env.CICD_TYPE = 'AndroidApp'
+env.CICD_TYPE = 'IosApp'
 pipelineEntry()

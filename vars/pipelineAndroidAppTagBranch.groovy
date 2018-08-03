@@ -44,7 +44,7 @@ def call(Closure body={}) {
                     beforeAgent true
                     not {
                         anyOf {
-                            branch "test/*"
+                            buildingTag()
                         }
                     }
                 }
@@ -57,7 +57,7 @@ def call(Closure body={}) {
             stage('Start') {
                 when {
                     beforeAgent true
-                    branch "test/*"
+                    buildingTag()
                 }
 
                 failFast false
@@ -148,7 +148,7 @@ def call(Closure body={}) {
                                 }
 
                                 steps {
-                                    unittestTestBranch(buildTypes, productFlavors)
+                                    unittestTagBranch(buildTypes, productFlavors)
                                 }
                             }
 
@@ -166,7 +166,7 @@ def call(Closure body={}) {
                                 }
 
                                 steps {
-                                    buildTestBranch(buildTypes, productFlavors)
+                                    buildTagBranch(buildTypes, productFlavors)
                                 }
                             }
 
@@ -179,7 +179,7 @@ def call(Closure body={}) {
                                 }
 
                                 steps {
-                                    artifactsTestBranch(buildTypes, productFlavors)
+                                    artifactsTagBranch(buildTypes, productFlavors)
                                 }
                             }
 
@@ -192,7 +192,7 @@ def call(Closure body={}) {
                                 }
 
                                 steps {
-                                    deployTestBranch(buildTypes, productFlavors)
+                                    deployTagBranch(buildTypes, productFlavors)
                                 }
                             }
 
@@ -300,7 +300,7 @@ def call(Closure body={}) {
                                 }
 
                                 steps {
-                                    unittestTestBranch(buildTypes, productFlavors)
+                                    unittestTagBranch(buildTypes, productFlavors)
                                 }
                             }
 
@@ -318,7 +318,7 @@ def call(Closure body={}) {
                                 }
 
                                 steps {
-                                    buildTestBranch(buildTypes, productFlavors)
+                                    buildTagBranch(buildTypes, productFlavors)
                                 }
                             }
 
@@ -331,7 +331,7 @@ def call(Closure body={}) {
                                 }
 
                                 steps {
-                                    artifactsTestBranch(buildTypes, productFlavors)
+                                    artifactsTagBranch(buildTypes, productFlavors)
                                 }
                             }
 
@@ -344,7 +344,7 @@ def call(Closure body={}) {
                                 }
 
                                 steps {
-                                    deployTestBranch(buildTypes, productFlavors)
+                                    deployTagBranch(buildTypes, productFlavors)
                                 }
                             }
 
@@ -373,31 +373,31 @@ def call(Closure body={}) {
     }
 }
 
-def unittestTestBranch(String buildTypes='', String productFlavors='') {
-    echo "Test branch - Unit Testing"
+def unittestTagBranch(String buildTypes='', String productFlavors='') {
+    echo "Tag branch - Unit Testing"
     buildTypes = pipelineAndroidAppSetup.changeStringGradleStyle(buildTypes)
     productFlavors = pipelineAndroidAppSetup.changeStringGradleStyle(productFlavors)
     def args = ((productFlavors ?: '') + (buildTypes ?: '')) ? (((productFlavors ?: '') + (buildTypes ?: '')) + 'UnitTest' ) : ''
     pipelineAndroidAppSetup.unittest(args)
 }
 
-def buildTestBranch(String buildTypes='', String productFlavors='') {
-    echo "Test branch - Build"
+def buildTagBranch(String buildTypes='', String productFlavors='') {
+    echo "Tag branch - Build"
     buildTypes = pipelineAndroidAppSetup.changeStringGradleStyle(buildTypes)
     productFlavors = pipelineAndroidAppSetup.changeStringGradleStyle(productFlavors)
     def args = ((productFlavors ?: '') + (buildTypes ?: '')) + " publish"
     pipelineAndroidAppSetup.build(args)
 }
 
-def artifactsTestBranch(String buildTypes = '', String productFlavors = '') {
-    echo "Test branch - Artifacts"
+def artifactsTagBranch(String buildTypes = '', String productFlavors = '') {
+    echo "Tag branch - Artifacts"
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
     def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
     pipelineAndroidAppSetup.artifacts(name, path)
 }
 
-def deployTestBranch(String buildTypes = '', String productFlavors = '') {
-    echo "Test branch - Deploy"
+def deployTagBranch(String buildTypes = '', String productFlavors = '') {
+    echo "Tag branch - Deploy"
     def name = "${App}" + (((productFlavors ? ('-' + productFlavors) : '') + (buildTypes ? ('-'+ buildTypes) : '')) ?: '')
     def path = "${App}/build/outputs/apk/" + (productFlavors ?: '*') + '/' + (buildTypes ?: '*') + "/${App}-" + (productFlavors ?: '*') + '-' + (buildTypes ?: '*') + '.apk'
     def targetPath = "/var/www/nginx/html/testing.hellotalk.com/android/package/"
