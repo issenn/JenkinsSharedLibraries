@@ -76,7 +76,12 @@ def call(Closure body={}) {
                         env.GIT_URL = scmVars.GIT_URL
                         env.GIT_COMMIT = scmVars.GIT_COMMIT
                         env.GIT_PREVIOUS_SUCCESSFUL_COMMIT = scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT
-                        println(getChangeString())
+
+ def changelogString = gitChangelog returnType: 'STRING',
+  from: [type: 'COMMIT', value: "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"],
+  to: [type: 'COMMIT', value: "${env.GIT_COMMIT}"]
+
+ print(changelogString)
                     }
                 }
             }
