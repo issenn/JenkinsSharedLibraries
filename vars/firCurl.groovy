@@ -11,6 +11,6 @@ def call() {
             -F "x:release_type=Adhoc"   \
             -F "x:changelog=first"       \
             https://upload.qbox.me'''
-    sh(cmd)
+        sh(cmd)
     }
 }
