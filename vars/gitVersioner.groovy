@@ -7,7 +7,9 @@ def call() {
     def status = 'git status'.execute([], rootDir)
     status.waitFor()
     def isGitProject = status.exitValue()
+    println('---')
     println(isGitProject)
+    println('---')
 
     if (isGitProject == 69) {
         println("git returned with error 69\n" +
