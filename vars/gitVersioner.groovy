@@ -2,6 +2,7 @@
 
 
 def call() {
+    println('--------in')
 
     // check if git project
     def status = 'git status'.execute([], rootDir)
