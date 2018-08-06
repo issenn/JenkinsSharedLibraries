@@ -13,6 +13,8 @@ def call(String path, String type, String os) {
         def slurper = new JsonSlurper().parseText(stdout1)
         def key = slurper.cert.binary.key
         def token = slurper.cert.binary.token
+        println(key)
+        println(token)
         def cmd2 = """curl -F "key=${key}"              \
             -F "token=${token}"             \
             -F "file=@${path}"            \
