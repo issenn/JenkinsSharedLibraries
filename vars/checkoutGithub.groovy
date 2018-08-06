@@ -15,7 +15,7 @@ def call() {
                 noTags: false,
                 reference: '',
                 shallow: true,
-                timeout: 10
+                timeout: 30
             ],
             [
                 $class: 'GitTagMessageExtension'
