@@ -73,12 +73,8 @@ def call(Closure body={}) {
                     script {
                         def scmVars = checkoutGithub()
                         env.GIT_URL = scmVars.GIT_URL
-                        env.GIT_COMMIT = scmVars.GIT_COMMIT ?: 0
-                        env.GIT_PREVIOUS_SUCCESSFUL_COMMIT = scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT ?: 0
-                        println('---')
-                        println(GIT_COMMIT)
-                        println(GIT_PREVIOUS_SUCCESSFUL_COMMIT)
-                        println('---')
+                        env.GIT_COMMIT = scmVars.GIT_COMMIT
+                        env.GIT_PREVIOUS_SUCCESSFUL_COMMIT = scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT
                         env.CHANGELOG = changelog(GIT_PREVIOUS_SUCCESSFUL_COMMIT, GIT_COMMIT)
                     }
                 }

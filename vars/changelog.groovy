@@ -1,6 +1,9 @@
 #!/usr/bin/env groovy
 
 def call(String from, String to) {
+    println(from)
+    from = from ?: to
+    println(from)
     def changelogString = gitChangelog returnType: 'STRING',
     from: [type: 'COMMIT', value: "${from}"],
     to: [type: 'COMMIT', value: "${to}"],
