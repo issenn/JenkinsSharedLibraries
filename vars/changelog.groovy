@@ -3,7 +3,7 @@
 def call(String from, String to) {
     println(from)
     println(to)
-    def aaa = from ?: '123'
+    def aaa = from == 'null' ? '123' : '456'
     println(aaa)
     def changelogString = gitChangelog returnType: 'STRING',
     from: [type: 'COMMIT', value: "${from}"],
