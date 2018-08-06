@@ -167,7 +167,7 @@ def call(Closure body={}) {
 
                                 steps {
                                     buildFeatureBranch(buildTypes, productFlavors)
-                                    firPublish("${WORKSPACE}/HelloTalk/outputs/apk/china/release/HelloTalk-china-release.apk")
+                                    firPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/china/release/HelloTalk-china-release.apk")
                                 }
                             }
 
@@ -321,7 +321,7 @@ def call(Closure body={}) {
                                 steps {
                                     buildFeatureBranch(buildTypes, productFlavors)
                                     sh "fir publish -T 9611b6a99d280463039cbb64b7eb24ca ${path}"
-                                    firPublish("${WORKSPACE}/HelloTalk/outputs/apk/google/release/HelloTalk-google-release.apk")
+                                    firPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/google/release/HelloTalk-google-release.apk")
                                 }
                             }
 
