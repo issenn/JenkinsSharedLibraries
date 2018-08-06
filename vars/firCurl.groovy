@@ -22,6 +22,8 @@ def call(String path, String type, String os) {
         println(aaa)
         def slurper = new JsonSlurper().parseText(aaa)
         println(slurper.id)
+        println(slurper.cert.binary.key)
+        println(slurper.cert.binary.token)
         // bbb = sh(returnStdout: true, script: "${cmd2}").trim()
     }
 }
