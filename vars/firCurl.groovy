@@ -10,13 +10,13 @@ def call(String path, String type, String os) {
             -H \"Content-Type: application/json\" \
             -d  '${json}'"
         def stdout1 = sh(returnStdout: true, script: "${cmd1}").trim()
-        def slurper = new JsonSlurper().parseText(stdout1)
+        def slurper = readJSON text: stdout1
         def key = slurper.cert.binary.key
         def token = slurper.cert.binary.token
         println(key)
         println(token)
         def stdout3 = sh(returnStdout: true, script: "${cmd1}").trim()
-        def slurper3 = new JsonSlurper().parseText(stdout3)
+        def slurper3 = readJSON text: stdout3
         def key3 = slurper3.cert.binary.key
         def token3 = slurper3.cert.binary.token
         println(key3)
