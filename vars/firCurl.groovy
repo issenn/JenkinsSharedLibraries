@@ -11,9 +11,7 @@ def call(String path, String type, String os) {
         def json1 = readJSON text: stdout1
         log.info(json1)
         def key = json1.cert.binary.key
-        log.info(key)
         def token = json1.cert.binary.token
-        log.info(token)
         def cmd2 = "curl -F \"key=${key}\"              \
             -F \"token=${token}\"             \
             -F \"file=@${path}\"            \
