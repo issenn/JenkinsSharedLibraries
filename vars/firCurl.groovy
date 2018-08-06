@@ -17,7 +17,7 @@ def call(String path, String type, String os) {
         println(token)
         def cmd2 = "curl \"https://upload.qbox.me\""
         println(cmd2)
-        def stdout2 = sh(returnStdout: true, script: "${cmd2}").trim()
+        def stdout2 = sh(returnStdout: true, script: "${cmd1}").trim()
         println(stdout2)
         // bbb = sh(returnStdout: true, script: "${cmd2}").trim()
     }
