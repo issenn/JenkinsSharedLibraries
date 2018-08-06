@@ -3,6 +3,7 @@
 def call(String path, String type, String os) {
     script {
         api_token = "9611b6a99d280463039cbb64b7eb24ca"
+        // json = 
         cmd1 = """curl -X "POST" "http://api.fir.im/apps" \
             -H "Content-Type: application/json" \
             -d "{\"type\":\"${os}\", \"bundle_id\":\"${env.bundleId}\", \"api_token\":\"${api_token}\"}" """
