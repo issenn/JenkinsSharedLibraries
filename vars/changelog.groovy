@@ -12,7 +12,7 @@ def call(String from, String to) {
 <li> {{.}}</li>
 {{/messageBodyItems}}
 {{/commits}}'''
-    println(changelogString)
+    log.info(changelogString)
     return changelogString
 }
 
