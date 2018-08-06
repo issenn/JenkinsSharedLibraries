@@ -1,7 +1,5 @@
 #!/usr/bin/env groovy
 
-import groovy.json.JsonSlurper
-
 def call(String path, String type, String os) {
     script {
         def api_token = "9611b6a99d280463039cbb64b7eb24ca"
@@ -10,20 +8,22 @@ def call(String path, String type, String os) {
             -H \"Content-Type: application/json\" \
             -d  '${json}'"
         def stdout1 = sh(returnStdout: true, script: "${cmd1}").trim()
-        def slurper = readJSON text: stdout1
-        def key = slurper.cert.binary.key
-        def token = slurper.cert.binary.token
+        def json1 = readJSON text: stdout1
+        def key = json1.cert.binary.key
+        def token = json1.cert.binary.token
         println(key)
         println(token)
-        def stdout3 = sh(returnStdout: true, script: "${cmd1}").trim()
-        def slurper3 = readJSON text: stdout3
-        def key3 = slurper3.cert.binary.key
-        def token3 = slurper3.cert.binary.token
-        println(key3)
-        println(token3)
-        def cmd2 = "curl \"https://upload.qbox.me\""
+        def cmd2 = "curl -F \"key=${key}\"              \
+            -F \"token=${token}\"             \
+            -F \"file=@${path}\"            \
+            -F \"x:name=${bundleId}\"             \
+            -F \"x:version=${env.versionName}\"         \
+            -F \"x:build=${env.versionCode}\"               \
+            -F \"x:release_type=${type}\"   \
+            -F 'x:changelog=${env.CHANGELOG}'       \
+            https://upload.qbox.me"
         println(cmd2)
-        def stdout2 = sh(returnStdout: true, script: "${cmd1}").trim()
+        def stdout2 = sh(returnStdout: true, script: "${cmd2}").trim()
         println(stdout2)
         // bbb = sh(returnStdout: true, script: "${cmd2}").trim()
     }
