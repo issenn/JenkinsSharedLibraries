@@ -124,8 +124,6 @@ def call(Closure body={}) {
                         XCODE_PLATFORM = xcode_provisioning_profile_value([key: ":Platform:0", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
 
                         XCODE_PROVISIONINGPROFILES = install_provisioning_profile("${WORKSPACE}/PackageConfig", XCODE_DEVELOPMENT_TEAM_ID)
-
-                        firCurl("/Users/mac/test-1.0-1.ipa", 'Adhoc', 'ios')
                     }
                 }
             }
@@ -259,8 +257,10 @@ def call(Closure body={}) {
                 steps {
                     script {
                         println(CHANGELOG)
+                        println("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/${REPO_NAME}-${env.versionName}-${env.versionCode}.ipa")
                     }
-                    firCurl("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa", 'Adhoc', 'ios')
+                    firCurl("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/${REPO_NAME}-${env.versionName}-${env.versionCode}.ipa", 'Adhoc', 'ios')
+                    // firCurl("/Users/mac/test-1.0-1.ipa", 'Adhoc', 'ios')
                     // firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
                 }
             }
