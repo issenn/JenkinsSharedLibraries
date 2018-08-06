@@ -15,6 +15,12 @@ def call(String path, String type, String os) {
         def token = slurper.cert.binary.token
         println(key)
         println(token)
+        def stdout3 = sh(returnStdout: true, script: "${cmd1}").trim()
+        def slurper3 = new JsonSlurper().parseText(stdout3)
+        def key3 = slurper3.cert.binary.key
+        def token3 = slurper3.cert.binary.token
+        println(key3)
+        println(token3)
         def cmd2 = "curl \"https://upload.qbox.me\""
         println(cmd2)
         def stdout2 = sh(returnStdout: true, script: "${cmd1}").trim()
