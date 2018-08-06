@@ -9,7 +9,7 @@ def call(String from, String to) {
 {{#commits}}
 {{{messageTitle}}}
 {{#messageBodyItems}}
-<li> {{.}}</li>
+ {{.}}
 {{/messageBodyItems}}
 {{/commits}}'''
     log.info(changelogString)
