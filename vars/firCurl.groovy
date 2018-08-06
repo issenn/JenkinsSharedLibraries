@@ -15,8 +15,7 @@ def call(String path, String type, String os) {
         def token = slurper.cert.binary.token
         println(key)
         println(token)
-        def cmd2 = "curl -F \"key=${key}\"              \
-            https://upload.qbox.me"
+        def cmd2 = "curl https://upload.qbox.me"
         println(cmd2)
         def stdout2 = sh(returnStdout: true, script: "${cmd2}").trim()
         println(stdout2)
