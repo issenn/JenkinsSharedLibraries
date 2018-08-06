@@ -16,13 +16,6 @@ def call(String path, String type, String os) {
         println(key)
         println(token)
         def cmd2 = "curl -F \"key=${key}\"              \
-            -F \"token=${token}\"             \
-            -F \"file=@${path}\"            \
-            -F \"x:name=${bundleId}\"             \
-            -F \"x:version=${env.versionName}\"         \
-            -F \"x:build=${env.versionCode}\"               \
-            -F \"x:release_type=${type}\"   \
-            -F '''x:changelog=${env.CHANGELOG}'''       \
             https://upload.qbox.me"
         println(cmd2)
         def stdout2 = sh(returnStdout: true, script: "${cmd2}").trim()
