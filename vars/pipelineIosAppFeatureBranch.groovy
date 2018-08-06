@@ -13,7 +13,6 @@ def call(Closure body={}) {
     def XCODE_WORKSPACE_PATH = ""
     def XCODE_PROVISIONING_PROFILE_UUID
     def XCODE_PROVISIONINGPROFILES
-    def changeLogSets
 
     pipeline {
     agent {
@@ -29,9 +28,9 @@ def call(Closure body={}) {
         }
 
         environment {
-            //LANG = "C.UTF-8"
-            //LC_ALL = "en_US.UTF-8"
-            //LANGUAGE = "en_US.UTF-8"
+            LANG = "C.UTF-8"
+            LC_ALL = "en_US.UTF-8"
+            LANGUAGE = "en_US.UTF-8"
             UNITTESTING_STATE = 'false'
             TESTING_STATE = 'false'
             //App = 'HelloTalk_Binary'
@@ -74,6 +73,9 @@ def call(Closure body={}) {
                     script {
                         def scmVars = checkoutGithub()
                         env.GIT_URL = scmVars.GIT_URL
+                        env.GIT_COMMIT = scmVars.GIT_COMMIT
+                        env.GIT_PREVIOUS_SUCCESSFUL_COMMIT = scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT
+                        env.CHANGELOG = changelog(GIT_PREVIOUS_SUCCESSFUL_COMMIT, GIT_COMMIT)
                     }
                 }
             }
@@ -111,6 +113,10 @@ def call(Closure body={}) {
                                 error "XCODE_PROJECT_FILENAME and XCODE_WORKSPACE_FILENAME is not set!";
                             }
                         }
+
+                        env.versionName = xcode_info_plist_value([key: ":CFBundleShortVersionString", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
+                        env.versionCode = xcode_info_plist_value([key: ":CFBundleVersion", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
+                        env.bundleId = xcode_info_plist_value([key: ":CFBundleURLTypes:0:CFBundleURLName", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
 
                         XCODE_PROVISIONING_PROFILE_UUID = xcode_provisioning_profile_value([key: ":UUID", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
                         XCODE_DEVELOPMENT_TEAM_ID = xcode_provisioning_profile_value([key: ":TeamIdentifier:0", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
@@ -249,7 +255,13 @@ def call(Closure body={}) {
                 }
 
                 steps {
-                    firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
+                    script {
+                        println(CHANGELOG)
+                        println("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/${REPO_NAME}-${env.versionName}-${env.versionCode}.ipa")
+                    }
+                    firCurl("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/${REPO_NAME}-${env.versionName}-${env.versionCode}.ipa", 'Adhoc', 'ios')
+                    // firCurl("/Users/mac/test-1.0-1.ipa", 'Adhoc', 'ios')
+                    // firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
                 }
             }
         }
