@@ -75,6 +75,9 @@ def call(Closure body={}) {
                         env.GIT_URL = scmVars.GIT_URL
                         env.GIT_COMMIT = scmVars.GIT_COMMIT
                         env.GIT_PREVIOUS_SUCCESSFUL_COMMIT = scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT
+                        println('---')
+                        println(GIT_PREVIOUS_SUCCESSFUL_COMMIT)
+                        println('---')
                         env.CHANGELOG = changelog(GIT_PREVIOUS_SUCCESSFUL_COMMIT, GIT_COMMIT)
                     }
                 }
