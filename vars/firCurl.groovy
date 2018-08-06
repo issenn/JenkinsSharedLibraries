@@ -23,7 +23,7 @@ def call(String path, String type, String os) {
             -F "x:version=${env.versionName}"         \
             -F "x:build=${env.versionCode}"               \
             -F "x:release_type=${type}"   \
-            -F "x:changelog=${env.CHANGELOG}"       \
+            -F "x:changelog='${env.CHANGELOG}'"       \
             https://upload.qbox.me"""
         println(cmd2)
         def stdout2 = sh(returnStdout: true, script: "${cmd2}").trim()
