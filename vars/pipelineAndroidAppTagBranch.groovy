@@ -167,6 +167,7 @@ def call(Closure body={}) {
 
                                 steps {
                                     buildTagBranch(buildTypes, productFlavors)
+                                    firPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/china/release/HelloTalk-china-release.apk")
                                 }
                             }
 
@@ -319,6 +320,7 @@ def call(Closure body={}) {
 
                                 steps {
                                     buildTagBranch(buildTypes, productFlavors)
+                                    firPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/google/release/HelloTalk-google-release.apk")
                                 }
                             }
 
@@ -385,7 +387,7 @@ def buildTagBranch(String buildTypes='', String productFlavors='') {
     echo "Tag branch - Build"
     buildTypes = pipelineAndroidAppSetup.changeStringGradleStyle(buildTypes)
     productFlavors = pipelineAndroidAppSetup.changeStringGradleStyle(productFlavors)
-    def args = ((productFlavors ?: '') + (buildTypes ?: '')) + " publish"
+    def args = ((productFlavors ?: '') + (buildTypes ?: '')) //+ " publish"
     pipelineAndroidAppSetup.build(args)
 }
 
