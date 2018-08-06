@@ -2,6 +2,7 @@
 
 def call(String from, String to) {
     println(from)
+    println(to)
     from = from ?: to
     println(from)
     def changelogString = gitChangelog returnType: 'STRING',
