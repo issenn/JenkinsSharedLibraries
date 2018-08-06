@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 
+import groovy.json.JsonSlurper
+
 def call(String path, String type, String os) {
     script {
         api_token = "9611b6a99d280463039cbb64b7eb24ca"
@@ -18,6 +20,8 @@ def call(String path, String type, String os) {
             https://upload.qbox.me"""
         aaa = sh(returnStdout: true, script: "${cmd1}").trim()
         println(aaa)
+        def slurper = new JsonSlurper().parseText(aaa)
+        println(slurper.id)
         // bbb = sh(returnStdout: true, script: "${cmd2}").trim()
     }
 }
