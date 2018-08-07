@@ -13,7 +13,10 @@ def call() {
 def tag() {
     def currentTag = ""
     def file = new File("${WORKSPACE}"
-    println("ls".execute([], file).text)
+    def ls = "ls".execute([], file)
+    ls.waitFor()
+    println(ls.exitValue())
+    println(ls.text)
     def mostRecentTag = "git describe --tags".execute([], file)
     mostRecentTag.waitFor()
     println(mostRecentTag.exitValue())
