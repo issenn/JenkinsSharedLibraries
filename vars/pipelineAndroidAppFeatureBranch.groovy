@@ -85,7 +85,6 @@ def call(Closure body={}) {
                                 steps {
                                     script {
                                         def scmVars = checkoutGithub()
-                                        gitVersioner()
                                     }
                                 }
                             }
