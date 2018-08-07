@@ -22,7 +22,7 @@ def call() {
     } else {
         // error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
         pipelineAndroidAppTagBranch()
-    }
+    }*/
 }
 
 /**
