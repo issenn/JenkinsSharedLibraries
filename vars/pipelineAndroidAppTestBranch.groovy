@@ -92,6 +92,7 @@ def call(Closure body={}) {
                                         def tag = gitVersioner.tag()
                                         def news = readFile file: "NEWS.md", encoding: "UTF-8"
                                         env.CHANGELOG = tag + news
+                                        println(env.CHANGELOG)
                                     }
                                 }
                             }
