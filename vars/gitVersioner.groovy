@@ -1,7 +1,5 @@
 #!/usr/bin/env groovy
 
-import java.io.File
-
 def call() {
 
     // check if git project
@@ -12,15 +10,8 @@ def call() {
 
 def tag() {
     def currentTag = ""
-    // def String path = WORKSPACE
-    def path = "/Users"
-    println(path)
-    def file = new File(path)
-    def ls = "ls".execute([], file)
-    ls.waitFor()
-    println(ls.exitValue())
-    println(ls.text)
-    def mostRecentTag = "git describe --tags".execute([], file)
+    println("ls".execute().text)
+    def mostRecentTag = "git describe --tags".execute()
     mostRecentTag.waitFor()
     println(mostRecentTag.exitValue())
     println(mostRecentTag.text)
