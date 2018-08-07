@@ -10,12 +10,13 @@ def call() {
         extensions: scm.extensions + [
             [
                 $class: 'CloneOption',
-                depth: 2147483647,
+                // depth: 2147483647,
+                depth: 10000,
                 honorRefspec: true,
                 noTags: false,
                 reference: '',
                 shallow: true,
-                timeout: 10
+                timeout: 30
             ],
             [
                 $class: 'GitTagMessageExtension'
