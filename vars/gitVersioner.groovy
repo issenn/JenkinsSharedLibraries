@@ -12,6 +12,7 @@ def tag() {
     def currentTag = ""
     def mostRecentTag = "git describe --tags".execute()
     mostRecentTag.waitFor()
+    println(mostRecentTag.exitValue())
     if (mostRecentTag.exitValue() == 0) {
         currentTag = mostRecentTag.text.trim()
     } else {
