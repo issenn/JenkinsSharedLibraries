@@ -9,6 +9,6 @@ def call() {
 }
 
 def tag() {
-    def currentTag = sh(returnStdout: true, script: "git describe --tags").trim()
+    def currentTag = sh(returnStdout: true, script: "git describe --tags")
     return currentTag
 }

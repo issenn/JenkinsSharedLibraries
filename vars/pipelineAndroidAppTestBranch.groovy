@@ -89,8 +89,9 @@ def call(Closure body={}) {
                                         // env.GIT_COMMIT = scmVars.GIT_COMMIT
                                         // env.GIT_PREVIOUS_SUCCESSFUL_COMMIT = scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT
                                         // env.CHANGELOG = changelog(GIT_PREVIOUS_SUCCESSFUL_COMMIT, GIT_COMMIT)
-                                        env.CHANGELOG = gitVersioner.tag() + readFile file: "NEWS.md", encoding: "UTF-8"
-                                        println(env.CHANGELOG)
+                                        def tag = gitVersioner.tag()
+                                        def news = readFile file: "NEWS.md", encoding: "UTF-8"
+                                        env.CHANGELOG = tag + news
                                     }
                                 }
                             }
