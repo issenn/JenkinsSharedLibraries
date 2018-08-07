@@ -5,7 +5,7 @@ def call() {
     println('--------in')
 
     // check if git project
-    def status = 'git status'.execute([], "${rootDir}")
+    def status = 'git status'.execute()
     status.waitFor()
     def isGitProject = status.exitValue()
     println('---')
