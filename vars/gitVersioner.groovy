@@ -12,7 +12,7 @@ def call() {
 
 def tag() {
     def currentTag = ""
-    def path = WORKSPACE
+    def String path = WORKSPACE
     // def path = "/bin"
     println(path)
     def file = new File(path)
