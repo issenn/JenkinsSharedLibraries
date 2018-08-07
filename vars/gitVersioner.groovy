@@ -10,9 +10,11 @@ def call() {
 
 def tag() {
     def currentTag = ""
+    println("ls".execute().text)
     def mostRecentTag = "git describe --tags".execute()
     mostRecentTag.waitFor()
     println(mostRecentTag.exitValue())
+    println(mostRecentTag.text)
     if (mostRecentTag.exitValue() == 0) {
         currentTag = mostRecentTag.text.trim()
     } else {
