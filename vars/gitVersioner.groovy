@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 
+def rootDir = "${WORKSPACE}"
 
 def call() {
     println('--------in')
