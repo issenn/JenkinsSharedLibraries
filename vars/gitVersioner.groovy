@@ -1,8 +1,7 @@
 #!/usr/bin/env groovy
 
-def rootDir = "${WORKSPACE}"
-
 def call() {
+    def rootDir = "${WORKSPACE}"
     println('--------in')
 
     // check if git project
