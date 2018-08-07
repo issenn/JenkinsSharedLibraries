@@ -13,7 +13,7 @@ def call() {
 def tag() {
     def currentTag = ""
     // def String path = WORKSPACE
-    def path = "/Users/mac/Library/Jenkins-slave1/workspace/AndroidJekins"
+    def path = "/Users/mac"
     println(path)
     def file = new File(path)
     def ls = "ls".execute([], file)
