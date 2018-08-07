@@ -12,7 +12,7 @@ def call() {
 
 def tag() {
     def currentTag = ""
-    def file = new File("${WORKSPACE}")
+    def file = new File("/bin")
     def ls = "ls".execute([], file)
     ls.waitFor()
     println(ls.exitValue())
