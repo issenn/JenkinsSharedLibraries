@@ -7,3 +7,15 @@ def call() {
     status.waitFor()
     def isGitProject = status.exitValue()
 }
+
+def tag() {
+    def currentTag = ""
+    def mostRecentTag = "git describe --tags".execute()
+    mostRecentTag.waitFor()
+    if (mostRecentTag.exitValue() == 0) {
+        currentTag = mostRecentTag.text.trim()
+    } else {
+        currentTag = "0.0.0"
+    }
+    return currentTag
+}

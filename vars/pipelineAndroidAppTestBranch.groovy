@@ -91,6 +91,7 @@ def call(Closure body={}) {
                                         // env.CHANGELOG = changelog(GIT_PREVIOUS_SUCCESSFUL_COMMIT, GIT_COMMIT)
                                         env.CHANGELOG = readFile file: "NEWS.md", encoding: "UTF-8"
                                         println(env.CHANGELOG)
+                                        println(gitVersioner.tag())
                                     }
                                 }
                             }
