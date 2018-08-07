@@ -13,7 +13,7 @@ def call() {
 def tag() {
     def currentTag = ""
     // def String path = WORKSPACE
-    def path = "/Users/mac"
+    def path = "/Users"
     println(path)
     def file = new File(path)
     def ls = "ls".execute([], file)
