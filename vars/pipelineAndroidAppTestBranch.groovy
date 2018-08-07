@@ -25,6 +25,7 @@ def call(Closure body={}) {
             UNITTESTING_STATE = 'false'
             TESTING_STATE = 'false'
             App = "HelloTalk"
+            bundle_id = "com.hellotalk"
             CHINAPRODUCTFLAVORS_STATE = 'true'
             GOOGLEPRODUCTFLAVORS_STATE = 'false'
             HTPRIVATEPRODUCTFLAVORS_STATE = 'false'
@@ -92,6 +93,7 @@ def call(Closure body={}) {
                                         def tag = gitVersioner.tag()
                                         def news = readFile file: "NEWS.md", encoding: "UTF-8"
                                         env.CHANGELOG = tag + news
+                                        println(gitVersioner.versionCode())
                                     }
                                 }
                             }
