@@ -320,7 +320,6 @@ def call(Closure body={}) {
 
                                 steps {
                                     buildFeatureBranch(buildTypes, productFlavors)
-                                    // sh "fir publish -T 9611b6a99d280463039cbb64b7eb24ca ${path}"
                                     firPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/google/release/HelloTalk-google-release.apk")
                                 }
                             }
