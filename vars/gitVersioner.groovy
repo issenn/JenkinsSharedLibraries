@@ -13,6 +13,7 @@ def tag() {
     println("ls".execute().text)
     def mostRecentTag = "git describe --tags".execute()
     mostRecentTag.waitFor()
+    sleep 1
     println(mostRecentTag.exitValue())
     println(mostRecentTag.text)
     if (mostRecentTag.exitValue() == 0) {
