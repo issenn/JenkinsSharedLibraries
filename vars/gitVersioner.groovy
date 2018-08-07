@@ -19,9 +19,7 @@ def versionName() {
 
 def versionCode() {
     def defaultBranch = 'master'
-    def currentBranch = sh(returnStdout: true, script: "git symbolic-ref --short -q HEAD")
-    println(currentBranch)
-    /*def currentCommit = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
+    def currentCommit = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
     println(currentCommit)
     def diffToDefault = sh(returnStdout: true, script: "git rev-list --no-merges origin/$defaultBranch..")
     def featurelines = diffToDefault.trim().readLines()
@@ -55,5 +53,5 @@ def versionCode() {
     println(time)
     // this is the version
     def combinedVersion = commitCount + time
-    println(combinedVersion)*/
+    println(combinedVersion)
 }
