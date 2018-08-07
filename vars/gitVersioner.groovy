@@ -12,8 +12,8 @@ def call() {
 
 def tag() {
     def currentTag = ""
-    // def path = "${WORKSPACE}"
-    def path = "/bin"
+    def path = WORKSPACE
+    // def path = "/bin"
     println(path)
     def file = new File(path)
     def ls = "ls".execute([], file)
