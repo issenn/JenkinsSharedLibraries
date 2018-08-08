@@ -13,6 +13,11 @@ def tag() {
     return currentTag
 }
 
+def branchCode() {
+    def code = sh(returnStdout: true, script: "git rev-list --no-merges origin/develop.. --count")
+    return code
+}
+
 def versionName() {
     tag().replaceAll('(-\\(|-g)\\S*', '').replaceAll('-.*', '').toString()
 }
