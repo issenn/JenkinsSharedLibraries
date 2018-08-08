@@ -88,7 +88,7 @@ def call(Closure body={}) {
                                         def scmVars = checkoutGithub()
                                         def tag = gitVersioner.tag()
                                         def news = readFile file: "NEWS.md", encoding: "UTF-8"
-                                        env.CHANGELOG = tag + '---' + news
+                                        env.CHANGELOG = '---' + tag + news
                                     }
                                 }
                             }
@@ -245,7 +245,7 @@ def call(Closure body={}) {
                                         def scmVars = checkoutGithub()
                                         def tag = gitVersioner.tag()
                                         def news = readFile file: "NEWS.md", encoding: "UTF-8"
-                                        env.CHANGELOG = tag + '---' + news
+                                        env.CHANGELOG = '---' + tag + news
                                     }
                                 }
                             }
