@@ -86,14 +86,9 @@ def call(Closure body={}) {
                                 steps {
                                     script {
                                         def scmVars = checkoutGithub()
-                                        // env.GIT_URL = scmVars.GIT_URL
-                                        // env.GIT_COMMIT = scmVars.GIT_COMMIT
-                                        // env.GIT_PREVIOUS_SUCCESSFUL_COMMIT = scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT
-                                        // env.CHANGELOG = changelog(GIT_PREVIOUS_SUCCESSFUL_COMMIT, GIT_COMMIT)
                                         def tag = gitVersioner.tag()
                                         def news = readFile file: "NEWS.md", encoding: "UTF-8"
-                                        env.CHANGELOG = tag + news
-                                        // println(gitVersioner.versionCode())
+                                        env.CHANGELOG = tag + '---' + news
                                     }
                                 }
                             }
@@ -250,7 +245,7 @@ def call(Closure body={}) {
                                         def scmVars = checkoutGithub()
                                         def tag = gitVersioner.tag()
                                         def news = readFile file: "NEWS.md", encoding: "UTF-8"
-                                        env.CHANGELOG = tag + news
+                                        env.CHANGELOG = tag + '---' + news
                                     }
                                 }
                             }
