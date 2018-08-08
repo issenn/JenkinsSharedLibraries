@@ -14,7 +14,7 @@ def tag() {
 }
 
 def branchCode() {
-    def code = sh(returnStdout: true, script: "git rev-list --no-merges origin/develop.. --count")
+    def code = sh(returnStdout: true, script: "git rev-list --no-merges origin/develop.. --count").trim()
     return code
 }
 
