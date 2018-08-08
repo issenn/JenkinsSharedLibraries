@@ -6,6 +6,8 @@ def call() {
         pipelineAndroidAppTestBranch()
     } else if (env.BRANCH_NAME == 'release') {
         pipelineAndroidAppReleaseBranch()
+    } else if (env.BRANCH_NAME == 'master') {
+        pipelineAndroidAppMasterBranch()
     } else {
         pipelineAndroidAppTagBranch()
     }
