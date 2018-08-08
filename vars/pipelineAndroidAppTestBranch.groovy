@@ -25,6 +25,7 @@ def call(Closure body={}) {
             UNITTESTING_STATE = 'false'
             TESTING_STATE = 'false'
             App = "HelloTalk"
+            bundle_id = "com.hellotalk"
             CHINAPRODUCTFLAVORS_STATE = 'true'
             GOOGLEPRODUCTFLAVORS_STATE = 'false'
             HTPRIVATEPRODUCTFLAVORS_STATE = 'false'
@@ -85,6 +86,14 @@ def call(Closure body={}) {
                                 steps {
                                     script {
                                         def scmVars = checkoutGithub()
+                                        // env.GIT_URL = scmVars.GIT_URL
+                                        // env.GIT_COMMIT = scmVars.GIT_COMMIT
+                                        // env.GIT_PREVIOUS_SUCCESSFUL_COMMIT = scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT
+                                        // env.CHANGELOG = changelog(GIT_PREVIOUS_SUCCESSFUL_COMMIT, GIT_COMMIT)
+                                        def tag = gitVersioner.tag()
+                                        def news = readFile file: "NEWS.md", encoding: "UTF-8"
+                                        env.CHANGELOG = tag + news
+                                        // println(gitVersioner.versionCode())
                                     }
                                 }
                             }
@@ -239,6 +248,9 @@ def call(Closure body={}) {
                                 steps {
                                     script {
                                         def scmVars = checkoutGithub()
+                                        def tag = gitVersioner.tag()
+                                        def news = readFile file: "NEWS.md", encoding: "UTF-8"
+                                        env.CHANGELOG = tag + news
                                     }
                                 }
                             }
