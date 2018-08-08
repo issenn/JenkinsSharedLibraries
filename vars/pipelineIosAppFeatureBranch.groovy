@@ -259,9 +259,8 @@ def call(Closure body={}) {
                         println(CHANGELOG)
                         println("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/${REPO_NAME}-${env.versionName}-${env.versionCode}.ipa")
                     }
-                    firCurl("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/${REPO_NAME}-${env.versionName}-${env.versionCode}.ipa", 'Adhoc', 'ios')
-                    // firCurl("/Users/mac/test-1.0-1.ipa", 'Adhoc', 'ios')
-                    // firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
+                    // firCurl("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/${REPO_NAME}-${env.versionName}-${env.versionCode}.ipa", 'Adhoc', 'ios')
+                    iosFirPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
                 }
             }
         }

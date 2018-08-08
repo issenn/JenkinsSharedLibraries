@@ -249,7 +249,7 @@ def call(Closure body={}) {
                 }
 
                 steps {
-                    firPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
+                    iosFirPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
                 }
             }
         }
