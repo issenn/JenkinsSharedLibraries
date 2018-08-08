@@ -14,7 +14,14 @@ def tag() {
 }
 
 def branchCode() {
-    def code = sh(returnStdout: true, script: "git rev-list --no-merges origin/develop.. --count")
+    def defaultBranch = 'develop'
+    def masterLines = sh(returnStdout: true, script: "git rev-list origin/master").trim()
+    def currentCommit = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
+    if (masterLines.contains(currentCommit)) {
+        defaultBranch = 'master'
+    }
+    def code = sh(returnStdout: true, script: "git rev-list --no-merges origin/$defaultBranch.. --count")
+    println("branchCode: ${code}")
     return code
 }
 
