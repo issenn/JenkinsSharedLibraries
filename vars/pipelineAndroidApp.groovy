@@ -2,7 +2,9 @@
 
 def call() {
 
-    if (env.BRANCH_NAME == 'develop') {
+    if (env.BRANCH_NAME.startsWith('feature/')) {
+        pipelineAndroidAppFeatureBranch()
+    } else if (env.BRANCH_NAME == 'develop') {
         pipelineAndroidAppDevelopBranch()
     } else if (env.BRANCH_NAME.startsWith('test/')) {
         pipelineAndroidAppTestBranch()
