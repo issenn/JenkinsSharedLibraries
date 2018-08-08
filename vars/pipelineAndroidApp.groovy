@@ -4,6 +4,8 @@ def call() {
 
     if (env.BRANCH_NAME.startsWith('test/')) {
         pipelineAndroidAppTestBranch()
+    } else if (env.BRANCH_NAME == 'release') {
+        pipelineAndroidAppReleaseBranch()
     } else {
         pipelineAndroidAppTagBranch()
     }
