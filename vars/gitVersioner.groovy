@@ -20,7 +20,7 @@ def branchCode() {
     if (masterLines.contains(currentCommit)) {
         defaultBranch = 'master'
     }
-    def code = sh(returnStdout: true, script: "git rev-list --no-merges origin/$defaultBranch.. --count")
+    def code = sh(returnStdout: true, script: "git rev-list origin/$defaultBranch.. --count")
     println("branchCode: ${code}")
     return code
 }
