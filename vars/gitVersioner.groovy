@@ -22,7 +22,7 @@ def branchCode() {
     }
     def code = sh(returnStdout: true, script: "git rev-list origin/$defaultBranch.. --count")
     println("branchCode: ${code}")
-    return code
+    return "[${env.BRANCH_NAME}]ChangeCommitCounts:" + code
 }
 
 def versionName() {
