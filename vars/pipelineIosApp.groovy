@@ -6,7 +6,7 @@ def call() {
         pipelineIosAppFeatureBranch()
     } else if (env.BRANCH_NAME == 'develop') {
         pipelineIosAppDevelopBranch()
-    /*} else if (env.BRANCH_NAME.startsWith('test/')) {
+    } else if (env.BRANCH_NAME.startsWith('test/')) {
         pipelineIosAppTestBranch()
     } else if (env.BRANCH_NAME == 'release') {
         pipelineIosAppReleaseBranch()
@@ -14,8 +14,8 @@ def call() {
         pipelineIosAppMasterBranch()
     /*} else if (env.BRANCH_NAME.startsWith('hotfix/')) {
         buildHotfixBranch()*/
-    /*} else {
+    } else {
         // error "Don't know what to do with this branch: ${env.BRANCH_NAME}"
-        pipelineIosAppTagBranch()*/
+        pipelineIosAppTagBranch()
     }
 }
