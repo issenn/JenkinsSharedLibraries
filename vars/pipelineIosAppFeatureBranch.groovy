@@ -72,10 +72,9 @@ def call(Closure body={}) {
                 steps {
                     script {
                         def scmVars = checkoutGithub()
-                        env.GIT_URL = scmVars.GIT_URL
-                        env.GIT_COMMIT = scmVars.GIT_COMMIT
-                        env.GIT_PREVIOUS_SUCCESSFUL_COMMIT = scmVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT
-                        env.CHANGELOG = changelog(GIT_PREVIOUS_SUCCESSFUL_COMMIT, GIT_COMMIT)
+                        def branchCode = gitVersioner.branchCode()
+                        def news = readFile file: "NEWS.md", encoding: "UTF-8"
+                        env.changelog = "---+" + branchCode + news
                     }
                 }
             }
@@ -256,11 +255,11 @@ def call(Closure body={}) {
 
                 steps {
                     script {
-                        println(CHANGELOG)
+                        println(env.changelog)
                         println("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/${REPO_NAME}-${env.versionName}-${env.versionCode}.ipa")
                     }
                     // firCurl("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/${REPO_NAME}-${env.versionName}-${env.versionCode}.ipa", 'Adhoc', 'ios')
-                    iosFirPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
+                    iosFirPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa", env.changelog)
                 }
             }
         }
