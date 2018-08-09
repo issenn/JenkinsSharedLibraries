@@ -2,10 +2,16 @@
 
 def call() {
 
-    if (env.BRANCH_NAME.startsWith('test/')) {
+    if (env.BRANCH_NAME.startsWith('feature/')) {
+        pipelineAndroidAppFeatureBranch()
+    } else if (env.BRANCH_NAME == 'develop') {
+        pipelineAndroidAppDevelopBranch()
+    } else if (env.BRANCH_NAME.startsWith('test/')) {
         pipelineAndroidAppTestBranch()
     } else if (env.BRANCH_NAME == 'release') {
         pipelineAndroidAppReleaseBranch()
+    } else if (env.BRANCH_NAME == 'master') {
+        pipelineAndroidAppMasterBranch()
     } else {
         pipelineAndroidAppTagBranch()
     }

@@ -13,6 +13,18 @@ def tag() {
     return currentTag
 }
 
+def branchCode() {
+    def defaultBranch = 'develop'
+    def masterLines = sh(returnStdout: true, script: "git rev-list origin/master").trim()
+    def currentCommit = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
+    if (masterLines.contains(currentCommit)) {
+        defaultBranch = 'master'
+    }
+    def code = sh(returnStdout: true, script: "git rev-list origin/$defaultBranch.. --count")
+    println("branchCode: ${code}")
+    return "[${env.BRANCH_NAME}]ChangeCommitCounts:" + code
+}
+
 def versionName() {
     tag().replaceAll('(-\\(|-g)\\S*', '').replaceAll('-.*', '').toString()
 }

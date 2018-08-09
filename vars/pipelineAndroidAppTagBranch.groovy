@@ -85,9 +85,9 @@ def call(Closure body={}) {
                                 steps {
                                     script {
                                         def scmVars = checkoutGithub()
-                                        def tag = gitVersioner.tag()
+                                        def branchCode = gitVersioner.branchCode()
                                         def news = readFile file: "NEWS.md", encoding: "UTF-8"
-                                        env.CHANGELOG = tag + news
+                                        env.CHANGELOG = '---+' + branchCode + news
                                     }
                                 }
                             }
@@ -170,7 +170,7 @@ def call(Closure body={}) {
 
                                 steps {
                                     buildTagBranch(buildTypes, productFlavors)
-                                    firPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/china/release/HelloTalk-china-release.apk")
+                                    androidFirPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/china/release/HelloTalk-china-release.apk")
                                 }
                             }
 
@@ -242,9 +242,9 @@ def call(Closure body={}) {
                                 steps {
                                     script {
                                         def scmVars = checkoutGithub()
-                                        def tag = gitVersioner.tag()
+                                        def branchCode = gitVersioner.branchCode()
                                         def news = readFile file: "NEWS.md", encoding: "UTF-8"
-                                        env.CHANGELOG = tag + news
+                                        env.CHANGELOG = '---+' + branchCode + news
                                     }
                                 }
                             }
@@ -326,7 +326,7 @@ def call(Closure body={}) {
 
                                 steps {
                                     buildTagBranch(buildTypes, productFlavors)
-                                    firPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/google/release/HelloTalk-google-release.apk")
+                                    androidFirPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/google/release/HelloTalk-google-release.apk")
                                 }
                             }
 
