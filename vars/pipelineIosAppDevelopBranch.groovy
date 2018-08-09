@@ -7,10 +7,10 @@ def call(Closure body={}) {
     body.delegate = pipelineParams
     body()
 
-    def XCODE_PROJECT_FILENAME
-    def XCODE_PROJECT_PATH
-    def XCODE_WORKSPACE_FILENAME
-    def XCODE_WORKSPACE_PATH
+    def XCODE_PROJECT_FILENAME = ""
+    def XCODE_PROJECT_PATH = ""
+    def XCODE_WORKSPACE_FILENAME = ""
+    def XCODE_WORKSPACE_PATH = ""
     def XCODE_PROVISIONING_PROFILE_UUID
     def XCODE_PROVISIONINGPROFILES
 
@@ -28,9 +28,9 @@ def call(Closure body={}) {
         }
 
         environment {
-            //LANG = "C.UTF-8"
-            //LC_ALL = "en_US.UTF-8"
-            //LANGUAGE = "en_US.UTF-8"
+            LANG = "C.UTF-8"
+            LC_ALL = "en_US.UTF-8"
+            LANGUAGE = "en_US.UTF-8"
             UNITTESTING_STATE = 'false'
             TESTING_STATE = 'false'
             //App = 'HelloTalk_Binary'
@@ -72,7 +72,9 @@ def call(Closure body={}) {
                 steps {
                     script {
                         def scmVars = checkoutGithub()
-                        env.GIT_URL = scmVars.GIT_URL
+                        def branchCode = gitVersioner.branchCode()
+                        def news = readFile file: "NEWS.md", encoding: "UTF-8"
+                        env.changelog = "---+" + branchCode + news
                     }
                 }
             }
@@ -84,21 +86,24 @@ def call(Closure body={}) {
                 }
 
                 steps {
+                    dir("${XCODE_WORKSPACE_PATH}") {
+                        sh '/usr/local/bin/pod repo update && /usr/local/bin/pod install --verbose --no-repo-update'
+                    }
                     script {
                         // REPO_NAME = repo_name()
                         REPO_NAME = 'HelloTalk_Binary'
-                        if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcworkspace")) {
+                        if (fileExists("${WORKSPACE}/${REPO_NAME}.xcworkspace")) {
                             XCODE_WORKSPACE_FILENAME = "${REPO_NAME}"
-                            XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
+                            XCODE_WORKSPACE_PATH = ""
                             XCODE_SCHEME = "${XCODE_WORKSPACE_FILENAME}"
                             XCODE_PROJECT_FILENAME = ""
                             XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
                         } else {
                             XCODE_WORKSPACE_FILENAME = ""
                             XCODE_WORKSPACE_PATH = "${XCODE_WORKSPACE_FILENAME}"
-                            if (fileExists("${WORKSPACE}/${REPO_NAME}/${REPO_NAME}.xcodeproj")) {
+                            if (fileExists("${WORKSPACE}/${REPO_NAME}.xcodeproj")) {
                                 XCODE_PROJECT_FILENAME = "${REPO_NAME}"
-                                XCODE_PROJECT_PATH = "${XCODE_PROJECT_FILENAME}"
+                                XCODE_PROJECT_PATH = ""
                                 XCODE_SCHEME = "${XCODE_PROJECT_FILENAME}"
                             } else {
                                 XCODE_PROJECT_FILENAME = ""
@@ -107,6 +112,10 @@ def call(Closure body={}) {
                                 error "XCODE_PROJECT_FILENAME and XCODE_WORKSPACE_FILENAME is not set!";
                             }
                         }
+
+                        env.versionName = xcode_info_plist_value([key: ":CFBundleShortVersionString", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
+                        env.versionCode = xcode_info_plist_value([key: ":CFBundleVersion", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
+                        env.bundleId = xcode_info_plist_value([key: ":CFBundleURLTypes:0:CFBundleURLName", filename: "${WORKSPACE}/${REPO_NAME}/${REPO_NAME}-Info.plist"])
 
                         XCODE_PROVISIONING_PROFILE_UUID = xcode_provisioning_profile_value([key: ":UUID", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
                         XCODE_DEVELOPMENT_TEAM_ID = xcode_provisioning_profile_value([key: ":TeamIdentifier:0", filename: "${WORKSPACE}/PackageConfig/${REPO_NAME}_AdHoc.mobileprovision"])
@@ -125,10 +134,6 @@ def call(Closure body={}) {
                 }
 
                 steps {
-                    dir("${XCODE_WORKSPACE_PATH}") {
-                        sh '/usr/local/bin/pod repo update && /usr/local/bin/pod install --verbose --no-repo-update'
-                    }
-
                     xcodeBuild allowFailingBuildResults: false,
                         appURL: "",
                         assetPackManifestURL: "",
@@ -249,7 +254,11 @@ def call(Closure body={}) {
                 }
 
                 steps {
-                    iosFirPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa")
+                    script {
+                        println(env.changelog)
+                        println("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/${REPO_NAME}-${env.versionName}-${env.versionCode}.ipa")
+                    }
+                    iosFirPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa", env.changelog)
                 }
             }
         }
