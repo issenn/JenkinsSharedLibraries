@@ -87,7 +87,7 @@ def call(Closure body={}) {
                                         def scmVars = checkoutGithub()
                                         def branchCode = gitVersioner.branchCode()
                                         def news = readFile file: "NEWS.md", encoding: "UTF-8"
-                                        env.CHANGELOG = "---[${productFlavors}]+" + branchCode + news
+                                        env.changelogChina = "---[${productFlavors}]+" + branchCode + news
                                     }
                                 }
                             }
@@ -170,7 +170,7 @@ def call(Closure body={}) {
 
                                 steps {
                                     buildFeatureBranch(buildTypes, productFlavors)
-                                    androidFirPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/china/release/HelloTalk-china-release.apk")
+                                    androidFirPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/china/release/HelloTalk-china-release.apk", env.changelogChina)
                                 }
                             }
 
@@ -244,7 +244,7 @@ def call(Closure body={}) {
                                         def scmVars = checkoutGithub()
                                         def branchCode = gitVersioner.branchCode()
                                         def news = readFile file: "NEWS.md", encoding: "UTF-8"
-                                        env.CHANGELOG = "---[${productFlavors}]+" + branchCode + news
+                                        env.changelogGoogle = "---[${productFlavors}]+" + branchCode + news
                                     }
                                 }
                             }
@@ -326,7 +326,7 @@ def call(Closure body={}) {
 
                                 steps {
                                     buildFeatureBranch(buildTypes, productFlavors)
-                                    androidFirPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/google/release/HelloTalk-google-release.apk")
+                                    androidFirPublish("${WORKSPACE}/HelloTalk/build/outputs/apk/google/release/HelloTalk-google-release.apk", env.changelogGoogle)
                                 }
                             }
 
