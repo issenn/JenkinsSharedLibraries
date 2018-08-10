@@ -73,8 +73,8 @@ def call(Closure body={}) {
                     script {
                         def scmVars = checkoutGithub()
                         // def branchCode = gitVersioner.branchCode()
-                        def news = readFile(file: "NEWS.md", encoding: "UTF-8")
-                        env.changelog = "---+" + news
+                        // def news = readFile(file: "NEWS.md", encoding: "UTF-8")
+                        env.changelog = "---+"  // + branchCode + news
                     }
                 }
             }
