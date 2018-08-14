@@ -18,6 +18,10 @@ def call() {
                 timeout: 10
             ],
             [
+                $class: 'LocalBranch',
+                localBranch: '**'
+            ],
+            [
                 $class: 'GitTagMessageExtension'
             ],
             [
