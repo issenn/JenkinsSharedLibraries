@@ -260,7 +260,7 @@ def call(Closure body={}) {
                     }
                     // firCurl("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/${REPO_NAME}-${env.versionName}-${env.versionCode}.ipa", 'Adhoc', 'ios')
                     iosFirPublish("${WORKSPACE}/build/IPA/${XCODE_CONFIGURATION}-${XCODE_SDK}/*.ipa", env.changelog)
-                    zip archive: true, dir: 'build/Archives/Release-iphoneos/Release-iphoneos', glob: 'HelloTalk_Binary.app.dSYM', zipFile: 'HelloTalk_Binary.app.dSYM.zip'
+                    zip archive: true, dir: 'build/Archives/Release-iphoneos/Release-iphoneos', glob: 'HelloTalk_Binary.app.dSYM/**', zipFile: 'HelloTalk_Binary.app.dSYM.zip'
                     // archiveArtifacts '**/*.dSYM'
                 }
             }
