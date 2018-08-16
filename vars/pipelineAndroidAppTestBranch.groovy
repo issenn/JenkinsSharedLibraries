@@ -27,7 +27,7 @@ def call(Closure body={}) {
             App = "HelloTalk"
             bundle_id = "com.hellotalk"
             CHINAPRODUCTFLAVORS_STATE = 'true'
-            GOOGLEPRODUCTFLAVORS_STATE = 'false'
+            GOOGLEPRODUCTFLAVORS_STATE = 'true'
             HTPRIVATEPRODUCTFLAVORS_STATE = 'false'
             buildTypes = "release"
         }
