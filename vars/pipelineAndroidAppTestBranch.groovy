@@ -60,7 +60,7 @@ def call(Closure body={}) {
                 }
                 steps {
                     script {
-                        def scmVars = checkoutGithub()
+                        def scmVars = checkoutGitlab()
                     }
                 }
             }
@@ -93,18 +93,15 @@ def call(Closure body={}) {
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
-
                 environment {
                     ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
                     ANDROID_HOME = "${ANDROID_SDK_ROOT}"
                     PATH = "/usr/local/bin:${PATH}"
                 }
-
                 steps {
                     buildTestBranch()
                 }
             }
-
         }
     }
 }
