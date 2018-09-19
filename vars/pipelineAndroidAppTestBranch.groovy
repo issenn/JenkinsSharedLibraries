@@ -82,6 +82,7 @@ def call(Closure body={}) {
                 }
                 steps {
                     // unittestTestBranch(buildTypes, productFlavors)
+                    echo 'pass'
                 }
             }
 
