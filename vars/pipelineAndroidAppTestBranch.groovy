@@ -97,6 +97,7 @@ def call(Closure body={}) {
                 environment {
                     ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
                     ANDROID_HOME = "${ANDROID_SDK_ROOT}"
+                    PATH = "/usr/local/bin:${PATH}"
                 }
 
                 steps {
