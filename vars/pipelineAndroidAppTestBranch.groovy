@@ -115,7 +115,7 @@ def unittestTestBranch(String buildTypes='', String productFlavors='') {
     pipelineAndroidAppSetup.unittest(args)
 }
 
-def buildTestBranch()) {
+def buildTestBranch() {
     echo "Test branch - Build"
     // buildTypes = pipelineAndroidAppSetup.changeStringGradleStyle(buildTypes)
     // productFlavors = pipelineAndroidAppSetup.changeStringGradleStyle(productFlavors)
