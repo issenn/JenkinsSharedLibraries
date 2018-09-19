@@ -122,7 +122,7 @@ def buildTestBranch() {
     // productFlavors = pipelineAndroidAppSetup.changeStringGradleStyle(productFlavors)
     // def args = ((productFlavors ?: '') + (buildTypes ?: '')) //+ " publish"
     // pipelineAndroidAppSetup.build(args)
-    sh 'pwd'
+    sh 'echo $PATH'
     sh 'which ruby'
     sh 'which fastlane'
     sh 'which bundle'
