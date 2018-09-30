@@ -8,9 +8,7 @@ def call(Closure body={}) {
     body()
 
     pipeline {
-    agent {
-        label 'mac-mini3'
-    }
+        agent none
 
         options {
             skipDefaultCheckout()
