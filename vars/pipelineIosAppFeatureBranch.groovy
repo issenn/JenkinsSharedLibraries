@@ -72,6 +72,9 @@ def call(Closure body={}) {
                         customWorkspace "workspace/${JOB_NAME}"
                     }
                 }
+                environment {
+                    PATH = "/usr/local/bin:${PATH}"
+                }
                 steps {
                     buildTestBranch()
                 }
