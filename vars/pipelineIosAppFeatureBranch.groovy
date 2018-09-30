@@ -50,6 +50,12 @@ def call(Closure body={}) {
             }
 
             stage('Checkout SCM') {
+                agent {
+                    node {
+                        label 'mac-mini3'
+                        customWorkspace "workspace/${JOB_NAME}"
+                    }
+                }
                 when {
                     beforeAgent true
                     branch "feature/*"
