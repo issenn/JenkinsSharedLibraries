@@ -31,7 +31,7 @@ def call(Closure body={}) {
                 agent {
                     node {
                         label 'master'
-                        customWorkspace "workspace/${JOB_NAME}"
+                        customWorkspace "workspace/${JOB_NAME.replace('%2F', '/')}"
                     }
                 }
                 when {
@@ -51,7 +51,7 @@ def call(Closure body={}) {
                 agent {
                     node {
                         label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
+                        customWorkspace "workspace/${JOB_NAME.replace('%2F', '/')}"
                     }
                 }
                 when {
@@ -61,7 +61,6 @@ def call(Closure body={}) {
                 steps {
                     script {
                         def scmVars = checkoutGitlab()
-                        echo "${JOB_NAME.replace('%2F', '/')}"
                     }
                 }
             }
@@ -70,7 +69,7 @@ def call(Closure body={}) {
                 agent {
                     node {
                         label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME}"
+                        customWorkspace "workspace/${JOB_NAME.replace('%2F', '/')}"
                     }
                 }
                 environment {
