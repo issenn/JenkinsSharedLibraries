@@ -61,7 +61,7 @@ def call(Closure body={}) {
                 steps {
                     script {
                         def scmVars = checkoutGitlab()
-                        echo "${JOB_NAME}"
+                        echo "${JOB_NAME.replace('%2F', '/')}"
                     }
                 }
             }
