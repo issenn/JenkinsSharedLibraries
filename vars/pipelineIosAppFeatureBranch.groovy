@@ -85,7 +85,6 @@ def call(Closure body={}) {
 
 def buildTestBranch() {
     echo "Test branch - Build"
-    // sh 'bundle install'
-    // sh 'bundle update'
-    // sh 'bundle exec fastlane ios do_publish_all'
+    sh 'bundle install'
+    sh 'bundle exec fastlane ios do_publish_all'
 }
