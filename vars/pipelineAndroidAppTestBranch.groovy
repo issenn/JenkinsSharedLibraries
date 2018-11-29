@@ -12,6 +12,7 @@ def call(Closure body={}) {
 
         options {
             skipDefaultCheckout()
+            retry(3)
         }
 
         triggers {
