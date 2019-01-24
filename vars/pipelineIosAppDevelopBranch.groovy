@@ -29,8 +29,10 @@ def call(Closure body={}) {
         stages {
             stage('Check Branch/Tag') {
                 agent {
-                    label 'master'
-                    customWorkspace "workspace/${JOB_NAME.replace('%2F', '/')}"
+                    node {
+                        label 'master'
+                        customWorkspace "workspace/${JOB_NAME.replace('%2F', '/')}"
+                    }
                 }
                 when {
                     beforeAgent true
@@ -44,7 +46,7 @@ def call(Closure body={}) {
                     error "Don't know what to do with this branch or tag: ${env.BRANCH_NAME}"
                 }
             }
-/*
+
             stage('Checkout SCM') {
                 agent {
                     node {
@@ -56,13 +58,20 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "develop"
                 }
-                steps {
+                steps {/*
                     script {
                         def scmVars = checkoutGitlab()
+                    }*/
+                    pwd()
+                }
+                post {
+                    success {
+                        echo "1"
+                        pwd()
                     }
                 }
             }
-
+/*
             stage('Build') {
                 agent {
                     node {
@@ -81,8 +90,8 @@ def call(Closure body={}) {
         post {
             success {
                 pwd()
-                archiveArtifacts artifacts: 'build/IPA/*.dSYM.zip', fingerprint: true
-                archiveArtifacts artifacts: 'build/IPA/*.ipa', fingerprint: true
+                // archiveArtifacts artifacts: 'build/IPA/*.dSYM.zip', fingerprint: true
+                // archiveArtifacts artifacts: 'build/IPA/*.ipa', fingerprint: true
             }
         }
     }
