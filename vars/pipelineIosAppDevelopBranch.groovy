@@ -89,9 +89,9 @@ def call(Closure body={}) {
         }
         post {
             success {
-                pwd()
-                // archiveArtifacts artifacts: 'build/IPA/*.dSYM.zip', fingerprint: true
-                // archiveArtifacts artifacts: 'build/IPA/*.ipa', fingerprint: true
+                node('master') {
+                    echo 'end'
+                }
             }
         }
     }
