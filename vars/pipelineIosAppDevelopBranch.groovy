@@ -67,7 +67,7 @@ def call(Closure body={}) {
                 post {
                     success {
                         echo "1"
-                        pwd()
+                        sh 'ls'
                     }
                 }
             }
