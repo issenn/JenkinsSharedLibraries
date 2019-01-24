@@ -67,7 +67,7 @@ def call(Closure body={}) {
                 post {
                     success {
                         echo "1"
-                        sh 'ls'
+                        archiveArtifacts artifacts: 'build/IPA/*.dSYM.zip', fingerprint: true
                     }
                 }
             }
