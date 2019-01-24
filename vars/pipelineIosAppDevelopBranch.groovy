@@ -76,14 +76,12 @@ def call(Closure body={}) {
                     PATH = "/usr/local/bin:${PATH}"
                 }
                 steps {
-                    // buildDeveopBranch()
-                    echo 'Build'
+                    buildDeveopBranch()
                 }
                 post {
                     success {
-                        sh 'ls'
-                        sh 'ls build'
                         archiveArtifacts artifacts: 'build/IPA/*.dSYM.zip', fingerprint: true
+                        archiveArtifacts artifacts: 'build/IPA/*.ipa', fingerprint: true
                     }
                 }
             }
