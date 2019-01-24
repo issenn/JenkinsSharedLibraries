@@ -46,7 +46,7 @@ def call(Closure body={}) {
                     error "Don't know what to do with this branch or tag: ${env.BRANCH_NAME}"
                 }
             }
-
+/*
             stage('Checkout SCM') {
                 agent {
                     node {
@@ -78,10 +78,11 @@ def call(Closure body={}) {
                 steps {
                     buildDeveopBranch()
                 }
-            }
+            }*/
         }
         post {
             always {
+                pwd()
                 archiveArtifacts artifacts: 'build/IPA/*.dSYM.zip', fingerprint: true
                 archiveArtifacts artifacts: 'build/IPA/*.ipa', fingerprint: true
             }
