@@ -29,10 +29,8 @@ def call(Closure body={}) {
         stages {
             stage('Check Branch/Tag') {
                 agent {
-                    node {
-                        label 'master'
-                        customWorkspace "workspace/${JOB_NAME.replace('%2F', '/')}"
-                    }
+                    label 'master'
+                    customWorkspace "workspace/${JOB_NAME.replace('%2F', '/')}"
                 }
                 when {
                     beforeAgent true
@@ -82,12 +80,6 @@ def call(Closure body={}) {
         }
         post {
             success {
-                agent {
-                    node {
-                        label 'mac-mini3'
-                        customWorkspace "workspace/${JOB_NAME.replace('%2F', '/')}"
-                    }
-                }
                 pwd()
                 archiveArtifacts artifacts: 'build/IPA/*.dSYM.zip', fingerprint: true
                 archiveArtifacts artifacts: 'build/IPA/*.ipa', fingerprint: true
