@@ -58,20 +58,13 @@ def call(Closure body={}) {
                     beforeAgent true
                     branch "develop"
                 }
-                steps {/*
+                steps {
                     script {
                         def scmVars = checkoutGitlab()
-                    }*/
-                    pwd()
-                }
-                post {
-                    success {
-                        echo "1"
-                        archiveArtifacts artifacts: 'build/IPA/*.dSYM.zip', fingerprint: true
                     }
                 }
             }
-/*
+
             stage('Build') {
                 agent {
                     node {
@@ -83,15 +76,24 @@ def call(Closure body={}) {
                     PATH = "/usr/local/bin:${PATH}"
                 }
                 steps {
-                    buildDeveopBranch()
+                    // buildDeveopBranch()
+                    echo 'Build'
                 }
-            }*/
+                post {
+                    success {
+                        archiveArtifacts artifacts: 'build/IPA/*.dSYM.zip', fingerprint: true
+                    }
+                }
+            }
         }
         post {
             success {
                 node('master') {
                     echo 'end'
                 }
+            }
+            always {
+                step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "issenn@hellotalk.com", sendToIndividuals: true])
             }
         }
     }
