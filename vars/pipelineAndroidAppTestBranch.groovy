@@ -12,6 +12,7 @@ def call(Closure body={}) {
 
         options {
             skipDefaultCheckout()
+            retry(3)
         }
 
         triggers {
@@ -121,7 +122,7 @@ def buildTestBranch() {
     // def args = ((productFlavors ?: '') + (buildTypes ?: '')) //+ " publish"
     // pipelineAndroidAppSetup.build(args)
     sh 'bundle install'
-    sh 'bundle update'
+    // sh 'bundle update'
     sh 'bundle exec fastlane android do_publish_all'
 }
 
