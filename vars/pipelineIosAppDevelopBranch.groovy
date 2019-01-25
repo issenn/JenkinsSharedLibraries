@@ -78,7 +78,6 @@ def call(Closure body={}) {
                 steps {
                     ansiColor('xterm') {
                         echo "TERM=${env.TERM}"
-                        // prints out TERM=xterm
                         buildDeveopBranch()
                     }
                 }
