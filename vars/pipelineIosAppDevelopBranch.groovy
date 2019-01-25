@@ -76,7 +76,11 @@ def call(Closure body={}) {
                     PATH = "/usr/local/bin:${PATH}"
                 }
                 steps {
-                    buildDeveopBranch()
+                    ansiColor('xterm') {
+                        echo "TERM=${env.TERM}"
+                        // prints out TERM=xterm
+                        buildDeveopBranch()
+                    }
                 }
                 post {
                     success {
