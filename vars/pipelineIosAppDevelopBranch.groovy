@@ -73,7 +73,7 @@ def call(Closure body={}) {
                     }
                 }
                 environment {
-                    PATH = "/usr/local/opt/ruby/bin:/usr/local/bin:${PATH}"
+                    PATH = "${HOME}/.rbenv/shims:/usr/local/bin:${PATH}"
                 }
                 steps {
                     ansiColor('xterm') {
