@@ -3,7 +3,7 @@
 import io.issenn.jenkins.utils.utils
 
 
-def call(Map parameters = [:], String version = '2.6.3', String method = null, Closure body) {
+def call(Map parameters = [:], String version = '2.5.1', String method = null, Closure body) {
 
     // String version = parameters.get('version', '2.6.3')
     // String method = parameters.get('method', 'keep')
