@@ -12,6 +12,7 @@ def call(Closure body={}) {
 
         options {
             skipDefaultCheckout()
+            ansiColor('xterm')
             retry(3)
         }
 
