@@ -122,6 +122,6 @@ def call(Closure body={}) {
 
 def buildDeveopBranch() {
     echo "Develop branch - Build"
-    sh 'gem install bundler@1.16.6 && bundle install'
+    sh 'bundle install'
     sh 'bundle exec fastlane ios do_publish_all'
 }
