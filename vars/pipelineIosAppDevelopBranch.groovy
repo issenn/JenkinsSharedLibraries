@@ -73,26 +73,26 @@ def call(Closure body={}) {
                     }
                 }
                 environment {
-                    PATH = "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+                    PATH = "/usr/local/opt/ruby/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
                 }
                 steps {
                     ansiColor('xterm') {
                         echo "TERM=${env.TERM}"
                         // sh "env"
                         // sh "ls ${JENKINS_HOME}/"
-                        withRbenv() {
-                            sh "rbenv versions"
-                            sh "command -v ruby"
-                            sh "rbenv which ruby"
+                        // withRbenv() {
+                        //    sh "rbenv versions"
+                        //    sh "command -v ruby"
+                        //    sh "rbenv which ruby"
                             sh "ruby --version"
-                            sh "command -v gem"
-                            sh "rbenv which gem"
-                            sh "gem --version"
+                        //    sh "command -v gem"
+                        //    sh "rbenv which gem"
+                        //    sh "gem --version"
                             sh "gem install bundler"
-                            sh "command -v bundle"
-                            sh "rbenv which bundle"
-                            sh "bundle --version"
-                            sh "bundle install"
+                        //    sh "command -v bundle"
+                        //    sh "rbenv which bundle"
+                        //    sh "bundle --version"
+                        //    sh "bundle install"
                             buildDeveopBranch()
                         }
                     }
