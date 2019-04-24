@@ -73,28 +73,12 @@ def call(Closure body={}) {
                     }
                 }
                 environment {
-                    PATH = "/usr/local/opt/ruby/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+                    PATH = "/usr/local/bin:${PATH}"
                 }
                 steps {
                     ansiColor('xterm') {
                         echo "TERM=${env.TERM}"
-                        // sh "env"
-                        // sh "ls ${JENKINS_HOME}/"
-                        // withRbenv() {
-                        //    sh "rbenv versions"
-                        //    sh "command -v ruby"
-                        //    sh "rbenv which ruby"
-                            sh "ruby --version"
-                        //    sh "command -v gem"
-                        //    sh "rbenv which gem"
-                        //    sh "gem --version"
-                         //    sh "gem install bundler"
-                        //    sh "command -v bundle"
-                        //    sh "rbenv which bundle"
-                        //    sh "bundle --version"
-                        //    sh "bundle install"
-                            buildDeveopBranch()
-                        // }
+                        buildDeveopBranch()
                     }
                 }
                 post {
@@ -123,6 +107,5 @@ def call(Closure body={}) {
 def buildDeveopBranch() {
     echo "Develop branch - Build"
     sh 'bundle install'
-    sh 'bundle exec fastlane update_plugins'
     sh 'bundle exec fastlane ios do_publish_all'
 }
