@@ -88,7 +88,7 @@ def call(Closure body={}) {
                         //    sh "command -v gem"
                         //    sh "rbenv which gem"
                         //    sh "gem --version"
-                            sh "gem install bundler"
+                         //    sh "gem install bundler"
                         //    sh "command -v bundle"
                         //    sh "rbenv which bundle"
                         //    sh "bundle --version"
