@@ -12,6 +12,7 @@ def call(Closure body={}) {
 
         options {
             skipDefaultCheckout()
+            ansiColor('xterm')
         }
 
         triggers {
@@ -77,6 +78,24 @@ def call(Closure body={}) {
                 }
                 steps {
                     buildTestBranch()
+                }
+                post {
+                    success {
+                        archiveArtifacts artifacts: 'build/IPA/*.dSYM.zip', fingerprint: true
+                        archiveArtifacts artifacts: 'build/IPA/*.ipa', fingerprint: true
+                    }
+                }
+            }
+        }
+        post {
+            success {
+                node('master') {
+                    echo 'end'
+                }
+            }
+            always {
+                node('master') {
+                    step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "issenn@hellotalk.com", sendToIndividuals: true])
                 }
             }
         }

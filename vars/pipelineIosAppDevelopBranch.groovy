@@ -12,6 +12,7 @@ def call(Closure body={}) {
 
         options {
             skipDefaultCheckout()
+            ansiColor('xterm')
         }
 
         triggers {
@@ -76,10 +77,7 @@ def call(Closure body={}) {
                     PATH = "/usr/local/bin:${PATH}"
                 }
                 steps {
-                    ansiColor('xterm') {
-                        echo "TERM=${env.TERM}"
-                        buildDeveopBranch()
-                    }
+                    buildDeveopBranch()
                 }
                 post {
                     success {
