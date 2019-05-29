@@ -125,6 +125,7 @@ def buildTestBranch() {
     // pipelineAndroidAppSetup.build(args)
     sh 'which bundle'
     sh 'whence -av bundle'
+    sh 'ls -la /usr/local/bin/bundle'
     sh 'bundle install'
     // sh 'bundle update'
     sh 'bundle exec fastlane android do_publish_all'
