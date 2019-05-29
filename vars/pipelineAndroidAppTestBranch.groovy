@@ -123,7 +123,7 @@ def buildTestBranch() {
     // def args = ((productFlavors ?: '') + (buildTypes ?: '')) //+ " publish"
     // pipelineAndroidAppSetup.build(args)
     sh "echo ---"
-    sh 'ls -la /usr/local/bin/bundle'
+    sh 'ls -la /usr/local/Cellar/ruby/'
     sh "echo ---"
     sh 'bundle install'
     // sh 'bundle update'
