@@ -101,6 +101,7 @@ def call(Closure body={}) {
                     PATH = "/usr/local/bin:${PATH}"
                 }
                 steps {
+                    sh "echo $PATH"
                     buildTestBranch()
                 }
             }
@@ -122,6 +123,8 @@ def buildTestBranch() {
     // productFlavors = pipelineAndroidAppSetup.changeStringGradleStyle(productFlavors)
     // def args = ((productFlavors ?: '') + (buildTypes ?: '')) //+ " publish"
     // pipelineAndroidAppSetup.build(args)
+    sh 'which bundle'
+    sh 'whence -av bundle'
     sh 'bundle install'
     // sh 'bundle update'
     sh 'bundle exec fastlane android do_publish_all'
