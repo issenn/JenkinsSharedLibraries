@@ -98,7 +98,7 @@ def call(Closure body={}) {
                 environment {
                     ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
                     ANDROID_HOME = "${ANDROID_SDK_ROOT}"
-                    PATH = "/usr/local/opt/ruby@2.5/bin/:/usr/local/bin:${PATH}"
+                    PATH = "/Users/mac/.rbenv/shims:/usr/local/bin:${PATH}"
                 }
                 steps {
                     buildTestBranch()
