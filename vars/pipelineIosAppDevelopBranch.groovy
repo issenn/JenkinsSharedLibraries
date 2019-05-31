@@ -74,7 +74,7 @@ def call(Closure body={}) {
                     }
                 }
                 environment {
-                    PATH = "/usr/local/bin:${PATH}"
+                    PATH = "/Users/mac/.rbenv/shims:/usr/local/bin:${PATH}"
                 }
                 steps {
                     buildDeveopBranch()
