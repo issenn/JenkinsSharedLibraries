@@ -97,7 +97,7 @@ def call(Closure body={}) {
                 }
                 environment {
                     // ANDROID_SDK_ROOT = "${HOME}/Library/Android/sdk"
-                    ANDROID_SDK_ROOT = "/usr/local/Caskroom/android-sdk/4333796“
+                    ANDROID_SDK_ROOT = "/usr/local/Caskroom/android-sdk/4333796"
                     ANDROID_HOME = "${ANDROID_SDK_ROOT}"
                     PATH = "/Users/mac/.rbenv/shims:/usr/local/bin:${PATH}"
                 }
